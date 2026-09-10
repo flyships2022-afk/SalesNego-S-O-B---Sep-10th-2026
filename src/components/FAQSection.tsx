@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { ChevronDown, ArrowUpRight, HelpCircle, Sparkles, Filter } from 'lucide-react';
+import { ChevronDown, ArrowUpRight, HelpCircle, Filter } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigation } from '../context/NavigationContext';
 import { ScrollReveal } from './ScrollReveal';
+import { LazyImage } from './LazyImage';
 
 export interface FAQItem {
   id: string;
@@ -84,11 +85,11 @@ export const FAQSection: React.FC = () => {
       id="faq-section"
       aria-label="Frequently Asked Questions"
       style={{ maxWidth: '100%', boxSizing: 'border-box' }}
-      className="top-level-section w-full max-w-full py-12 sm:py-16 border-b border-[#E5E3DC] dark:border-white/10 bg-white dark:bg-[#161519] transition-colors"
+      className="top-level-section w-full max-w-full py-12 sm:py-16 lg:py-20 border-b border-[#E5E3DC] dark:border-white/10 bg-white dark:bg-[#161519] transition-colors"
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header with Single Eyebrow Badge, Clean H2, and Focused Subhead */}
-        <ScrollReveal direction="up" distance={16} className="mb-6 text-left">
+        <ScrollReveal direction="up" distance={16} className="mb-8 sm:mb-10 text-left">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full text-[#FF6004] bg-[#FF6004]/10 border border-[#FF6004]/20">
               Frequently Asked Questions
@@ -102,107 +103,149 @@ export const FAQSection: React.FC = () => {
           </p>
         </ScrollReveal>
 
-        {/* Space-Efficient Category Filter Pills */}
-        <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap mb-6 pb-2 border-b border-[#E5E3DC]/60 dark:border-white/5">
-          <span className="text-xs font-bold text-[#555459] dark:text-zinc-400 mr-1 hidden sm:inline-flex items-center gap-1">
-            <Filter className="w-3.5 h-3.5 text-[#FF6004]" />
-            <span>Filter:</span>
-          </span>
-          {categories.map((category) => (
-            <button
-              key={category}
-              type="button"
-              id={`faq-filter-${category.toLowerCase()}`}
-              onClick={() => {
-                setSelectedCategory(category);
-                setOpenId(null);
-              }}
-              className={`text-xs font-semibold px-3 py-1.5 rounded-full transition-all duration-150 cursor-pointer ${
-                selectedCategory === category
-                  ? 'bg-[#FF6004] text-white shadow-xs'
-                  : 'bg-black/5 dark:bg-white/5 text-[#555459] dark:text-zinc-300 hover:bg-black/10 dark:hover:bg-white/10'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
+        {/* 2-Column Responsive Layout: Left Image Card + Right FAQ Questions Card */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-10 items-start">
+          {/* Left Column: Optimized Commercial Discussion Image Card */}
+          <div className="lg:col-span-5 w-full">
+            <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-[480px] xl:h-[500px] rounded-2xl overflow-hidden border border-[#E5E3DC] dark:border-white/10 shadow-sm bg-zinc-100 dark:bg-[#1C1B20] group">
+              <LazyImage
+                src="/faq-commercial-team.jpg"
+                alt="SalesNego commercial team discussing enterprise pipeline growth, qualified leads, and revenue impact in an executive meeting"
+                referrerPolicy="no-referrer"
+                containerClassName="w-full h-full absolute inset-0"
+                className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-102"
+                loading="lazy"
+                decoding="async"
+              />
 
-        {/* Compact Accordion List */}
-        <div className="space-y-2.5">
-          {filteredFaqs.map((faq) => {
-            const isOpen = openId === faq.id;
-            return (
-              <div
-                key={faq.id}
-                id={`faq-card-${faq.id}`}
-                onMouseEnter={() => setOpenId(faq.id)}
-                onMouseLeave={() => setOpenId(null)}
-                className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
-                  isOpen
-                    ? 'bg-[#F6F5F2] dark:bg-[#1C1B20] border-[#FF6004]/50 shadow-xs'
-                    : 'bg-white dark:bg-[#1A191E] border-[#E5E3DC] dark:border-white/10 hover:border-zinc-300 dark:hover:border-white/20'
-                }`}
-              >
+              {/* Gradient Vignette for Text Contrast */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent pointer-events-none" />
+
+              {/* Floating Bottom Card Over Image */}
+              <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 p-3 sm:p-3.5 rounded-xl bg-black/65 dark:bg-[#0E1015]/85 backdrop-blur-md border border-white/15 text-white flex items-center justify-between gap-3 shadow-lg">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-2 h-2 rounded-full bg-[#FF6004] animate-pulse shrink-0" />
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold text-white truncate">
+                      Commercial Strategy &amp; Pipeline Review
+                    </p>
+                    <p className="text-[11px] text-zinc-300 truncate">
+                      Senior commercial operators leading discovery &amp; negotiations
+                    </p>
+                  </div>
+                </div>
+                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[#FF6004]/25 border border-[#FF6004]/40 text-white shrink-0 hidden sm:inline-block">
+                  Live Alignment
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Category Filters & Hover-Activated Accordion Questions */}
+          <div className="lg:col-span-7 w-full flex flex-col justify-start">
+            {/* Space-Efficient Category Filter Pills */}
+            <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap mb-4 pb-2 border-b border-[#E5E3DC]/60 dark:border-white/5">
+              <span className="text-xs font-bold text-[#555459] dark:text-zinc-400 mr-1 hidden sm:inline-flex items-center gap-1">
+                <Filter className="w-3.5 h-3.5 text-[#FF6004]" />
+                <span>Filter:</span>
+              </span>
+              {categories.map((category) => (
                 <button
+                  key={category}
                   type="button"
-                  id={`faq-btn-${faq.id}`}
-                  onClick={() => toggleFAQ(faq.id)}
-                  aria-expanded={isOpen}
-                  aria-controls={`faq-answer-${faq.id}`}
-                  className="w-full text-left px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between gap-3 sm:gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] rounded-2xl cursor-pointer"
+                  id={`faq-filter-${category.toLowerCase()}`}
+                  onClick={() => {
+                    setSelectedCategory(category);
+                    setOpenId(null);
+                  }}
+                  className={`text-xs font-semibold px-3 py-1.5 rounded-full transition-all duration-150 cursor-pointer ${
+                    selectedCategory === category
+                      ? 'bg-[#FF6004] text-white shadow-xs'
+                      : 'bg-black/5 dark:bg-white/5 text-[#555459] dark:text-zinc-300 hover:bg-black/10 dark:hover:bg-white/10'
+                  }`}
                 >
-                  <div className="flex items-center gap-3 min-w-0 flex-1">
-                    <span className="w-2 h-2 rounded-full bg-[#FF6004] shrink-0" />
-                    <span className="text-sm sm:text-base font-semibold text-[#161519] dark:text-white leading-snug">
-                      {faq.question}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2 shrink-0">
-                    <span className="hidden sm:inline-block text-[11px] font-medium uppercase tracking-wider px-2 py-0.5 rounded bg-black/5 dark:bg-white/5 text-[#555459] dark:text-zinc-400">
-                      {faq.category}
-                    </span>
-                    <div
-                      className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center transition-transform duration-200 ${
-                        isOpen
-                          ? 'bg-[#FF6004] text-white rotate-180'
-                          : 'bg-black/5 dark:bg-white/10 text-zinc-600 dark:text-zinc-400'
-                      }`}
-                    >
-                      <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                    </div>
-                  </div>
+                  {category}
                 </button>
+              ))}
+            </div>
 
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      id={`faq-answer-${faq.id}`}
-                      role="region"
-                      aria-labelledby={`faq-btn-${faq.id}`}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.22, ease: 'easeInOut' }}
-                      className="overflow-hidden"
+            {/* Compact Accordion Question Cards List */}
+            <div className="space-y-2.5">
+              {filteredFaqs.map((faq) => {
+                const isOpen = openId === faq.id;
+                return (
+                  <div
+                    key={faq.id}
+                    id={`faq-card-${faq.id}`}
+                    onMouseEnter={() => setOpenId(faq.id)}
+                    onMouseLeave={() => setOpenId(null)}
+                    className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
+                      isOpen
+                        ? 'bg-[#F6F5F2] dark:bg-[#1C1B20] border-[#FF6004]/50 shadow-xs'
+                        : 'bg-white dark:bg-[#1A191E] border-[#E5E3DC] dark:border-white/10 hover:border-zinc-300 dark:hover:border-white/20'
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      id={`faq-btn-${faq.id}`}
+                      onClick={() => toggleFAQ(faq.id)}
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-answer-${faq.id}`}
+                      className="w-full text-left px-4 sm:px-5 py-3 sm:py-3.5 flex items-center justify-between gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] rounded-2xl cursor-pointer"
                     >
-                      <div className="px-4 sm:px-6 pb-4 pt-1 text-xs sm:text-sm text-[#555459] dark:text-zinc-300 leading-relaxed border-t border-[#E5E3DC]/60 dark:border-white/10">
-                        <p className="mb-2.5">{faq.answer}</p>
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-xs font-semibold text-[#FF6004]">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0" />
-                          <span>{faq.highlight}</span>
+                      <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0" />
+                        <span className="text-sm sm:text-base font-semibold text-[#161519] dark:text-white leading-snug">
+                          {faq.question}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <span className="hidden sm:inline-block text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded bg-black/5 dark:bg-white/5 text-[#555459] dark:text-zinc-400">
+                          {faq.category}
+                        </span>
+                        <div
+                          className={`w-6 h-6 rounded-full flex items-center justify-center transition-transform duration-200 ${
+                            isOpen
+                              ? 'bg-[#FF6004] text-white rotate-180'
+                              : 'bg-black/5 dark:bg-white/10 text-zinc-600 dark:text-zinc-400'
+                          }`}
+                        >
+                          <ChevronDown className="w-3.5 h-3.5" />
                         </div>
                       </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          id={`faq-answer-${faq.id}`}
+                          role="region"
+                          aria-labelledby={`faq-btn-${faq.id}`}
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.22, ease: 'easeInOut' }}
+                          className="overflow-hidden"
+                        >
+                          <div className="px-4 sm:px-5 pb-3.5 pt-1 text-xs sm:text-sm text-[#555459] dark:text-zinc-300 leading-relaxed border-t border-[#E5E3DC]/60 dark:border-white/10">
+                            <p className="mb-2.5">{faq.answer}</p>
+                            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-xs font-semibold text-[#FF6004]">
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0" />
+                              <span>{faq.highlight}</span>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
-        {/* Low-Profile Inline Consultation Prompt (Clean, space-saving banner) */}
-        <div className="mt-6 p-4 sm:p-5 rounded-xl bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        {/* Low-Profile Inline Consultation Prompt */}
+        <div className="mt-8 p-4 sm:p-5 rounded-xl bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full bg-[#FF6004]/15 flex items-center justify-center text-[#FF6004] shrink-0">
               <HelpCircle className="w-4 h-4" />

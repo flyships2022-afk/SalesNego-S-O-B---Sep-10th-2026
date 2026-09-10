@@ -1,35 +1,57 @@
 import React from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { ArrowUpRight } from 'lucide-react';
+import { LazyImage } from '../components/LazyImage';
+
+interface TrackRecordItem {
+  domain: string;
+  category: string;
+  description: string;
+  image?: string;
+  imageAlt?: string;
+  imageTag?: string;
+}
 
 export const CaseStudiesPage: React.FC = () => {
   const { openCalendly } = useNavigation();
 
   // Anonymized Track Record by Sector/Domain - client company names removed per explicit user requirement
-  const founderTrackRecord = [
+  const founderTrackRecord: TrackRecordItem[] = [
     {
       domain: 'Laboratory Digitisation & Life Sciences SaaS',
       category: 'SaaS / Life Sciences',
       description:
         'SaaS and laboratory digitisation experience spanning discovery, workflow mapping, solution positioning, implementation coordination, user adoption and multi-year account growth.',
+      image: '/tc-lims-lab-session.jpg',
+      imageAlt: 'Laboratory digitisation and TC+ LIMS enterprise workflow session with scientist and commercial consultant',
+      imageTag: 'TC+ LIMS · Laboratory Digitisation',
     },
     {
       domain: 'Enterprise Technology & IT Services Platform',
       category: 'Enterprise Technology & Services',
       description:
         'Enterprise technology and IT-services selling involving complex technical-commercial alignment, RFP qualification, statement-of-work scoping, proposal negotiation and regional expansion.',
+      image: '/enterprise-it-services.jpg',
+      imageAlt: 'Enterprise IT architecture and technology services strategy session with senior consultant and executives',
+      imageTag: 'Enterprise Platforms · System Architecture',
     },
     {
       domain: 'AI Scoping & Custom Software Development',
       category: 'AI & Custom Software',
       description:
         'International business development across artificial intelligence, enterprise SaaS, digital products and custom software, including technical scoping, proposals, negotiation and closure.',
+      image: '/ai-scoping-custom-software.jpg',
+      imageAlt: 'AI scoping and custom software development technical session with machine learning neural network architecture and API diagrams',
+      imageTag: 'AI & Custom Dev · Technical Scoping',
     },
     {
       domain: 'Strategic Commercial Advisory & Expansion',
       category: 'Enterprise Advisory',
       description:
         'Commercial development and advisory engagements focused on authoritative commercial execution, cross-border market entry and disciplined pipeline qualification.',
+      image: '/strategic-commercial-advisory.jpg',
+      imageAlt: 'Strategic commercial advisory and cross-border expansion meeting with enterprise executives overlooking city skyline',
+      imageTag: 'Executive Advisory · Global Market Entry',
     },
   ];
 
@@ -109,6 +131,28 @@ export const CaseStudiesPage: React.FC = () => {
                       {item.category}
                     </span>
                   </div>
+
+                  {item.image && (
+                    <div className="relative w-full aspect-[16/9] mb-4 rounded-xl overflow-hidden border border-black/5 dark:border-white/10 bg-zinc-900 shadow-xs group/img">
+                      <LazyImage
+                        src={item.image}
+                        alt={item.imageAlt || item.domain}
+                        referrerPolicy="no-referrer"
+                        containerClassName="w-full h-full absolute inset-0"
+                        className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover/img:scale-103"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
+                      {item.imageTag && (
+                        <div className="absolute bottom-2 left-2 right-2 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-xs border border-white/15 text-[10.5px] text-zinc-200 font-medium flex items-center justify-between">
+                          <span className="truncate">{item.imageTag}</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0 ml-1 animate-pulse" />
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   <p className="text-sm text-[#606060] dark:text-zinc-300 leading-relaxed mt-2">
                     {item.description}
                   </p>

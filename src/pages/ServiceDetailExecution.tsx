@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { ArrowUpRight } from 'lucide-react';
+import { LazyImage } from '../components/LazyImage';
 
 export const ServiceDetailExecution: React.FC = () => {
   const { openCalendly } = useNavigation();
@@ -63,22 +64,55 @@ export const ServiceDetailExecution: React.FC = () => {
         />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <span className="text-xs md:text-sm font-bold uppercase tracking-wider text-[#FF6004] dark:text-[#FE9E30] block mb-3">
-              SERVICE 03 — END-TO-END COMMERCIAL EXECUTION
-            </span>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#191919] dark:text-[#FFFFFF] mb-6 leading-tight">
-              Beyond the Meeting. Through the Buying Process.
-            </h1>
-            <div className="space-y-3 text-base sm:text-lg text-[#606060] dark:text-zinc-300 leading-relaxed">
-              <p className="font-bold text-[#191919] dark:text-[#FFFFFF]">
-                SalesNego does not define success simply as generating a meeting.
-              </p>
-              <p>
-                We help engage relevant accounts, diagnose customer problems, qualify genuine
-                opportunities and support the commercial process through solution alignment,
-                proposal, negotiation, closure and customer growth.
-              </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div className="lg:col-span-7">
+              <span className="text-xs md:text-sm font-bold uppercase tracking-wider text-[#FF6004] dark:text-[#FE9E30] block mb-3">
+                SERVICE 03 — END-TO-END COMMERCIAL EXECUTION
+              </span>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#191919] dark:text-[#FFFFFF] mb-6 leading-tight">
+                Beyond the Meeting. Through the Buying Process.
+              </h1>
+              <div className="space-y-3 text-base sm:text-lg text-[#606060] dark:text-zinc-300 leading-relaxed">
+                <p className="font-bold text-[#191919] dark:text-[#FFFFFF]">
+                  SalesNego does not define success simply as generating a meeting.
+                </p>
+                <p>
+                  We help engage relevant accounts, diagnose customer problems, qualify genuine
+                  opportunities and support the commercial process through solution alignment,
+                  proposal, negotiation, closure and customer growth.
+                </p>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5 w-full">
+              <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] rounded-2xl overflow-hidden border border-[#E1E1E1] dark:border-white/10 shadow-2xl bg-zinc-900 group">
+                <LazyImage
+                  src="/commercial-execution-deal-closing.jpg"
+                  alt="Enterprise B2B commercial review and deal-closing session in a modern glass conference room with senior operator and executive client team"
+                  referrerPolicy="no-referrer"
+                  containerClassName="w-full h-full absolute inset-0"
+                  className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-102"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-black/80 backdrop-blur-md border border-white/15 text-white flex items-center justify-between gap-2.5 shadow-lg">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="w-2 h-2 rounded-full bg-[#FF6004] animate-pulse shrink-0" />
+                    <div className="min-w-0">
+                      <p className="text-xs font-bold text-white truncate">
+                        Commercial Review &amp; Deal Closing
+                      </p>
+                      <p className="text-[11px] text-zinc-300 truncate">
+                        Solution Alignment · Contract Execution · Growth
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[#FF6004]/25 border border-[#FF6004]/40 text-[#FE9E30] shrink-0 hidden sm:inline-block">
+                    Execution
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 

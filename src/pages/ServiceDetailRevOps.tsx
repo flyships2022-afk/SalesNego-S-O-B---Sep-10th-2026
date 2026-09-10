@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { ArrowRight, ArrowUpRight, Cpu, UserCheck, CheckCircle2 } from 'lucide-react';
+import { LazyImage } from '../components/LazyImage';
 
 export const ServiceDetailRevOps: React.FC = () => {
   const { navigate, openCalendly } = useNavigation();
@@ -77,22 +78,55 @@ export const ServiceDetailRevOps: React.FC = () => {
         />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <span className="text-xs md:text-sm font-bold uppercase tracking-wider text-[#FF6004] dark:text-[#FE9E30] block mb-3">
-              SERVICE 02 — REVOPS &amp; AI-ACCELERATED SALES
-            </span>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#191919] dark:text-[#FFFFFF] mb-6 leading-tight">
-              Build the Revenue Infrastructure Behind Better Commercial Execution.
-            </h1>
-            <div className="space-y-3 text-base sm:text-lg text-[#606060] dark:text-zinc-300 leading-relaxed">
-              <p className="font-bold text-[#191919] dark:text-[#FFFFFF]">
-                Sales technology is valuable when it improves commercial execution rather than
-                creating more operational complexity.
-              </p>
-              <p>
-                SalesNego connects CRM, data, qualification, workflows, automation and AI-supported
-                intelligence around the buying process.
-              </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div className="lg:col-span-7">
+              <span className="text-xs md:text-sm font-bold uppercase tracking-wider text-[#FF6004] dark:text-[#FE9E30] block mb-3">
+                SERVICE 02 — REVOPS &amp; AI-ACCELERATED SALES
+              </span>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#191919] dark:text-[#FFFFFF] mb-6 leading-tight">
+                Build the Revenue Infrastructure Behind Better Commercial Execution.
+              </h1>
+              <div className="space-y-3 text-base sm:text-lg text-[#606060] dark:text-zinc-300 leading-relaxed">
+                <p className="font-bold text-[#191919] dark:text-[#FFFFFF]">
+                  Sales technology is valuable when it improves commercial execution rather than
+                  creating more operational complexity.
+                </p>
+                <p>
+                  SalesNego connects CRM, data, qualification, workflows, automation and AI-supported
+                  intelligence around the buying process.
+                </p>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5 w-full">
+              <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] rounded-2xl overflow-hidden border border-[#E1E1E1] dark:border-white/10 shadow-2xl bg-zinc-900 group">
+                <LazyImage
+                  src="/revops-ai-sales-dashboard.jpg"
+                  alt="Modern high-tech B2B revenue operations dashboard showing pipeline visualization, CRM workflows, automated triggers, and AI qualification metrics"
+                  referrerPolicy="no-referrer"
+                  containerClassName="w-full h-full absolute inset-0"
+                  className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-102"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-black/80 backdrop-blur-md border border-white/15 text-white flex items-center justify-between gap-2.5 shadow-lg">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="w-2 h-2 rounded-full bg-[#FF6004] animate-pulse shrink-0" />
+                    <div className="min-w-0">
+                      <p className="text-xs font-bold text-white truncate">
+                        RevOps &amp; AI Intelligence
+                      </p>
+                      <p className="text-[11px] text-zinc-300 truncate">
+                        CRM Pipelines · Trigger Alerts · AI Workflows
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[#FF6004]/25 border border-[#FF6004]/40 text-[#FE9E30] shrink-0 hidden sm:inline-block">
+                    Automated
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

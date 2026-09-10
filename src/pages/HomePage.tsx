@@ -151,6 +151,9 @@ export const HomePage: React.FC = () => {
       title: 'GTM Strategy & Market Intelligence',
       subtitle: 'Know where to compete, who to target and why they should care.',
       badge: 'Strategy',
+      image: '/gtm-strategy-session.jpg',
+      imageAlt: 'B2B Go-To-Market strategy session with senior commercial strategist and business leader collaborating on market intelligence frameworks',
+      imageTag: 'GTM Strategy & ICP Priority',
       path: '/services/gtm-strategy-market-intelligence',
       description:
         'We help define markets, ICPs, buyers, positioning, account priorities and commercial hypotheses before execution begins.',
@@ -168,6 +171,9 @@ export const HomePage: React.FC = () => {
       title: 'RevOps & AI-Accelerated Sales',
       subtitle: 'Build the commercial infrastructure required for disciplined execution.',
       badge: 'Infrastructure & AI',
+      image: '/revops-ai-sales-dashboard.jpg',
+      imageAlt: 'Modern high-tech B2B revenue operations dashboard showing pipeline visualization, CRM workflows, automated triggers, and AI qualification metrics',
+      imageTag: 'RevOps & AI Workflows',
       path: '/services/revops-ai-sales',
       description:
         'We connect CRM, data, qualification, workflows and AI-supported automation so commercial teams can execute with better intelligence and less manual workload.',
@@ -186,6 +192,9 @@ export const HomePage: React.FC = () => {
       title: 'End-to-End Commercial Execution',
       subtitle: 'Take qualified opportunities beyond the meeting and through the buying process.',
       badge: 'Execution',
+      image: '/commercial-execution-deal-closing.jpg',
+      imageAlt: 'Enterprise B2B commercial review and deal-closing session in a modern glass conference room with senior operator and executive client team',
+      imageTag: 'Deal Execution & Close',
       path: '/services/commercial-execution',
       description:
         'SalesNego supports the commercial journey from account engagement through discovery, qualification, solution alignment, proposals, negotiation, closure and account growth.',
@@ -279,6 +288,9 @@ export const HomePage: React.FC = () => {
       desc: 'SaaS and laboratory digitisation experience spanning discovery, workflow mapping, solution positioning, implementation coordination, user adoption and multi-year account growth.',
       highlights: ['Enterprise LIMS', 'Workflow Digitisation', 'Multi-Year Retention'],
       icon: FlaskConical,
+      image: '/tc-lims-lab-session.jpg',
+      imageAlt: 'Laboratory digitisation and TC+ LIMS enterprise workflow session with scientist and commercial consultant',
+      imageTag: 'TC+ LIMS · Enterprise Workflow',
     },
     {
       domain: 'Enterprise Technology & IT Services Platform',
@@ -286,6 +298,9 @@ export const HomePage: React.FC = () => {
       desc: 'Enterprise technology and IT-services selling involving complex technical-commercial alignment, RFP qualification, statement-of-work scoping, proposal negotiation and regional expansion.',
       highlights: ['Complex RFP Alignment', 'SOW Scoping', 'Regional Expansion'],
       icon: Server,
+      image: '/enterprise-it-services.jpg',
+      imageAlt: 'Enterprise IT architecture and technology services strategy session with senior consultant and executives',
+      imageTag: 'Enterprise Platforms · System Architecture',
     },
     {
       domain: 'AI Scoping & Custom Software Development',
@@ -293,6 +308,9 @@ export const HomePage: React.FC = () => {
       desc: 'International business development across artificial intelligence, enterprise SaaS, digital products and custom software, including technical scoping, proposals, negotiation and closure.',
       highlights: ['AI Scoping', 'Multi-Market Proposals', 'Deal Closure'],
       icon: Brain,
+      image: '/ai-scoping-custom-software.jpg',
+      imageAlt: 'AI scoping and custom software development technical session with machine learning neural network architecture and API diagrams',
+      imageTag: 'AI & Custom Dev · Technical Scoping',
     },
     {
       domain: 'Strategic Commercial Advisory & Expansion',
@@ -300,6 +318,9 @@ export const HomePage: React.FC = () => {
       desc: 'Commercial development and advisory engagements focused on authoritative commercial execution, cross-border market entry and disciplined pipeline qualification.',
       highlights: ['Executive Advisory', 'Cross-Border Entry', 'Pipeline Rigor'],
       icon: Compass,
+      image: '/strategic-commercial-advisory.jpg',
+      imageAlt: 'Strategic commercial advisory and cross-border expansion meeting with enterprise executives overlooking city skyline',
+      imageTag: 'Executive Advisory · Global Market Entry',
     },
   ];
 
@@ -660,12 +681,33 @@ export const HomePage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => navigate(svc.path as any)}
-                        className="w-8 h-8 rounded-full bg-white dark:bg-white/10 flex items-center justify-center text-[#161519] dark:text-white group-hover:bg-[#103CE7] group-hover:text-white transition-all"
+                        className="w-8 h-8 rounded-full bg-white dark:bg-white/10 flex items-center justify-center text-[#161519] dark:text-white group-hover:bg-[#103CE7] group-hover:text-white transition-all cursor-pointer"
                         aria-label={`Learn more about ${svc.title}`}
                       >
                         <ArrowUpRight className="w-4 h-4" />
                       </button>
                     </div>
+
+                    {svc.image && (
+                      <div className="relative w-full aspect-[16/10] mb-5 rounded-xl overflow-hidden border border-[#E5E3DC] dark:border-white/10 bg-zinc-900 shadow-xs group/img">
+                        <LazyImage
+                          src={svc.image}
+                          alt={svc.imageAlt || svc.title}
+                          referrerPolicy="no-referrer"
+                          containerClassName="w-full h-full absolute inset-0"
+                          className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover/img:scale-105"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent pointer-events-none" />
+                        {svc.imageTag && (
+                          <div className="absolute bottom-2.5 left-2.5 right-2.5 px-2.5 py-1.5 rounded-lg bg-black/80 backdrop-blur-xs border border-white/15 text-[11px] text-zinc-200 font-medium flex items-center justify-between shadow-xs">
+                            <span className="truncate">{svc.imageTag}</span>
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0 ml-1.5 animate-pulse" />
+                          </div>
+                        )}
+                      </div>
+                    )}
 
                     <h3 className="font-lexend text-2xl font-normal text-[#161519] dark:text-white group-hover:text-[#FF6004] dark:group-hover:text-[#FF6004] transition-colors leading-tight mb-2">
                       {svc.title}
@@ -984,6 +1026,28 @@ export const HomePage: React.FC = () => {
                         <h3 className="font-lexend text-lg font-normal text-[#161519] dark:text-white mb-2.5 leading-snug">
                           {item.domain}
                         </h3>
+
+                        {item.image && (
+                          <div className="relative w-full aspect-[16/9] mb-3 rounded-xl overflow-hidden border border-black/5 dark:border-white/10 bg-zinc-900 group/thumb">
+                            <LazyImage
+                              src={item.image}
+                              alt={item.imageAlt || item.domain}
+                              referrerPolicy="no-referrer"
+                              containerClassName="w-full h-full absolute inset-0"
+                              className="w-full h-full object-cover object-center"
+                              loading="lazy"
+                              decoding="async"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
+                            {item.imageTag && (
+                              <div className="absolute bottom-2 left-2 right-2 px-2 py-1 rounded-md bg-black/80 backdrop-blur-xs border border-white/15 text-[10px] text-zinc-200 font-medium flex items-center justify-between">
+                                <span className="truncate">{item.imageTag}</span>
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0 ml-1 animate-pulse" />
+                              </div>
+                            )}
+                          </div>
+                        )}
+
                         <p className="text-xs sm:text-sm text-[#555459] dark:text-zinc-400 leading-relaxed mb-4">
                           {item.desc}
                         </p>
@@ -1031,20 +1095,62 @@ export const HomePage: React.FC = () => {
             <div className="rounded-[24px] bg-[#161519] text-white p-8 sm:p-12 lg:p-16 relative overflow-hidden border border-white/10">
               <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF6004]/15 rounded-full blur-[100px] pointer-events-none" />
 
-              <div className="relative z-10 max-w-3xl">
-                <span className="text-xs uppercase font-bold tracking-wider text-[#FE9E30] block mb-3">
-                  Partnership
-                </span>
-                <h2 className="font-lexend text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.1] text-white">
-                  Commercial Alignment Beyond Activity Metrics.
-                </h2>
-                <div className="mt-4 space-y-2 text-base text-zinc-300 leading-relaxed">
-                  <p>
-                    SalesNego works with a selective number of B2B technology companies at any given time.
-                  </p>
-                  <p className="font-medium text-white">
-                    We focus on commercial depth rather than high-volume, low-context lead generation.
-                  </p>
+              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center">
+                {/* Left: Commercial Alignment Text & Positioning */}
+                <div className="lg:col-span-6 xl:col-span-7 space-y-4">
+                  <span className="text-xs uppercase font-bold tracking-wider text-[#FE9E30] block">
+                    Partnership
+                  </span>
+                  <h2 className="font-lexend text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.1] text-white">
+                    Commercial Alignment Beyond Activity Metrics.
+                  </h2>
+                  <div className="space-y-3 text-base text-zinc-300 leading-relaxed pt-1">
+                    <p>
+                      SalesNego works with a selective number of B2B technology companies at any given time.
+                    </p>
+                    <p className="font-medium text-white">
+                      We focus on commercial depth rather than high-volume, low-context lead generation.
+                    </p>
+                    <p className="text-sm text-zinc-400">
+                      Every commercial engagement pairs dedicated senior operators directly with your leadership team, aligning pipeline velocity, deal qualification, and revenue closing with strategic business milestones.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Right: Executive Commercial Alignment & Partnership Image */}
+                <div className="lg:col-span-6 xl:col-span-5 w-full">
+                  <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-zinc-900 group">
+                    <LazyImage
+                      src="/commercial-alignment-partner.jpg"
+                      alt="Candid executive consultation and commercial partnership alignment session between a B2B tech founder and senior commercial partner reviewing revenue milestones"
+                      referrerPolicy="no-referrer"
+                      containerClassName="w-full h-full absolute inset-0"
+                      className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-102"
+                      loading="lazy"
+                      decoding="async"
+                    />
+
+                    {/* Gradient vignette for contrast */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+
+                    {/* Floating status pill on the image */}
+                    <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-black/75 backdrop-blur-md border border-white/15 text-white flex items-center justify-between gap-3 shadow-lg">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <div className="w-2 h-2 rounded-full bg-[#FF6004] animate-pulse shrink-0" />
+                        <div className="min-w-0">
+                          <p className="text-xs font-bold text-white truncate">
+                            Commercial Alignment &amp; Governance
+                          </p>
+                          <p className="text-[11px] text-zinc-300 truncate">
+                            Milestone-Driven · Senior Operators · Selective Pods
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[#FF6004]/25 border border-[#FF6004]/40 text-[#FE9E30] shrink-0 hidden sm:inline-block">
+                        Partnership
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
 

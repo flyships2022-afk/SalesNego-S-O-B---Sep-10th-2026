@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Play, Pause, MoveHorizontal } from 'lucide-react';
+import { LazyImage } from './LazyImage';
 
 export interface DomainItem {
   domain: string;
@@ -7,6 +8,9 @@ export interface DomainItem {
   desc: string;
   highlights: string[];
   icon: React.ComponentType<{ className?: string }>;
+  image?: string;
+  imageAlt?: string;
+  imageTag?: string;
 }
 
 interface ExperienceMarqueeSliderProps {
@@ -207,6 +211,27 @@ export const ExperienceMarqueeSlider: React.FC<ExperienceMarqueeSliderProps> = (
                     {item.domain}
                   </h3>
 
+                  {item.image && (
+                    <div className="relative w-full aspect-[16/9] mb-3.5 rounded-xl overflow-hidden border border-black/5 dark:border-white/10 bg-zinc-900 group/thumb">
+                      <LazyImage
+                        src={item.image}
+                        alt={item.imageAlt || item.domain}
+                        referrerPolicy="no-referrer"
+                        containerClassName="w-full h-full absolute inset-0"
+                        className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover/thumb:scale-105"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
+                      {item.imageTag && (
+                        <div className="absolute bottom-2 left-2 right-2 px-2 py-1 rounded-md bg-black/80 backdrop-blur-xs border border-white/15 text-[10px] text-zinc-200 font-medium flex items-center justify-between">
+                          <span className="truncate">{item.imageTag}</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0 ml-1 animate-pulse" />
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   <p className="text-xs sm:text-sm text-[#555459] dark:text-zinc-400 leading-relaxed mb-5">
                     {item.desc}
                   </p>
@@ -254,6 +279,27 @@ export const ExperienceMarqueeSlider: React.FC<ExperienceMarqueeSliderProps> = (
                   <h3 className="font-lexend text-lg lg:text-xl font-normal text-[#161519] dark:text-white mb-3 leading-snug group-hover:text-[#FF6004] transition-colors duration-200">
                     {item.domain}
                   </h3>
+
+                  {item.image && (
+                    <div className="relative w-full aspect-[16/9] mb-3.5 rounded-xl overflow-hidden border border-black/5 dark:border-white/10 bg-zinc-900 group/thumb">
+                      <LazyImage
+                        src={item.image}
+                        alt={item.imageAlt || item.domain}
+                        referrerPolicy="no-referrer"
+                        containerClassName="w-full h-full absolute inset-0"
+                        className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover/thumb:scale-105"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
+                      {item.imageTag && (
+                        <div className="absolute bottom-2 left-2 right-2 px-2 py-1 rounded-md bg-black/80 backdrop-blur-xs border border-white/15 text-[10px] text-zinc-200 font-medium flex items-center justify-between">
+                          <span className="truncate">{item.imageTag}</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0 ml-1 animate-pulse" />
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   <p className="text-xs sm:text-sm text-[#555459] dark:text-zinc-400 leading-relaxed mb-5">
                     {item.desc}

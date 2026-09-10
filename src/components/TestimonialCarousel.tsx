@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { ScrollReveal } from './ScrollReveal';
+import { LazyImage } from './LazyImage';
 import {
   Quote,
   Star,
@@ -27,6 +28,9 @@ export interface Testimonial {
   highlightMetric: string;
   highlightLabel: string;
   verifiedEngagement: string;
+  image?: string;
+  imageAlt?: string;
+  imageCaption?: string;
 }
 
 export const testimonials: Testimonial[] = [
@@ -266,11 +270,40 @@ export const TestimonialCarousel: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Quote - Tightened Margin */}
-                <div className="relative z-10">
-                  <blockquote className="my-4 text-lg md:text-xl font-medium leading-relaxed font-lexend text-[#161519] dark:text-white">
-                    &ldquo;{current.quote}&rdquo;
-                  </blockquote>
+                {/* Quote with optional photo placement */}
+                <div className="relative z-10 my-4">
+                  {current.image ? (
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center">
+                      <div className="lg:col-span-7 xl:col-span-8">
+                        <blockquote className="text-base sm:text-lg md:text-xl font-medium leading-relaxed font-lexend text-[#161519] dark:text-white">
+                          &ldquo;{current.quote}&rdquo;
+                        </blockquote>
+                      </div>
+
+                      <div className="lg:col-span-5 xl:col-span-4 w-full">
+                        <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] rounded-xl overflow-hidden border border-black/10 dark:border-white/10 bg-zinc-900 shadow-xs group/img">
+                          <LazyImage
+                            src={current.image}
+                            alt={current.imageAlt || current.company}
+                            referrerPolicy="no-referrer"
+                            containerClassName="w-full h-full absolute inset-0"
+                            className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover/img:scale-105"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent pointer-events-none" />
+                          <div className="absolute bottom-2 left-2 right-2 px-2.5 py-1.5 rounded-lg bg-black/80 backdrop-blur-xs border border-white/15 text-[11px] text-zinc-200 font-medium flex items-center justify-between shadow-xs">
+                            <span className="truncate">{current.imageCaption || current.company}</span>
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0 ml-1.5 animate-pulse" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <blockquote className="text-lg md:text-xl font-medium leading-relaxed font-lexend text-[#161519] dark:text-white">
+                      &ldquo;{current.quote}&rdquo;
+                    </blockquote>
+                  )}
                 </div>
 
                 {/* Bottom: Author Footer & Market Context */}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { LazyImage } from '../components/LazyImage';
 
 export const ServicesIndexPage: React.FC = () => {
   const { navigate, openCalendly } = useNavigation();
@@ -76,84 +77,153 @@ export const ServicesIndexPage: React.FC = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           {/* Service 01 */}
-          <div className="p-6 sm:p-8 rounded-xl bg-[#0A192F] dark:bg-[#27272A] border border-[#1E3A5F] dark:border-zinc-700/60 shadow-md">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-xs font-bold px-3 py-1 rounded-md bg-[#FF6004]/15 border border-[#FF6004]/30 text-[#FE9E30]">
-                SERVICE 01
-              </span>
-              <span className="text-xs text-slate-300 dark:text-zinc-400">Foundational</span>
+          <div className="p-6 sm:p-8 rounded-2xl bg-[#0A192F] dark:bg-[#27272A] border border-[#1E3A5F] dark:border-zinc-700/60 shadow-md">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+              <div className="lg:col-span-7">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-xs font-bold px-3 py-1 rounded-md bg-[#FF6004]/15 border border-[#FF6004]/30 text-[#FE9E30]">
+                    SERVICE 01
+                  </span>
+                  <span className="text-xs text-slate-300 dark:text-zinc-400">Foundational</span>
+                </div>
+                <h2 className="text-xl sm:text-2xl font-bold text-white dark:text-[#FFFFFF] mb-2">
+                  GTM Strategy &amp; Market Intelligence
+                </h2>
+                <p className="text-base font-semibold text-[#FE9E30] dark:text-[#FE9E30] mb-3">
+                  Know where to compete, who to target and why they should care.
+                </p>
+                <p className="text-sm text-slate-200 dark:text-zinc-300 mb-6 max-w-2xl leading-relaxed">
+                  We help define markets, ICPs, buyers, positioning, account priorities and commercial
+                  hypotheses before execution begins.
+                </p>
+                <button
+                  onClick={() => navigate('/services/gtm-strategy-market-intelligence')}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-[#FF6004] hover:bg-[#E05300] rounded-lg transition-colors shadow-xs"
+                >
+                  <span>Explore Service 01 Detail &rarr;</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+
+              <div className="lg:col-span-5 w-full">
+                <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden border border-white/10 shadow-lg bg-zinc-900 group">
+                  <LazyImage
+                    src="/gtm-strategy-session.jpg"
+                    alt="B2B Go-To-Market strategy session with senior commercial strategist and business leader collaborating on market intelligence frameworks"
+                    referrerPolicy="no-referrer"
+                    containerClassName="w-full h-full absolute inset-0"
+                    className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-102"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 px-3 py-1.5 rounded-lg bg-black/80 backdrop-blur-xs border border-white/15 text-xs text-zinc-200 font-medium flex items-center justify-between">
+                    <span>GTM Strategy &amp; ICP Priority</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] animate-pulse" />
+                  </div>
+                </div>
+              </div>
             </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-white dark:text-[#FFFFFF] mb-2">
-              GTM Strategy &amp; Market Intelligence
-            </h2>
-            <p className="text-base font-semibold text-[#FE9E30] dark:text-[#FE9E30] mb-3">
-              Know where to compete, who to target and why they should care.
-            </p>
-            <p className="text-sm text-slate-200 dark:text-zinc-300 mb-6 max-w-2xl leading-relaxed">
-              We help define markets, ICPs, buyers, positioning, account priorities and commercial
-              hypotheses before execution begins.
-            </p>
-            <button
-              onClick={() => navigate('/services/gtm-strategy-market-intelligence')}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-[#FF6004] hover:bg-[#E05300] rounded-lg transition-colors shadow-xs"
-            >
-              <span>Explore Service 01 Detail &rarr;</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
           </div>
 
           {/* Service 02 */}
-          <div className="p-6 sm:p-8 rounded-xl bg-[#0A192F] dark:bg-[#27272A] border border-[#1E3A5F] dark:border-zinc-700/60 shadow-md">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-xs font-bold px-3 py-1 rounded-md bg-[#FF6004]/15 border border-[#FF6004]/30 text-[#FE9E30]">
-                SERVICE 02
-              </span>
-              <span className="text-xs text-slate-300 dark:text-zinc-400">Infrastructure</span>
+          <div className="p-6 sm:p-8 rounded-2xl bg-[#0A192F] dark:bg-[#27272A] border border-[#1E3A5F] dark:border-zinc-700/60 shadow-md">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+              <div className="lg:col-span-7">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-xs font-bold px-3 py-1 rounded-md bg-[#FF6004]/15 border border-[#FF6004]/30 text-[#FE9E30]">
+                    SERVICE 02
+                  </span>
+                  <span className="text-xs text-slate-300 dark:text-zinc-400">Infrastructure</span>
+                </div>
+                <h2 className="text-xl sm:text-2xl font-bold text-white dark:text-[#FFFFFF] mb-2">
+                  RevOps &amp; AI-Accelerated Sales
+                </h2>
+                <p className="text-base font-semibold text-[#FE9E30] dark:text-[#FE9E30] mb-3">
+                  Build the commercial infrastructure required for disciplined execution.
+                </p>
+                <p className="text-sm text-slate-200 dark:text-zinc-300 mb-6 max-w-2xl leading-relaxed">
+                  We connect CRM, data, qualification, workflows and AI-supported automation so
+                  commercial teams can execute with better intelligence and less manual workload.
+                </p>
+                <button
+                  onClick={() => navigate('/services/revops-ai-sales')}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-[#FF6004] hover:bg-[#E05300] rounded-lg transition-colors shadow-xs"
+                >
+                  <span>Explore Service 02 Detail &rarr;</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+
+              <div className="lg:col-span-5 w-full">
+                <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden border border-white/10 shadow-lg bg-zinc-900 group">
+                  <LazyImage
+                    src="/revops-ai-sales-dashboard.jpg"
+                    alt="Modern high-tech B2B revenue operations dashboard showing pipeline visualization, CRM workflows, automated triggers, and AI qualification metrics"
+                    referrerPolicy="no-referrer"
+                    containerClassName="w-full h-full absolute inset-0"
+                    className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-102"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 px-3 py-1.5 rounded-lg bg-black/80 backdrop-blur-xs border border-white/15 text-xs text-zinc-200 font-medium flex items-center justify-between">
+                    <span>RevOps &amp; AI Infrastructure</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] animate-pulse" />
+                  </div>
+                </div>
+              </div>
             </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-white dark:text-[#FFFFFF] mb-2">
-              RevOps &amp; AI-Accelerated Sales
-            </h2>
-            <p className="text-base font-semibold text-[#FE9E30] dark:text-[#FE9E30] mb-3">
-              Build the commercial infrastructure required for disciplined execution.
-            </p>
-            <p className="text-sm text-slate-200 dark:text-zinc-300 mb-6 max-w-2xl leading-relaxed">
-              We connect CRM, data, qualification, workflows and AI-supported automation so
-              commercial teams can execute with better intelligence and less manual workload.
-            </p>
-            <button
-              onClick={() => navigate('/services/revops-ai-sales')}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-[#FF6004] hover:bg-[#E05300] rounded-lg transition-colors shadow-xs"
-            >
-              <span>Explore Service 02 Detail &rarr;</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
           </div>
 
           {/* Service 03 */}
-          <div className="p-6 sm:p-8 rounded-xl bg-[#0A192F] dark:bg-[#27272A] border border-[#1E3A5F] dark:border-zinc-700/60 shadow-md">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-xs font-bold px-3 py-1 rounded-md bg-[#FF6004]/15 border border-[#FF6004]/30 text-[#FE9E30]">
-                SERVICE 03
-              </span>
-              <span className="text-xs text-slate-300 dark:text-zinc-400">Execution</span>
+          <div className="p-6 sm:p-8 rounded-2xl bg-[#0A192F] dark:bg-[#27272A] border border-[#1E3A5F] dark:border-zinc-700/60 shadow-md">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+              <div className="lg:col-span-7">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-xs font-bold px-3 py-1 rounded-md bg-[#FF6004]/15 border border-[#FF6004]/30 text-[#FE9E30]">
+                    SERVICE 03
+                  </span>
+                  <span className="text-xs text-slate-300 dark:text-zinc-400">Execution</span>
+                </div>
+                <h2 className="text-xl sm:text-2xl font-bold text-white dark:text-[#FFFFFF] mb-2">
+                  End-to-End Commercial Execution
+                </h2>
+                <p className="text-base font-semibold text-[#FE9E30] dark:text-[#FE9E30] mb-3">
+                  Take qualified opportunities beyond the meeting and through the buying process.
+                </p>
+                <p className="text-sm text-slate-200 dark:text-zinc-300 mb-6 max-w-2xl leading-relaxed">
+                  SalesNego supports the commercial journey from account engagement through discovery,
+                  qualification, solution alignment, proposals, negotiation, closure and account growth.
+                </p>
+                <button
+                  onClick={() => navigate('/services/commercial-execution')}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-[#FF6004] hover:bg-[#E05300] rounded-lg transition-colors shadow-xs"
+                >
+                  <span>Explore Service 03 Detail &rarr;</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+
+              <div className="lg:col-span-5 w-full">
+                <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden border border-white/10 shadow-lg bg-zinc-900 group">
+                  <LazyImage
+                    src="/commercial-execution-deal-closing.jpg"
+                    alt="Enterprise B2B commercial review and deal-closing session in a modern glass conference room with senior operator and executive client team"
+                    referrerPolicy="no-referrer"
+                    containerClassName="w-full h-full absolute inset-0"
+                    className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-102"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 px-3 py-1.5 rounded-lg bg-black/80 backdrop-blur-xs border border-white/15 text-xs text-zinc-200 font-medium flex items-center justify-between">
+                    <span>Deal Closing &amp; Commercial Pod</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] animate-pulse" />
+                  </div>
+                </div>
+              </div>
             </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-white dark:text-[#FFFFFF] mb-2">
-              End-to-End Commercial Execution
-            </h2>
-            <p className="text-base font-semibold text-[#FE9E30] dark:text-[#FE9E30] mb-3">
-              Take qualified opportunities beyond the meeting and through the buying process.
-            </p>
-            <p className="text-sm text-slate-200 dark:text-zinc-300 mb-6 max-w-2xl leading-relaxed">
-              SalesNego supports the commercial journey from account engagement through discovery,
-              qualification, solution alignment, proposals, negotiation, closure and account growth.
-            </p>
-            <button
-              onClick={() => navigate('/services/commercial-execution')}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-[#FF6004] hover:bg-[#E05300] rounded-lg transition-colors shadow-xs"
-            >
-              <span>Explore Service 03 Detail &rarr;</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
           </div>
         </div>
       </section>
