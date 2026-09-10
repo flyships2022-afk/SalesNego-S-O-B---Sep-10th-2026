@@ -120,14 +120,14 @@ export const CaseStudiesPage: React.FC = () => {
             {founderTrackRecord.map((item) => (
               <div
                 key={item.domain}
-                className="p-6 sm:p-7 rounded-xl bg-[#F7F9FE] dark:bg-[#27272A] border border-[#E1E1E1] dark:border-zinc-700/60 hover:border-[#FF6004]/50 transition-colors flex flex-col justify-between shadow-xs"
+                className="group p-6 sm:p-7 rounded-2xl bg-[#F7F9FE] dark:bg-[#1C1B20] border border-[#E1E1E1] dark:border-white/10 hover:bg-[#161519] dark:hover:bg-black hover:border-[#FF6004] transition-all duration-300 flex flex-col justify-between shadow-xs hover:shadow-xl cursor-pointer"
               >
                 <div>
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-                    <h3 className="text-base sm:text-lg font-bold text-[#191919] dark:text-[#FFFFFF]">
+                    <h3 className="text-base sm:text-lg font-bold text-[#191919] dark:text-white group-hover:text-white transition-colors duration-200">
                       {item.domain}
                     </h3>
-                    <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-[#FF6004]/10 dark:bg-[#FF6004]/15 text-[#FF6004] dark:text-[#FE9E30] shrink-0 self-start sm:self-auto">
+                    <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-[#FF6004]/10 dark:bg-[#FF6004]/15 text-[#FF6004] dark:text-[#FE9E30] group-hover:bg-[#FF6004] group-hover:text-white shrink-0 self-start sm:self-auto transition-colors duration-200">
                       {item.category}
                     </span>
                   </div>
@@ -153,7 +153,7 @@ export const CaseStudiesPage: React.FC = () => {
                     </div>
                   )}
 
-                  <p className="text-sm text-[#606060] dark:text-zinc-300 leading-relaxed mt-2">
+                  <p className="text-sm text-[#606060] dark:text-zinc-300 group-hover:text-zinc-200 leading-relaxed mt-2 transition-colors duration-200">
                     {item.description}
                   </p>
                 </div>

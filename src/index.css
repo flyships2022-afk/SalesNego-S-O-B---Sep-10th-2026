@@ -7,7 +7,7 @@
   --theme-accent: #FF6004;
   --theme-primary-hover: #E05300;
   --theme-secondary: #FE9E30;
-  --theme-blue: #103CE7;
+  --theme-blue: #2563EB;
   --theme-text: #161519;
   --theme-body: #555459;
   --theme-white: #FFFFFF;
@@ -51,6 +51,22 @@ html.dark body {
 
 .animate-mf-caret {
   animation: mf-caret 900ms steps(2) infinite;
+}
+
+/* Subtle Blink / Pulse Animation for Header Theme Switcher */
+@keyframes theme-blink {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+}
+
+.animate-theme-blink {
+  animation: theme-blink 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* Silk-smooth Infinite Marquee Ticker for Client Logos */
@@ -220,11 +236,7 @@ html.dark body {
   opacity: 1 !important;
 }
 
-/* Invert dark logos/text to white in dark mode */
-.dark img[alt*="Aarav Nexus"],
-.dark .logo-aarav-nexus {
-  filter: brightness(0) invert(1) !important;
-}
+/* Hover behavior for client logos */
 
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {

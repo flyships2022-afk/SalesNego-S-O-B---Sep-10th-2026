@@ -73,8 +73,8 @@ export const Navbar: React.FC = () => {
       if (currentPath === '/') {
         const sections = [
           { id: 'contact-section', name: 'contact' },
-          { id: 'experience-section', name: 'case-studies' },
           { id: 'about-section', name: 'about' },
+          { id: 'experience-section', name: 'portfolio' },
           { id: 'services-section', name: 'services' },
           { id: 'hero-section', name: 'home' },
         ];
@@ -104,13 +104,6 @@ export const Navbar: React.FC = () => {
       tooltip: 'Homepage & commercial overview',
     },
     {
-      label: 'About Us',
-      path: '/about',
-      sectionId: 'about-section',
-      sectionKey: 'about',
-      tooltip: 'Founder leadership & mission',
-    },
-    {
       label: 'Services',
       path: '/services',
       sectionId: 'services-section',
@@ -118,11 +111,18 @@ export const Navbar: React.FC = () => {
       tooltip: 'GTM Strategy, RevOps & Execution',
     },
     {
-      label: 'Case Studies',
+      label: 'Portfolio',
       path: '/case-studies',
       sectionId: 'experience-section',
-      sectionKey: 'case-studies',
-      tooltip: 'Client track record & deals',
+      sectionKey: 'portfolio',
+      tooltip: 'Client portfolio & case studies',
+    },
+    {
+      label: 'About Us',
+      path: '/about',
+      sectionId: 'about-section',
+      sectionKey: 'about',
+      tooltip: 'Founder leadership & mission',
     },
     {
       label: 'Contact',
@@ -204,10 +204,10 @@ export const Navbar: React.FC = () => {
           : 'bg-[#F6F5F2] dark:bg-[#121214] border-b border-[#E5E3DC]/60 dark:border-white/5'
       }`}
     >
-      <div className="nav-header-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[4.5rem] sm:min-h-[5.25rem] md:min-h-[5.75rem] py-2 sm:py-2.5 flex items-center justify-between gap-3 sm:gap-4">
+      <div className="nav-header-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[4.75rem] sm:min-h-[5.5rem] md:min-h-[6rem] py-2 sm:py-2.5 flex items-center justify-between gap-3 sm:gap-4">
         {/* Left: Official Brand Logo - Significantly Increased for Desktop, Tablet, & Mobile */}
         <div className="shrink-0 flex items-center">
-          <SalesNegoLogo imgClassName="h-10 sm:h-12 md:h-14 lg:h-16 w-auto max-w-[190px] sm:max-w-[240px] md:max-w-[280px] lg:max-w-[320px]" />
+          <SalesNegoLogo imgClassName="h-12 sm:h-14 md:h-16 lg:h-18 xl:h-20 w-auto max-w-[220px] sm:max-w-[280px] md:max-w-[340px] lg:max-w-[380px]" />
         </div>
 
         {/* Desktop Navigation Pill Bar (Metafic style: rounded-full pills) */}
@@ -351,7 +351,7 @@ export const Navbar: React.FC = () => {
                                 setServicesDropdownOpen(false);
                                 openCalendly();
                               }}
-                              className="text-xs font-bold text-[#103CE7] hover:underline shrink-0"
+                              className="text-xs font-bold text-[#2563EB] dark:text-[#3B82F6] hover:underline shrink-0"
                             >
                               Explore Pod
                             </button>
@@ -428,7 +428,7 @@ export const Navbar: React.FC = () => {
                 onMouseEnter={() => setActiveTooltipId('tooltip-theme-light')}
                 onMouseLeave={() => setActiveTooltipId((prev) => (prev === 'tooltip-theme-light' ? null : prev))}
                 aria-describedby={activeTooltipId === 'tooltip-theme-light' ? 'tooltip-theme-light' : undefined}
-                className={`p-1.5 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] ${
+                className={`p-1.5 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] cursor-pointer ${
                   !isDark
                     ? 'bg-[#F6F5F2] text-amber-600 shadow-2xs'
                     : 'text-zinc-400 hover:text-white'
@@ -436,7 +436,7 @@ export const Navbar: React.FC = () => {
                 aria-label="Light mode"
                 title="Light theme"
               >
-                <Sun className="w-3.5 h-3.5" />
+                <Sun className={`w-3.5 h-3.5 ${!isDark ? 'animate-theme-blink' : ''}`} />
               </button>
 
               <AnimatePresence>
@@ -469,7 +469,7 @@ export const Navbar: React.FC = () => {
                 onMouseEnter={() => setActiveTooltipId('tooltip-theme-dark')}
                 onMouseLeave={() => setActiveTooltipId((prev) => (prev === 'tooltip-theme-dark' ? null : prev))}
                 aria-describedby={activeTooltipId === 'tooltip-theme-dark' ? 'tooltip-theme-dark' : undefined}
-                className={`p-1.5 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] ${
+                className={`p-1.5 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] cursor-pointer ${
                   isDark
                     ? 'bg-zinc-800 text-[#FE9E30] shadow-2xs'
                     : 'text-zinc-400 hover:text-black'
@@ -477,7 +477,7 @@ export const Navbar: React.FC = () => {
                 aria-label="Dark mode"
                 title="Dark theme"
               >
-                <Moon className="w-3.5 h-3.5" />
+                <Moon className={`w-3.5 h-3.5 ${isDark ? 'animate-theme-blink' : ''}`} />
               </button>
 
               <AnimatePresence>
@@ -588,16 +588,20 @@ export const Navbar: React.FC = () => {
                   <div className="flex flex-col space-y-6">
                     {/* Header: Brand Logo, Theme Toggle & Close */}
                     <div className="flex items-center justify-between pb-4 border-b border-[#E5E3DC] dark:border-white/10">
-                      <SalesNegoLogo imgClassName="h-9 sm:h-10 w-auto max-w-[190px]" />
+                      <SalesNegoLogo imgClassName="h-11 sm:h-12 w-auto max-w-[220px]" />
                       <div className="flex items-center gap-1.5">
                         <button
                           type="button"
                           onClick={() => setTheme(isDark ? 'light' : 'dark')}
-                          className="p-2 rounded-full text-[#161519] dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                          className="p-2 rounded-full text-[#161519] dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
                           aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
                           title={isDark ? 'Light mode' : 'Dark mode'}
                         >
-                          {isDark ? <Sun className="w-5 h-5 text-[#FE9E30]" /> : <Moon className="w-5 h-5 text-amber-600" />}
+                          {isDark ? (
+                            <Sun className="w-5 h-5 text-[#FE9E30] animate-theme-blink" />
+                          ) : (
+                            <Moon className="w-5 h-5 text-amber-600 animate-theme-blink" />
+                          )}
                         </button>
                         <button
                           type="button"

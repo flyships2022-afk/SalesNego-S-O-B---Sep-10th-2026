@@ -261,10 +261,10 @@ export const TestimonialCarousel: React.FC = () => {
                   </div>
 
                   {/* Highlight Metric Pill */}
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-[#FF6004]/10 dark:bg-[#FF6004]/15 border border-[#FF6004]/20 text-[#FF6004]">
-                    <TrendingUp className="w-4 h-4" />
-                    <span className="text-sm font-bold">{current.highlightMetric}</span>
-                    <span className="text-xs font-medium text-[#161519] dark:text-zinc-200">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#2563EB] border border-[#2563EB] text-white shadow-xs">
+                    <TrendingUp className="w-4 h-4 text-white" />
+                    <span className="text-sm font-bold text-white">{current.highlightMetric}</span>
+                    <span className="text-xs font-semibold text-[#FE9E30]">
                       {current.highlightLabel}
                     </span>
                   </div>
@@ -332,7 +332,7 @@ export const TestimonialCarousel: React.FC = () => {
 
                   {/* Market & Geography Indicator */}
                   <div className="flex items-center gap-1.5 text-xs text-[#555459] dark:text-zinc-400 sm:self-center">
-                    <Globe2 className="w-4 h-4 text-[#103CE7] dark:text-[#3B82F6]" />
+                    <Globe2 className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
                     <span>Markets: <strong>{current.market}</strong></span>
                   </div>
                 </div>

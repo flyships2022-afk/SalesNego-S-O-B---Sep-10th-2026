@@ -241,14 +241,14 @@ export const AboutPage: React.FC = () => {
               {/* AI Supports Column */}
               <div className="p-6 sm:p-7 rounded-xl bg-[#F7F9FE] dark:bg-[#27272A] border border-gray-200 dark:border-zinc-700/60 shadow-xs">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2.5 rounded-lg bg-[#103CE7]/10 dark:bg-[#103CE7]/20 text-[#103CE7] dark:text-[#3B82F6]">
+                  <div className="p-2.5 rounded-lg bg-[#2563EB]/10 dark:bg-[#3B82F6]/20 text-[#2563EB] dark:text-[#3B82F6]">
                     <Cpu className="w-5 h-5" />
                   </div>
                   <div>
                     <h4 className="text-base font-bold text-[#191919] dark:text-[#FFFFFF]">
                       AI Supports
                     </h4>
-                    <span className="text-xs text-[#103CE7] dark:text-[#3B82F6] font-semibold">
+                    <span className="text-xs text-[#2563EB] dark:text-[#3B82F6] font-semibold">
                       Automated high-velocity workload
                     </span>
                   </div>
@@ -257,7 +257,7 @@ export const AboutPage: React.FC = () => {
                 <ul className="space-y-2.5 text-sm text-[#606060] dark:text-zinc-300">
                   {aiSupports.map((item) => (
                     <li key={item} className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#103CE7] dark:bg-[#3B82F6]" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB] dark:bg-[#3B82F6]" />
                       <span>{item}</span>
                     </li>
                   ))}

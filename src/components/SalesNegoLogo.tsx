@@ -11,18 +11,19 @@ interface LogoProps {
 export const SalesNegoLogo: React.FC<LogoProps> = ({
   className = '',
   showTagline = false,
-  imgClassName = 'h-10 sm:h-12 md:h-14 lg:h-16 w-auto',
+  imgClassName = 'h-12 sm:h-14 md:h-16 lg:h-18 xl:h-20 w-auto',
   variant = 'auto',
 }) => {
   const { navigate } = useNavigation();
 
   return (
     <button
+      type="button"
       onClick={() => navigate('/')}
-      className={`inline-flex flex-col items-start group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#103CE7] rounded-lg transition-opacity ${className}`}
+      className={`inline-flex flex-col items-start group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded-lg transition-opacity cursor-pointer ${className}`}
       aria-label="SalesNego - Return to homepage"
     >
-      <div className="flex items-center gap-2.5">
+      <div className="flex items-center">
         {variant === 'white' ? (
           /* Explicit crisp white logo for dark surfaces (e.g. Footer) in both modes */
           <img

@@ -139,6 +139,24 @@ export const HomePage: React.FC = () => {
     return () => clearTimeout(diffTimer);
   }, [diffDisplayedText, diffIsDeleting, diffPhraseIndex]);
 
+  // Motion animation for 5-stage commercial progression pipeline (Right Market -> Closed Deals)
+  const [activePipelineIndex, setActivePipelineIndex] = useState(0);
+  const pipelineStages = [
+    'Right Market',
+    'Right Accounts',
+    'Right Dialogues',
+    'Qualified Opps',
+    'Closed Deals',
+  ];
+
+  useEffect(() => {
+    const pipelineTimer = setInterval(() => {
+      setActivePipelineIndex((prev) => (prev + 1) % 5);
+    }, 1800);
+
+    return () => clearInterval(pipelineTimer);
+  }, []);
+
   const clientLogos = [
     {
       name: 'TC+ LIMS',
@@ -173,15 +191,18 @@ export const HomePage: React.FC = () => {
     },
     {
       name: 'Leadnics',
-      image: '/leadnics-logo.svg',
-      fallbackUrl: '/leadnics-logo.svg',
+      image: '/leadnics-light.png',
+      darkImage: '/leadnics-dark.png',
+      fallbackUrl: '/leadnics-logo.png',
       alt: 'Leadnics Logo',
     },
     {
       name: 'Aarav Nexus',
-      image: '/aarav-nexus-logo.svg',
-      fallbackUrl: '/aarav-nexus-logo.svg',
+      image: '/aarav-nexus-light.png',
+      darkImage: '/aarav-nexus-dark.png',
+      fallbackUrl: '/aarav-nexus-logo.png',
       alt: 'Aarav Nexus Logo',
+      sizeClass: 'max-h-12 max-w-[145px]',
     },
   ];
 
@@ -419,128 +440,130 @@ export const HomePage: React.FC = () => {
         id="hero-section"
         aria-label="Hero Introduction"
         style={{ maxWidth: '100%', boxSizing: 'border-box' }}
-        className="top-level-section relative w-full max-w-full bg-[#F5F2EC] dark:bg-[#07080A] p-2.5 sm:p-3.5 lg:p-4"
+        className="top-level-section relative w-full bg-[#F5F2EC] dark:bg-[#07080A] p-2.5 sm:p-3.5 lg:p-4"
       >
-        <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-br from-[#FFFDFB] via-[#FAF4ED] to-[#F2E7D8] text-[#161519] dark:from-[#150D08] dark:via-[#0D0B0F] dark:to-[#060608] dark:text-white p-5 sm:p-7 lg:p-8 min-h-0 lg:min-h-[560px] flex flex-col justify-between border border-[#E5DDD0] dark:border-[#2A1D16] shadow-xl transition-colors duration-200">
-          {/* Subtle Ambient Background Mesh - Darker Warm Orange & Obsidian Black Undertones */}
-          <div className="absolute -top-12 -right-12 w-[520px] h-[520px] bg-gradient-to-bl from-[#FF6004]/18 via-[#C84500]/10 to-transparent rounded-full blur-[130px] pointer-events-none" />
-          <div className="absolute -bottom-10 -left-10 w-[460px] h-[460px] bg-gradient-to-tr from-[#FF6004]/10 via-[#103CE7]/08 to-transparent rounded-full blur-[140px] pointer-events-none" />
-          <div className="absolute top-1/4 left-1/3 w-[360px] h-[360px] bg-[#FF6004]/05 dark:bg-[#FF6004]/08 rounded-full blur-[110px] pointer-events-none" />
-          <div className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:36px_36px]" />
+        <div className="max-w-[1400px] mx-auto w-full">
+          <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-br from-[#FFFDFB] via-[#FAF4ED] to-[#F2E7D8] text-[#161519] dark:from-[#150D08] dark:via-[#0D0B0F] dark:to-[#060608] dark:text-white p-6 sm:p-8 md:p-10 lg:p-12 min-h-0 lg:min-h-[560px] flex flex-col justify-between border border-[#E5DDD0] dark:border-[#2A1D16] shadow-xl transition-colors duration-200">
+            {/* Subtle Ambient Background Mesh - Darker Warm Orange & Obsidian Black Undertones */}
+            <div className="absolute -top-12 -right-12 w-[520px] h-[520px] bg-gradient-to-bl from-[#FF6004]/18 via-[#C84500]/10 to-transparent rounded-full blur-[130px] pointer-events-none" />
+            <div className="absolute -bottom-10 -left-10 w-[460px] h-[460px] bg-gradient-to-tr from-[#FF6004]/10 via-[#2563EB]/08 to-transparent rounded-full blur-[140px] pointer-events-none" />
+            <div className="absolute top-1/4 left-1/3 w-[360px] h-[360px] bg-[#FF6004]/05 dark:bg-[#FF6004]/08 rounded-full blur-[110px] pointer-events-none" />
+            <div className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:36px_36px]" />
 
-          {/* Top Eyebrow Bar */}
-          <div className="relative z-10 flex items-center justify-between gap-4 flex-wrap pb-2 sm:pb-3">
-            {/* 1. Eyebrow Tag */}
-            <div className="mb-2 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold bg-black/5 dark:bg-white/5 text-zinc-800 dark:text-zinc-100 border border-black/10 dark:border-white/10 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-[#FF6004] animate-pulse" />
-              <span>B2B GTM, RevOps &amp; Commercial Execution</span>
+            {/* Top Eyebrow Bar - Shifted rightward for balanced optical alignment */}
+            <div className="relative z-10 flex items-center justify-between gap-4 flex-wrap pb-2 sm:pb-3 sm:pl-2 md:pl-6 lg:pl-8 xl:pl-10">
+              {/* 1. Eyebrow Tag */}
+              <div className="mb-2 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold bg-black/5 dark:bg-white/5 text-zinc-800 dark:text-zinc-100 border border-black/10 dark:border-white/10 backdrop-blur-md">
+                <span className="w-2 h-2 rounded-full bg-[#FF6004] animate-pulse" />
+                <span>B2B GTM, RevOps &amp; Commercial Execution</span>
+              </div>
+
+              <div className="hidden sm:flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400">
+                <ShieldCheck className="w-4 h-4 text-[#FF6004]" />
+                <span>14+ Years B2B Commercial Ownership</span>
+              </div>
             </div>
 
-            <div className="hidden sm:flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400">
-              <ShieldCheck className="w-4 h-4 text-[#FF6004]" />
-              <span>14+ Years B2B Commercial Ownership</span>
-            </div>
-          </div>
+            {/* Main Content Area: Left Headline & Narrative + Right Process Circle Motion Block */}
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center py-2 sm:py-4 my-auto w-full">
+              {/* Left Column: Headline, Focus Pill, Description, CTAs (lg:col-span-7) - Moved rightward for comfortable user view */}
+              <div className="lg:col-span-7 xl:col-span-7 max-w-2xl sm:pl-2 md:pl-6 lg:pl-8 xl:pl-10">
+                {/* 2. Main H1 Title with Fluid Clamp Typography */}
+                <h1
+                  style={{ fontSize: 'clamp(2.1rem, 4.5vw, 3.4rem)' }}
+                  className="font-lexend font-bold leading-tight mb-3 text-[#161519] dark:text-white fluid-hero-heading"
+                >
+                  From Market Signal <br className="hidden sm:inline" /> to Closed Revenue.
+                </h1>
 
-          {/* Main Content Area: Left Headline & Narrative + Right Process Circle Motion Block */}
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-10 items-center py-2 sm:py-3 my-auto">
-            {/* Left Column: Headline, Focus Pill, Description, CTAs (lg:col-span-7) */}
-            <div className="lg:col-span-7 xl:col-span-7 max-w-2xl">
-              {/* 2. Main H1 Title with Fluid Clamp Typography */}
-              <h1
-                style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}
-                className="font-lexend font-bold leading-tight mb-3 text-[#161519] dark:text-white fluid-hero-heading"
+                {/* 3. Commercial Focus Pill & Copy */}
+                <div className="mb-4">
+                  <div className="flex items-center flex-wrap gap-2.5 mb-2.5">
+                    <span className="text-xs uppercase font-bold tracking-wider text-zinc-500 dark:text-zinc-400">
+                      Commercial Focus:
+                    </span>
+                    <span className="inline-flex items-center rounded-[10px] bg-[#2563EB] px-3.5 py-1 text-white font-medium text-xs sm:text-base tracking-wide shadow-sm min-h-[30px]">
+                      <span>{displayedText}</span>
+                      <span className="ml-1 inline-block w-[2px] h-[0.9em] bg-white align-middle animate-mf-caret" />
+                    </span>
+                  </div>
+
+                  <div className="space-y-2 text-sm sm:text-base text-zinc-600 dark:text-zinc-300 font-normal leading-relaxed max-w-xl">
+                    <p>
+                      SalesNego helps B2B SaaS, AI and technology companies turn market intelligence into qualified opportunities, customers and account growth.
+                    </p>
+                    <p>
+                      We connect strategy, revenue operations, AI-accelerated workflows and founder-led sales execution under one commercial partnership.
+                    </p>
+                  </div>
+                </div>
+
+                {/* 4. Action Buttons */}
+                <div className="flex flex-wrap gap-3.5 sm:gap-4 mb-4">
+                  <button
+                    type="button"
+                    onClick={openCalendly}
+                    className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm sm:text-base font-bold text-white bg-[#FF6004] hover:bg-[#E05300] active:scale-98 transition-all shadow-lg shadow-[#FF6004]/25 hover:shadow-[#FF6004]/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] shrink-0 cursor-pointer"
+                  >
+                    <span>Discuss Your Growth Priorities</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const el = document.getElementById('services-section');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      else navigate('/services');
+                    }}
+                    className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm sm:text-base font-medium text-[#161519] dark:text-white bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/20 border border-black/10 dark:border-white/20 backdrop-blur-md transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] shrink-0 cursor-pointer"
+                  >
+                    <span>Explore Our Services</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {/* 5. Trust Line (Now firmly above the fold) */}
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-zinc-400 font-medium">
+                  Founder-led commercial execution across North America, UAE, Europe, India and Australia.
+                </p>
+              </div>
+
+              {/* Right Column: Process Circle Motion Block (lg:col-span-5) */}
+              <div
+                style={{ maxWidth: '100%', height: 'auto', overflowX: 'hidden' }}
+                className="lg:col-span-5 xl:col-span-5 flex items-center justify-center lg:justify-end w-full max-w-full overflow-x-hidden h-auto preview-card-wrapper pr-0 sm:pr-2 lg:pr-4"
               >
-                From Market Signal <br className="hidden sm:inline" /> to Closed Revenue.
-              </h1>
-
-              {/* 3. Commercial Focus Pill & Copy */}
-              <div className="mb-4">
-                <div className="flex items-center flex-wrap gap-2.5 mb-2.5">
-                  <span className="text-xs uppercase font-bold tracking-wider text-zinc-500 dark:text-zinc-400">
-                    Commercial Focus:
-                  </span>
-                  <span className="inline-flex items-center rounded-[10px] bg-[#103CE7] px-3.5 py-1 text-white font-medium text-xs sm:text-base tracking-wide shadow-sm min-h-[30px]">
-                    <span>{displayedText}</span>
-                    <span className="ml-1 inline-block w-[2px] h-[0.9em] bg-white align-middle animate-mf-caret" />
-                  </span>
-                </div>
-
-                <div className="space-y-2 text-sm sm:text-base text-zinc-600 dark:text-zinc-300 font-normal leading-relaxed max-w-xl">
-                  <p>
-                    SalesNego helps B2B SaaS, AI and technology companies turn market intelligence into qualified opportunities, customers and account growth.
-                  </p>
-                  <p>
-                    We connect strategy, revenue operations, AI-accelerated workflows and founder-led sales execution under one commercial partnership.
-                  </p>
-                </div>
+                <ProcessCircleMotion />
               </div>
-
-              {/* 4. Action Buttons */}
-              <div className="flex flex-wrap gap-3.5 sm:gap-4 mb-4">
-                <button
-                  type="button"
-                  onClick={openCalendly}
-                  className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm sm:text-base font-bold text-white bg-[#FF6004] hover:bg-[#E05300] active:scale-98 transition-all shadow-lg shadow-[#FF6004]/25 hover:shadow-[#FF6004]/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] shrink-0"
-                >
-                  <span>Discuss Your Growth Priorities</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    const el = document.getElementById('services-section');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    else navigate('/services');
-                  }}
-                  className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm sm:text-base font-medium text-[#161519] dark:text-white bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/20 border border-black/10 dark:border-white/20 backdrop-blur-md transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] shrink-0"
-                >
-                  <span>Explore Our Services</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-
-              {/* 5. Trust Line (Now firmly above the fold) */}
-              <p className="text-xs sm:text-sm text-gray-500 dark:text-zinc-400 font-medium">
-                Founder-led commercial execution across North America, UAE, Europe, India and Australia.
-              </p>
             </div>
 
-            {/* Right Column: Process Circle Motion Block (lg:col-span-5) */}
-            <div
-              style={{ maxWidth: '100%', height: 'auto', overflowX: 'hidden' }}
-              className="lg:col-span-5 xl:col-span-5 flex items-center justify-center lg:justify-end w-full max-w-full overflow-x-hidden h-auto preview-card-wrapper"
-            >
-              <ProcessCircleMotion />
+            {/* Bottom Hero Trust Metrics Bar with Staggered Scroll Entrance */}
+            <div className="relative z-10 pt-5 mt-5 border-t border-black/10 dark:border-white/10 w-full">
+              <StaggerGroup
+                staggerDelay={0.08}
+                className="max-w-2xl lg:max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 items-center text-center"
+              >
+                <StaggerItem distance={16}>
+                  <div className="px-2 sm:px-3">
+                    <span className="block font-lexend text-2xl sm:text-3xl font-bold text-[#161519] dark:text-white">14+</span>
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 block">Years B2B Commercial Leadership</span>
+                  </div>
+                </StaggerItem>
+                <StaggerItem distance={16}>
+                  <div className="px-2 sm:px-3 sm:border-x sm:border-black/10 dark:sm:border-white/10">
+                    <span className="block font-lexend text-2xl sm:text-3xl font-bold text-[#161519] dark:text-white">5</span>
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 block">Key Markets - North America, India, Europe, Australia</span>
+                  </div>
+                </StaggerItem>
+                <StaggerItem distance={16}>
+                  <div className="px-2 sm:px-3">
+                    <span className="block font-lexend text-2xl sm:text-3xl font-bold text-[#161519] dark:text-white">100%</span>
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 block">Pipeline-to-Revenue Ownership</span>
+                  </div>
+                </StaggerItem>
+              </StaggerGroup>
             </div>
-          </div>
-
-          {/* Bottom Hero Trust Metrics Bar with Staggered Scroll Entrance */}
-          <div className="relative z-10 pt-5 mt-5 border-t border-black/10 dark:border-white/10 w-full">
-            <StaggerGroup
-              staggerDelay={0.08}
-              className="max-w-2xl lg:max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 items-center text-center"
-            >
-              <StaggerItem distance={16}>
-                <div className="px-2 sm:px-3">
-                  <span className="block font-lexend text-2xl sm:text-3xl font-bold text-[#161519] dark:text-white">14+</span>
-                  <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 block">Years B2B Commercial Leadership</span>
-                </div>
-              </StaggerItem>
-              <StaggerItem distance={16}>
-                <div className="px-2 sm:px-3 sm:border-x sm:border-black/10 dark:sm:border-white/10">
-                  <span className="block font-lexend text-2xl sm:text-3xl font-bold text-[#161519] dark:text-white">5</span>
-                  <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 block">Key Markets - North America, India, Europe, Australia</span>
-                </div>
-              </StaggerItem>
-              <StaggerItem distance={16}>
-                <div className="px-2 sm:px-3">
-                  <span className="block font-lexend text-2xl sm:text-3xl font-bold text-[#161519] dark:text-white">100%</span>
-                  <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 block">Pipeline-to-Revenue Ownership</span>
-                </div>
-              </StaggerItem>
-            </StaggerGroup>
           </div>
         </div>
       </section>
@@ -572,6 +595,7 @@ export const HomePage: React.FC = () => {
                   key={`logo-track-1-${index}`}
                   name={item.name}
                   image={item.image}
+                  darkImage={item.darkImage}
                   fallbackUrl={item.fallbackUrl}
                   alt={item.alt}
                   sizeClass={item.sizeClass}
@@ -586,6 +610,7 @@ export const HomePage: React.FC = () => {
                   key={`logo-track-dup-${index}`}
                   name={item.name}
                   image={item.image}
+                  darkImage={item.darkImage}
                   fallbackUrl={item.fallbackUrl}
                   alt={item.alt}
                   sizeClass={item.sizeClass}
@@ -625,56 +650,71 @@ export const HomePage: React.FC = () => {
                 </div>
               </div>
 
-              {/* 5-Stage Commercial Progression Pipeline */}
+              {/* 5-Stage Commercial Progression Pipeline with Active Blue Motion Highlighter */}
               <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs">
-                <p className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 mb-3 uppercase tracking-wider">
-                  The Commercial Progression System
-                </p>
-                
-                {/* Desktop & Tablet Progression Flow */}
-                <div className="hidden sm:flex items-center justify-between gap-1.5 text-xs font-bold text-[#161519] dark:text-white">
-                  <span className="px-2.5 py-1.5 rounded-lg bg-[#F6F5F2] dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-center text-[11px] lg:text-xs">
-                    Right Market
-                  </span>
-                  <span className="text-[#FF6004] font-black text-xs shrink-0">&rarr;</span>
-                  <span className="px-2.5 py-1.5 rounded-lg bg-[#F6F5F2] dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-center text-[11px] lg:text-xs">
-                    Right Accounts
-                  </span>
-                  <span className="text-[#FF6004] font-black text-xs shrink-0">&rarr;</span>
-                  <span className="px-2.5 py-1.5 rounded-lg bg-[#F6F5F2] dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-center text-[11px] lg:text-xs">
-                    Right Dialogues
-                  </span>
-                  <span className="text-[#FF6004] font-black text-xs shrink-0">&rarr;</span>
-                  <span className="px-2.5 py-1.5 rounded-lg bg-[#F6F5F2] dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-center text-[11px] lg:text-xs">
-                    Qualified Opps
-                  </span>
-                  <span className="text-[#FF6004] font-black text-xs shrink-0">&rarr;</span>
-                  <span className="px-2.5 py-1.5 rounded-lg bg-[#103CE7] text-white shadow-xs text-center text-[11px] lg:text-xs whitespace-nowrap">
-                    Closed Deals
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <p className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+                    The Commercial Progression System
+                  </p>
+                  <span className="text-[11px] font-mono text-[#2563EB] dark:text-[#3B82F6] font-medium hidden sm:inline-block">
+                    Stage 0{activePipelineIndex + 1} / 05 Active
                   </span>
                 </div>
+                
+                {/* Desktop & Tablet Progression Flow with Animated Moving Highlighter */}
+                <div className="hidden sm:flex items-center justify-between gap-1.5 text-xs font-bold text-[#161519] dark:text-white">
+                  {pipelineStages.map((stage, idx) => {
+                    const isActive = activePipelineIndex === idx;
+                    return (
+                      <React.Fragment key={stage}>
+                        <button
+                          type="button"
+                          onClick={() => setActivePipelineIndex(idx)}
+                          className={`px-2.5 py-1.5 rounded-lg text-center text-[11px] lg:text-xs font-bold transition-all duration-300 transform cursor-pointer ${
+                            isActive
+                              ? 'bg-[#2563EB] dark:bg-[#3B82F6] text-white shadow-md shadow-blue-500/30 scale-105 ring-2 ring-[#2563EB]/40 dark:ring-[#3B82F6]/50'
+                              : 'bg-[#F6F5F2] dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-[#161519] dark:text-zinc-200 hover:border-[#2563EB]/40'
+                          }`}
+                        >
+                          {stage}
+                        </button>
+                        {idx < pipelineStages.length - 1 && (
+                          <span
+                            className={`font-black text-xs shrink-0 transition-all duration-300 ${
+                              activePipelineIndex === idx
+                                ? 'text-[#2563EB] dark:text-[#3B82F6] scale-125'
+                                : 'text-[#FF6004]'
+                            }`}
+                          >
+                            &rarr;
+                          </span>
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
+                </div>
 
-                {/* Mobile Compact Grid */}
+                {/* Mobile Compact Interactive Flow */}
                 <div className="grid grid-cols-1 sm:hidden gap-1.5 text-xs font-bold text-[#161519] dark:text-white">
-                  {[
-                    { title: 'Right Market', final: false },
-                    { title: 'Right Accounts', final: false },
-                    { title: 'Right Conversations', final: false },
-                    { title: 'Qualified Opportunities', final: false },
-                    { title: 'Closed Business', final: true },
-                  ].map((step, idx) => (
-                    <div
-                      key={step.title}
-                      className={`py-2 px-3 rounded-lg text-center border flex items-center justify-between ${
-                        step.final
-                          ? 'bg-[#103CE7] text-white border-[#103CE7]'
-                          : 'bg-[#F6F5F2] dark:bg-white/5 border-[#E5E3DC] dark:border-white/10'
-                      }`}
-                    >
-                      <span className="text-[10px] opacity-75 font-mono">Stage 0{idx + 1}</span>
-                      <span className="text-xs font-bold">{step.title}</span>
-                    </div>
-                  ))}
+                  {pipelineStages.map((stage, idx) => {
+                    const isActive = activePipelineIndex === idx;
+                    return (
+                      <button
+                        key={stage}
+                        type="button"
+                        onClick={() => setActivePipelineIndex(idx)}
+                        className={`py-2 px-3 rounded-lg text-center border flex items-center justify-between transition-all duration-300 cursor-pointer ${
+                          isActive
+                            ? 'bg-[#2563EB] dark:bg-[#3B82F6] text-white border-[#2563EB] dark:border-[#3B82F6] shadow-md shadow-blue-500/25 scale-[1.02]'
+                            : 'bg-[#F6F5F2] dark:bg-white/5 border-[#E5E3DC] dark:border-white/10 text-[#161519] dark:text-zinc-300'
+                        }`}
+                      >
+                        <span className="text-[10px] opacity-75 font-mono">Stage 0{idx + 1}</span>
+                        <span className="text-xs font-bold">{stage}</span>
+                        {isActive && <span className="w-2 h-2 rounded-full bg-white animate-ping" />}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -736,7 +776,7 @@ export const HomePage: React.FC = () => {
               <p>
                 SalesNego does not treat strategy, revenue operations and sales execution as separate projects.
               </p>
-              <p className="font-semibold text-[#103CE7]">
+              <p className="font-semibold text-[#2563EB] dark:text-[#3B82F6]">
                 We connect all three under one commercial partnership.
               </p>
             </div>
@@ -759,7 +799,7 @@ export const HomePage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => navigate(svc.path as any)}
-                        className="w-8 h-8 rounded-full bg-white dark:bg-white/10 flex items-center justify-center text-[#161519] dark:text-white group-hover:bg-[#103CE7] group-hover:text-white transition-all cursor-pointer"
+                        className="w-8 h-8 rounded-full bg-white dark:bg-white/10 flex items-center justify-center text-[#161519] dark:text-white group-hover:bg-[#2563EB] dark:group-hover:bg-[#3B82F6] group-hover:text-white transition-all cursor-pointer"
                         aria-label={`Learn more about ${svc.title}`}
                       >
                         <ArrowUpRight className="w-4 h-4" />
@@ -791,7 +831,7 @@ export const HomePage: React.FC = () => {
                       {svc.title}
                     </h3>
 
-                    <p className="text-xs font-semibold text-[#103CE7] dark:text-[#3B82F6] mb-3">
+                    <p className="text-xs font-semibold text-[#2563EB] dark:text-[#3B82F6] mb-3">
                       {svc.subtitle}
                     </p>
 
@@ -820,7 +860,7 @@ export const HomePage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => navigate(svc.path as any)}
-                      className="inline-flex items-center gap-1.5 text-sm font-bold text-[#103CE7] dark:text-[#3B82F6] hover:underline"
+                      className="inline-flex items-center gap-1.5 text-sm font-bold text-[#2563EB] dark:text-[#3B82F6] hover:underline"
                     >
                       <span>Learn More &rarr;</span>
                     </button>
@@ -828,7 +868,7 @@ export const HomePage: React.FC = () => {
                     <button
                       type="button"
                       onClick={openCalendly}
-                      className="text-xs font-semibold text-[#555459] dark:text-zinc-400 hover:text-[#103CE7] dark:hover:text-white"
+                      className="text-xs font-semibold text-[#555459] dark:text-zinc-400 hover:text-[#2563EB] dark:hover:text-[#3B82F6]"
                     >
                       Discuss Priorities
                     </button>
@@ -874,7 +914,7 @@ export const HomePage: React.FC = () => {
 
                     {/* Ambient Top Tag */}
                     <div className="absolute top-3 left-3 px-3 py-1 rounded-md bg-black/75 backdrop-blur-xs border border-white/15 text-[11px] font-semibold text-white flex items-center gap-1.5 shadow-sm">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#103CE7] animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse" />
                       <span>Single-Handed Ownership</span>
                     </div>
 
@@ -914,7 +954,7 @@ export const HomePage: React.FC = () => {
                       <span className="text-sm sm:text-base font-bold text-[#161519] dark:text-white">
                         • SalesNego provides:
                       </span>
-                      <span className="inline-flex items-center rounded-[10px] bg-[#103CE7] px-3.5 py-1 text-white font-medium text-xs sm:text-sm tracking-wide shadow-sm min-h-[28px]">
+                      <span className="inline-flex items-center rounded-[10px] bg-[#2563EB] px-3.5 py-1 text-white font-medium text-xs sm:text-sm tracking-wide shadow-sm min-h-[28px]">
                         <span>{diffDisplayedText}</span>
                         <span className="ml-1 inline-block w-[2px] h-[0.9em] bg-white align-middle animate-mf-caret" />
                       </span>
@@ -934,14 +974,14 @@ export const HomePage: React.FC = () => {
               const Icon = pillar.icon;
               return (
                 <StaggerItem key={pillar.number} distance={20} className="h-full">
-                  <div className="p-6 rounded-[20px] bg-white dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs flex flex-col justify-between hover:border-[#103CE7] dark:hover:border-[#103CE7] transition-colors h-full">
+                  <div className="p-6 rounded-[20px] bg-white dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs flex flex-col justify-between hover:border-[#2563EB] dark:hover:border-[#3B82F6] transition-colors h-full">
                     <div>
                       <div className="flex items-center justify-between mb-4">
-                        <span className="font-mono text-xs font-bold text-[#103CE7]">
+                        <span className="font-mono text-xs font-bold text-[#2563EB] dark:text-[#3B82F6]">
                           Pillar {pillar.number}
                         </span>
-                        <div className="w-8 h-8 rounded-lg bg-[#103CE7]/10 dark:bg-[#103CE7]/20 flex items-center justify-center text-[#103CE7]">
-                          <Icon className="w-4 h-4 text-[#103CE7]" />
+                        <div className="w-8 h-8 rounded-lg bg-[#2563EB]/10 dark:bg-[#3B82F6]/20 flex items-center justify-center text-[#2563EB] dark:text-[#3B82F6]">
+                          <Icon className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
                         </div>
                       </div>
                       <h3 className="font-lexend text-xl font-normal text-[#161519] dark:text-white mb-2 leading-snug">
@@ -981,7 +1021,7 @@ export const HomePage: React.FC = () => {
                   <p>
                     An integrated commercial architecture transforming early market signals into qualified enterprise opportunities, structured negotiations, and multi-year customer expansion.
                   </p>
-                  <p className="text-sm sm:text-base font-semibold text-[#103CE7]">
+                  <p className="text-sm sm:text-base font-semibold text-[#2563EB] dark:text-[#3B82F6]">
                     Every stage feeds continuous intelligence backward and forward—ensuring pipeline momentum never gets lost between marketing, SDRs, and closing reps.
                   </p>
                 </div>
@@ -1034,9 +1074,9 @@ export const HomePage: React.FC = () => {
           >
             {commercialJourneyStages.map((stage) => (
               <StaggerItem key={stage.step} distance={16} className="h-full">
-                <div className="p-6 rounded-[18px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 flex flex-col justify-between hover:border-[#103CE7] transition-all h-full">
+                <div className="p-6 rounded-[18px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 flex flex-col justify-between hover:border-[#2563EB] dark:hover:border-[#3B82F6] transition-all h-full">
                   <div>
-                    <span className="text-xs font-mono font-bold text-[#103CE7] dark:text-[#3B82F6] block mb-2">
+                    <span className="text-xs font-mono font-bold text-[#2563EB] dark:text-[#3B82F6] block mb-2">
                       Stage {stage.step}
                     </span>
                     <h3 className="font-lexend text-lg font-normal text-[#161519] dark:text-white mb-2">
@@ -1162,7 +1202,7 @@ export const HomePage: React.FC = () => {
             <h2 className="font-lexend text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.12] text-[#161519] dark:text-white">
               Experience Across SaaS, AI and Technology Sales.
             </h2>
-            <p className="mt-3 text-base text-[#103CE7] font-medium leading-relaxed">
+            <p className="mt-3 text-base text-[#2563EB] dark:text-[#3B82F6] font-medium leading-relaxed">
               Commercial engagements across sectors, markets and deal stages.
             </p>
           </ScrollReveal>
@@ -1187,22 +1227,22 @@ export const HomePage: React.FC = () => {
                     distance={20}
                     className="h-full"
                   >
-                    <div className="p-6 rounded-[22px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs flex flex-col justify-between h-full">
+                    <div className="group p-6 rounded-[22px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 hover:bg-[#161519] dark:hover:bg-black hover:border-[#FF6004] transition-all duration-300 shadow-xs flex flex-col justify-between h-full">
                       <div>
                         <div className="flex items-center justify-between mb-3.5">
                           <div className="flex items-center gap-2">
-                            <span className="text-xs font-mono font-bold text-[#FF6004] bg-[#FF6004]/10 px-2 py-0.5 rounded-md">
+                            <span className="text-xs font-mono font-bold text-[#FF6004] bg-[#FF6004]/10 group-hover:bg-[#FF6004] group-hover:text-white px-2 py-0.5 rounded-md transition-colors">
                               0{idx + 1}
                             </span>
-                            <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-black/5 dark:bg-white/10 text-zinc-600 dark:text-zinc-300">
+                            <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-black/5 dark:bg-white/10 group-hover:bg-white/15 text-zinc-600 dark:text-zinc-300 group-hover:text-white transition-colors">
                               {item.sector}
                             </span>
                           </div>
-                          <div className="w-7 h-7 rounded-lg bg-[#FF6004]/10 text-[#FF6004] flex items-center justify-center">
+                          <div className="w-7 h-7 rounded-lg bg-[#FF6004]/10 text-[#FF6004] group-hover:bg-[#FF6004] group-hover:text-white flex items-center justify-center transition-colors">
                             <Icon className="w-3.5 h-3.5" />
                           </div>
                         </div>
-                        <h3 className="font-lexend text-lg font-normal text-[#161519] dark:text-white mb-2.5 leading-snug">
+                        <h3 className="font-lexend text-lg font-normal text-[#161519] dark:text-white group-hover:text-white mb-2.5 leading-snug transition-colors duration-200">
                           {item.domain}
                         </h3>
 
@@ -1227,16 +1267,16 @@ export const HomePage: React.FC = () => {
                           </div>
                         )}
 
-                        <p className="text-xs sm:text-sm text-[#555459] dark:text-zinc-400 leading-relaxed mb-4">
+                        <p className="text-xs sm:text-sm text-[#555459] dark:text-zinc-400 group-hover:text-zinc-200 leading-relaxed mb-4 transition-colors duration-200">
                           {item.desc}
                         </p>
                       </div>
 
-                      <div className="pt-3 border-t border-[#E5E3DC]/80 dark:border-white/10 flex flex-wrap gap-1.5">
+                      <div className="pt-3 border-t border-[#E5E3DC]/80 dark:border-white/10 group-hover:border-white/15 flex flex-wrap gap-1.5 transition-colors">
                         {item.highlights.map((h, hIdx) => (
                           <span
                             key={hIdx}
-                            className="inline-flex items-center text-[10px] font-medium px-2 py-0.5 rounded-md bg-white/80 dark:bg-white/5 text-zinc-600 dark:text-zinc-300 border border-zinc-200/60 dark:border-white/5"
+                            className="inline-flex items-center text-[10px] font-medium px-2 py-0.5 rounded-md bg-white/80 dark:bg-white/5 group-hover:bg-white/10 text-zinc-600 dark:text-zinc-300 group-hover:text-zinc-100 border border-zinc-200/60 dark:border-white/5 group-hover:border-white/15 transition-colors"
                           >
                             {h}
                           </span>
@@ -1339,9 +1379,9 @@ export const HomePage: React.FC = () => {
                 className="relative z-10 mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
               >
                 <StaggerItem distance={20} className="h-full">
-                  <div className="p-5 rounded-[18px] bg-white/5 border border-white/10 h-full flex flex-col justify-between hover:border-[#FF6004]/40 hover:bg-white/[0.07] transition-all duration-200">
+                  <div className="p-5 rounded-[18px] bg-white/5 border border-white/10 h-full flex flex-col justify-between hover:border-[#2563EB]/40 hover:bg-white/[0.07] transition-all duration-200">
                     <div>
-                      <span className="text-xs text-[#FE9E30] font-bold block mb-1">Model</span>
+                      <span className="text-xs text-[#2563EB] dark:text-[#3B82F6] font-bold block mb-1">Model</span>
                       <h4 className="font-bold text-sm text-white mb-2 leading-snug">Monthly Retainer + Commercial Performance</h4>
                     </div>
                     <p className="text-xs text-zinc-400 mt-2">Aligned incentives focused on validated revenue.</p>
@@ -1349,9 +1389,9 @@ export const HomePage: React.FC = () => {
                 </StaggerItem>
 
                 <StaggerItem distance={20} className="h-full">
-                  <div className="p-5 rounded-[18px] bg-white/5 border border-white/10 h-full flex flex-col justify-between hover:border-[#FF6004]/40 hover:bg-white/[0.07] transition-all duration-200">
+                  <div className="p-5 rounded-[18px] bg-white/5 border border-white/10 h-full flex flex-col justify-between hover:border-[#2563EB]/40 hover:bg-white/[0.07] transition-all duration-200">
                     <div>
-                      <span className="text-xs text-[#FE9E30] font-bold block mb-1">Scope</span>
+                      <span className="text-xs text-[#2563EB] dark:text-[#3B82F6] font-bold block mb-1">Scope</span>
                       <h4 className="font-bold text-sm text-white mb-2 leading-snug">Strategy, RevOps, Execution or Full Commercial Pod</h4>
                     </div>
                     <p className="text-xs text-zinc-400 mt-2">Tailored to your commercial gaps.</p>
@@ -1359,9 +1399,9 @@ export const HomePage: React.FC = () => {
                 </StaggerItem>
 
                 <StaggerItem distance={20} className="h-full">
-                  <div className="p-5 rounded-[18px] bg-white/5 border border-white/10 h-full flex flex-col justify-between hover:border-[#FF6004]/40 hover:bg-white/[0.07] transition-all duration-200">
+                  <div className="p-5 rounded-[18px] bg-white/5 border border-white/10 h-full flex flex-col justify-between hover:border-[#2563EB]/40 hover:bg-white/[0.07] transition-all duration-200">
                     <div>
-                      <span className="text-xs text-[#FE9E30] font-bold block mb-1">Markets</span>
+                      <span className="text-xs text-[#2563EB] dark:text-[#3B82F6] font-bold block mb-1">Markets</span>
                       <h4 className="font-bold text-sm text-white mb-2 leading-snug">North America, UAE, Europe, India, Australia</h4>
                     </div>
                     <p className="text-xs text-zinc-400 mt-2">Cross-border market entry and expansion.</p>
@@ -1369,9 +1409,9 @@ export const HomePage: React.FC = () => {
                 </StaggerItem>
 
                 <StaggerItem distance={20} className="h-full">
-                  <div className="p-5 rounded-[18px] bg-white/5 border border-white/10 h-full flex flex-col justify-between hover:border-[#FF6004]/40 hover:bg-white/[0.07] transition-all duration-200">
+                  <div className="p-5 rounded-[18px] bg-white/5 border border-white/10 h-full flex flex-col justify-between hover:border-[#2563EB]/40 hover:bg-white/[0.07] transition-all duration-200">
                     <div>
-                      <span className="text-xs text-[#FE9E30] font-bold block mb-1">Focus</span>
+                      <span className="text-xs text-[#2563EB] dark:text-[#3B82F6] font-bold block mb-1">Focus</span>
                       <h4 className="font-bold text-sm text-white mb-2 leading-snug">Sustainable pipeline, customer acquisition and account expansion.</h4>
                     </div>
                     <p className="text-xs text-zinc-400 mt-2">Durable commercial results.</p>

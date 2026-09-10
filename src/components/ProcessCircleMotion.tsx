@@ -70,8 +70,8 @@ const PROCESS_STAGES: ProcessStage[] = [
     description: 'Engage relevant accounts and diagnose customer problems with informed commercial context.',
     metric: 'Direct',
     metricLabel: 'Execution',
-    color: '#103CE7',
-    lightGlow: 'rgba(16, 60, 231, 0.25)',
+    color: '#2563EB',
+    lightGlow: 'rgba(37, 99, 235, 0.25)',
     icon: Layers,
   },
   {
@@ -188,7 +188,7 @@ export const ProcessCircleMotion: React.FC = () => {
             <linearGradient id="orbitGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#FF6004" stopOpacity="0.95" />
               <stop offset="50%" stopColor="#FE9E30" stopOpacity="0.9" />
-              <stop offset="100%" stopColor="#103CE7" stopOpacity="0.85" />
+              <stop offset="100%" stopColor="#2563EB" stopOpacity="0.85" />
             </linearGradient>
 
             <linearGradient id="activeCordGradient" x1="0%" y1="0%" x2="100%" y2="0%">

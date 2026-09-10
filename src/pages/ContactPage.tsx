@@ -127,7 +127,7 @@ export const ContactPage: React.FC = () => {
                 <button
                   id="contact-calendly-button"
                   onClick={openCalendly}
-                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-[#103CE7] hover:bg-[#0D32C2] dark:bg-[#FF6004] dark:hover:bg-[#E05300] rounded-lg transition-colors shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-[#103CE7] dark:focus-visible:ring-[#FF6004] cursor-pointer"
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#FF6004] dark:hover:bg-[#E05300] rounded-lg transition-colors shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] dark:focus-visible:ring-[#FF6004] cursor-pointer"
                 >
                   <span>Discuss Your Growth Priorities</span>
                   <ArrowUpRight className="w-4 h-4" />

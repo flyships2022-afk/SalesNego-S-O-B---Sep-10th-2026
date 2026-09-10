@@ -190,15 +190,15 @@ export const ExperienceMarqueeSlider: React.FC<ExperienceMarqueeSliderProps> = (
             return (
               <div
                 key={`exp-card-track1-${idx}`}
-                className="w-[370px] lg:w-[420px] shrink-0 p-6 sm:p-7 rounded-[22px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs hover:border-[#FF6004]/50 hover:shadow-lg dark:hover:border-[#FF6004]/50 transition-all duration-300 flex flex-col justify-between group select-none pointer-events-auto"
+                className="w-[370px] lg:w-[420px] shrink-0 p-6 sm:p-7 rounded-[22px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs hover:bg-[#161519] dark:hover:bg-black hover:border-[#FF6004] hover:shadow-xl transition-all duration-300 flex flex-col justify-between group select-none pointer-events-auto"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2.5">
-                      <span className="text-xs font-mono font-bold text-[#FF6004] bg-[#FF6004]/10 px-2.5 py-0.5 rounded-md">
+                      <span className="text-xs font-mono font-bold text-[#FF6004] bg-[#FF6004]/10 group-hover:bg-[#FF6004] group-hover:text-white px-2.5 py-0.5 rounded-md transition-colors">
                         0{idx + 1}
                       </span>
-                      <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-black/5 dark:bg-white/10 text-zinc-600 dark:text-zinc-300">
+                      <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-black/5 dark:bg-white/10 group-hover:bg-white/15 text-zinc-600 dark:text-zinc-300 group-hover:text-white transition-colors">
                         {item.sector}
                       </span>
                     </div>
@@ -207,7 +207,7 @@ export const ExperienceMarqueeSlider: React.FC<ExperienceMarqueeSliderProps> = (
                     </div>
                   </div>
 
-                  <h3 className="font-lexend text-lg lg:text-xl font-normal text-[#161519] dark:text-white mb-3 leading-snug group-hover:text-[#FF6004] transition-colors duration-200">
+                  <h3 className="font-lexend text-lg lg:text-xl font-normal text-[#161519] dark:text-white mb-3 leading-snug group-hover:text-white transition-colors duration-200">
                     {item.domain}
                   </h3>
 
@@ -232,16 +232,16 @@ export const ExperienceMarqueeSlider: React.FC<ExperienceMarqueeSliderProps> = (
                     </div>
                   )}
 
-                  <p className="text-xs sm:text-sm text-[#555459] dark:text-zinc-400 leading-relaxed mb-5">
+                  <p className="text-xs sm:text-sm text-[#555459] dark:text-zinc-400 group-hover:text-zinc-200 leading-relaxed mb-5 transition-colors duration-200">
                     {item.desc}
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-[#E5E3DC]/80 dark:border-white/10 flex flex-wrap gap-1.5">
+                <div className="pt-4 border-t border-[#E5E3DC]/80 dark:border-white/10 group-hover:border-white/15 flex flex-wrap gap-1.5 transition-colors">
                   {item.highlights.map((h, hIdx) => (
                     <span
                       key={hIdx}
-                      className="inline-flex items-center text-[10.5px] font-medium px-2 py-0.5 rounded-md bg-white/80 dark:bg-white/5 text-zinc-600 dark:text-zinc-300 border border-zinc-200/60 dark:border-white/5"
+                      className="inline-flex items-center text-[10.5px] font-medium px-2 py-0.5 rounded-md bg-white/80 dark:bg-white/5 group-hover:bg-white/10 text-zinc-600 dark:text-zinc-300 group-hover:text-zinc-100 border border-zinc-200/60 dark:border-white/5 group-hover:border-white/15 transition-colors"
                     >
                       {h}
                     </span>
@@ -259,15 +259,15 @@ export const ExperienceMarqueeSlider: React.FC<ExperienceMarqueeSliderProps> = (
             return (
               <div
                 key={`exp-card-track2-${idx}`}
-                className="w-[370px] lg:w-[420px] shrink-0 p-6 sm:p-7 rounded-[22px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs hover:border-[#FF6004]/50 hover:shadow-lg dark:hover:border-[#FF6004]/50 transition-all duration-300 flex flex-col justify-between group select-none pointer-events-auto"
+                className="w-[370px] lg:w-[420px] shrink-0 p-6 sm:p-7 rounded-[22px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs hover:bg-[#161519] dark:hover:bg-black hover:border-[#FF6004] hover:shadow-xl transition-all duration-300 flex flex-col justify-between group select-none pointer-events-auto"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2.5">
-                      <span className="text-xs font-mono font-bold text-[#FF6004] bg-[#FF6004]/10 px-2.5 py-0.5 rounded-md">
+                      <span className="text-xs font-mono font-bold text-[#FF6004] bg-[#FF6004]/10 group-hover:bg-[#FF6004] group-hover:text-white px-2.5 py-0.5 rounded-md transition-colors">
                         0{idx + 1}
                       </span>
-                      <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-black/5 dark:bg-white/10 text-zinc-600 dark:text-zinc-300">
+                      <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-black/5 dark:bg-white/10 group-hover:bg-white/15 text-zinc-600 dark:text-zinc-300 group-hover:text-white transition-colors">
                         {item.sector}
                       </span>
                     </div>
@@ -276,7 +276,7 @@ export const ExperienceMarqueeSlider: React.FC<ExperienceMarqueeSliderProps> = (
                     </div>
                   </div>
 
-                  <h3 className="font-lexend text-lg lg:text-xl font-normal text-[#161519] dark:text-white mb-3 leading-snug group-hover:text-[#FF6004] transition-colors duration-200">
+                  <h3 className="font-lexend text-lg lg:text-xl font-normal text-[#161519] dark:text-white mb-3 leading-snug group-hover:text-white transition-colors duration-200">
                     {item.domain}
                   </h3>
 
@@ -301,16 +301,16 @@ export const ExperienceMarqueeSlider: React.FC<ExperienceMarqueeSliderProps> = (
                     </div>
                   )}
 
-                  <p className="text-xs sm:text-sm text-[#555459] dark:text-zinc-400 leading-relaxed mb-5">
+                  <p className="text-xs sm:text-sm text-[#555459] dark:text-zinc-400 group-hover:text-zinc-200 leading-relaxed mb-5 transition-colors duration-200">
                     {item.desc}
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-[#E5E3DC]/80 dark:border-white/10 flex flex-wrap gap-1.5">
+                <div className="pt-4 border-t border-[#E5E3DC]/80 dark:border-white/10 group-hover:border-white/15 flex flex-wrap gap-1.5 transition-colors">
                   {item.highlights.map((h, hIdx) => (
                     <span
                       key={hIdx}
-                      className="inline-flex items-center text-[10.5px] font-medium px-2 py-0.5 rounded-md bg-white/80 dark:bg-white/5 text-zinc-600 dark:text-zinc-300 border border-zinc-200/60 dark:border-white/5"
+                      className="inline-flex items-center text-[10.5px] font-medium px-2 py-0.5 rounded-md bg-white/80 dark:bg-white/5 group-hover:bg-white/10 text-zinc-600 dark:text-zinc-300 group-hover:text-zinc-100 border border-zinc-200/60 dark:border-white/5 group-hover:border-white/15 transition-colors"
                     >
                       {h}
                     </span>

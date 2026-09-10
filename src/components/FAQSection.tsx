@@ -98,7 +98,7 @@ export const FAQSection: React.FC = () => {
           <h2 className="font-lexend text-2xl sm:text-3xl lg:text-4xl font-normal leading-tight text-[#161519] dark:text-white mb-2">
             Answers to Common Questions
           </h2>
-          <p className="text-sm sm:text-base text-[#103CE7] font-medium leading-relaxed max-w-2xl">
+          <p className="text-sm sm:text-base text-[#2563EB] dark:text-[#3B82F6] font-medium leading-relaxed max-w-2xl">
             Clear, transparent answers about our commercial model, execution ownership, and cross-border capabilities.
           </p>
         </ScrollReveal>
