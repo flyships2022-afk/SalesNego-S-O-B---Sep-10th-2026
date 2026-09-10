@@ -109,8 +109,8 @@ export const FAQSection: React.FC = () => {
           <div className="lg:col-span-5 w-full">
             <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-[480px] xl:h-[500px] rounded-2xl overflow-hidden border border-[#E5E3DC] dark:border-white/10 shadow-sm bg-zinc-100 dark:bg-[#1C1B20] group">
               <LazyImage
-                src="/faq-commercial-team.jpg"
-                alt="SalesNego commercial team discussing enterprise pipeline growth, qualified leads, and revenue impact in an executive meeting"
+                src="/faq-commercial-consultation.jpg"
+                alt="SalesNego senior commercial advisors and tech executives in a consultative Q&A strategy session reviewing commercial terms and roadmap"
                 referrerPolicy="no-referrer"
                 containerClassName="w-full h-full absolute inset-0"
                 className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-102"
@@ -127,15 +127,15 @@ export const FAQSection: React.FC = () => {
                   <div className="w-2 h-2 rounded-full bg-[#FF6004] animate-pulse shrink-0" />
                   <div className="min-w-0">
                     <p className="text-xs font-bold text-white truncate">
-                      Commercial Strategy &amp; Pipeline Review
+                      Transparent Commercial Consultation
                     </p>
                     <p className="text-[11px] text-zinc-300 truncate">
-                      Senior commercial operators leading discovery &amp; negotiations
+                      Direct Q&amp;A on engagement scope, timelines &amp; shared upside
                     </p>
                   </div>
                 </div>
                 <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[#FF6004]/25 border border-[#FF6004]/40 text-white shrink-0 hidden sm:inline-block">
-                  Live Alignment
+                  Direct Alignment
                 </span>
               </div>
             </div>
