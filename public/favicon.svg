@@ -1,19 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <g transform="translate(6, 0)">
-    <!-- Left Black Chevron -->
     <path
       d="M 152 144 L 252 256 L 152 368"
       fill="none"
-      stroke="#18181B"
+      stroke="#3261F6"
       stroke-width="72"
       stroke-linecap="round"
       stroke-linejoin="round"
     />
-    <!-- Right Red Chevron -->
     <path
       d="M 260 144 L 360 256 L 260 368"
       fill="none"
-      stroke="#FF203C"
+      stroke="#FF7F3A"
       stroke-width="72"
       stroke-linecap="round"
       stroke-linejoin="round"
