@@ -60,6 +60,17 @@ export const HomePage: React.FC = () => {
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // Dynamic typing phrases for "How We Are Different" section
+  const diffTypingPhrases = [
+    'End-to-End Commercial Execution',
+    'Senior Commercial Ownership',
+    'Discovery, Dealcraft & Closure',
+    'Continuous Commercial Partnership',
+  ];
+  const [diffPhraseIndex, setDiffPhraseIndex] = useState(0);
+  const [diffDisplayedText, setDiffDisplayedText] = useState('');
+  const [diffIsDeleting, setDiffIsDeleting] = useState(false);
+
   // Quick inquiry form state
   const [inquiryName, setInquiryName] = useState('');
   const [inquiryEmail, setInquiryEmail] = useState('');
@@ -98,6 +109,35 @@ export const HomePage: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, [displayedText, isDeleting, currentPhraseIndex]);
+
+  // Typing effect loop for Differentiator pill
+  useEffect(() => {
+    const fullDiffPhrase = diffTypingPhrases[diffPhraseIndex];
+    let diffTimer: NodeJS.Timeout;
+
+    if (!diffIsDeleting) {
+      if (diffDisplayedText.length < fullDiffPhrase.length) {
+        diffTimer = setTimeout(() => {
+          setDiffDisplayedText(fullDiffPhrase.slice(0, diffDisplayedText.length + 1));
+        }, 65);
+      } else {
+        diffTimer = setTimeout(() => {
+          setDiffIsDeleting(true);
+        }, 2400);
+      }
+    } else {
+      if (diffDisplayedText.length > 0) {
+        diffTimer = setTimeout(() => {
+          setDiffDisplayedText(fullDiffPhrase.slice(0, diffDisplayedText.length - 1));
+        }, 35);
+      } else {
+        setDiffIsDeleting(false);
+        setDiffPhraseIndex((prev) => (prev + 1) % diffTypingPhrases.length);
+      }
+    }
+
+    return () => clearTimeout(diffTimer);
+  }, [diffDisplayedText, diffIsDeleting, diffPhraseIndex]);
 
   const clientLogos = [
     {
@@ -556,90 +596,125 @@ export const HomePage: React.FC = () => {
         </ScrollReveal>
       </section>
 
-      {/* 3. THE COMMERCIAL GAP */}
+      {/* 3. THE COMMERCIAL GAP & THE CHALLENGE */}
       <section
         id="commercial-gap-section"
         aria-label="The Commercial Gap"
         style={{ maxWidth: '100%', boxSizing: 'border-box' }}
         className="top-level-section w-full max-w-full py-16 sm:py-24 bg-[#F6F5F2] dark:bg-[#121214] border-b border-[#E5E3DC] dark:border-white/10"
       >
-        <div className="max-w-5xl mx-auto px-6 sm:px-8 text-center">
-          <ScrollReveal direction="up" distance={20}>
-            <span className="text-xs uppercase font-bold tracking-wider text-[#FF6004] block mb-3">
-              The Challenge
-            </span>
-            <h2 className="font-lexend text-[28px] sm:text-[36px] lg:text-[46px] font-normal leading-[1.15] text-[#161519] dark:text-white mb-6">
-              More Sales Activity Does Not Automatically Create Revenue.
-            </h2>
+        <ScrollReveal direction="up" distance={28} duration={0.8} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left Column: Context & 5-Stage Commercial Progression */}
+            <div className="lg:col-span-6 xl:col-span-7 space-y-6">
+              <div>
+                <span className="text-xs uppercase font-bold tracking-wider text-[#FF6004] block mb-3">
+                  The Challenge
+                </span>
+                <h2 className="font-lexend text-[28px] sm:text-[36px] lg:text-[42px] font-normal leading-[1.18] text-[#161519] dark:text-white mb-4">
+                  More Sales Activity Does Not Automatically Create Revenue.
+                </h2>
 
-            <div className="max-w-3xl mx-auto space-y-3 text-base sm:text-lg text-[#555459] dark:text-zinc-300 leading-relaxed">
-              <p>
-                Companies can invest in targeting, tools, automation and outbound activity while opportunities still fail to progress through the buying process.
-              </p>
-              <p className="font-medium text-[#161519] dark:text-white">
-                SalesNego connects the commercial system from market understanding through customer acquisition and growth.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          {/* Simple Visual: Right Market → Right Accounts → Right Conversations → Qualified Opportunities → Closed Business */}
-          {/* Responsive 5-Stage Commercial Progression with Scroll Reveal */}
-          <ScrollReveal delay={0.12} distance={20}>
-            <div className="mt-10 p-5 sm:p-7 rounded-[20px] bg-white dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs">
-              {/* Desktop & Tablet Horizontal Sequence */}
-              <div className="hidden md:flex items-center justify-between gap-2 text-xs lg:text-sm font-bold text-[#161519] dark:text-white">
-                <span className="px-3.5 py-2 rounded-xl bg-[#F6F5F2] dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-center whitespace-nowrap">
-                  Right Market
-                </span>
-                <span className="text-[#FF6004] font-black text-base shrink-0">&rarr;</span>
-                <span className="px-3.5 py-2 rounded-xl bg-[#F6F5F2] dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-center whitespace-nowrap">
-                  Right Accounts
-                </span>
-                <span className="text-[#FF6004] font-black text-base shrink-0">&rarr;</span>
-                <span className="px-3.5 py-2 rounded-xl bg-[#F6F5F2] dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-center whitespace-nowrap">
-                  Right Conversations
-                </span>
-                <span className="text-[#FF6004] font-black text-base shrink-0">&rarr;</span>
-                <span className="px-3.5 py-2 rounded-xl bg-[#F6F5F2] dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-center whitespace-nowrap">
-                  Qualified Opportunities
-                </span>
-                <span className="text-[#FF6004] font-black text-base shrink-0">&rarr;</span>
-                <span className="px-3.5 py-2 rounded-xl bg-[#103CE7] text-white shadow-xs text-center whitespace-nowrap">
-                  Closed Business
-                </span>
+                <div className="space-y-3 text-base sm:text-lg text-[#555459] dark:text-zinc-300 leading-relaxed">
+                  <p>
+                    Companies often invest heavily in targeting, bloated tool stacks, aggressive automation, and frantic outbound activity—only to find that opportunities stall and fail to convert into closed revenue.
+                  </p>
+                  <p className="font-medium text-[#161519] dark:text-white">
+                    SalesNego bridges the commercial gap: connecting deep market intelligence, executive-level deal positioning, and disciplined pipeline qualification into closed revenue.
+                  </p>
+                </div>
               </div>
 
-              {/* Mobile Vertical Stack */}
-              <div className="flex md:hidden flex-col gap-2 text-xs font-bold text-[#161519] dark:text-white">
-                {[
-                  { title: 'Right Market', final: false },
-                  { title: 'Right Accounts', final: false },
-                  { title: 'Right Conversations', final: false },
-                  { title: 'Qualified Opportunities', final: false },
-                  { title: 'Closed Business', final: true },
-                ].map((step, idx) => (
-                  <div key={step.title} className="flex flex-col items-center w-full">
+              {/* 5-Stage Commercial Progression Pipeline */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs">
+                <p className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 mb-3 uppercase tracking-wider">
+                  The Commercial Progression System
+                </p>
+                
+                {/* Desktop & Tablet Progression Flow */}
+                <div className="hidden sm:flex items-center justify-between gap-1.5 text-xs font-bold text-[#161519] dark:text-white">
+                  <span className="px-2.5 py-1.5 rounded-lg bg-[#F6F5F2] dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-center text-[11px] lg:text-xs">
+                    Right Market
+                  </span>
+                  <span className="text-[#FF6004] font-black text-xs shrink-0">&rarr;</span>
+                  <span className="px-2.5 py-1.5 rounded-lg bg-[#F6F5F2] dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-center text-[11px] lg:text-xs">
+                    Right Accounts
+                  </span>
+                  <span className="text-[#FF6004] font-black text-xs shrink-0">&rarr;</span>
+                  <span className="px-2.5 py-1.5 rounded-lg bg-[#F6F5F2] dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-center text-[11px] lg:text-xs">
+                    Right Dialogues
+                  </span>
+                  <span className="text-[#FF6004] font-black text-xs shrink-0">&rarr;</span>
+                  <span className="px-2.5 py-1.5 rounded-lg bg-[#F6F5F2] dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-center text-[11px] lg:text-xs">
+                    Qualified Opps
+                  </span>
+                  <span className="text-[#FF6004] font-black text-xs shrink-0">&rarr;</span>
+                  <span className="px-2.5 py-1.5 rounded-lg bg-[#103CE7] text-white shadow-xs text-center text-[11px] lg:text-xs whitespace-nowrap">
+                    Closed Deals
+                  </span>
+                </div>
+
+                {/* Mobile Compact Grid */}
+                <div className="grid grid-cols-1 sm:hidden gap-1.5 text-xs font-bold text-[#161519] dark:text-white">
+                  {[
+                    { title: 'Right Market', final: false },
+                    { title: 'Right Accounts', final: false },
+                    { title: 'Right Conversations', final: false },
+                    { title: 'Qualified Opportunities', final: false },
+                    { title: 'Closed Business', final: true },
+                  ].map((step, idx) => (
                     <div
-                      className={`w-full py-2.5 px-4 rounded-xl text-center border transition-all ${
+                      key={step.title}
+                      className={`py-2 px-3 rounded-lg text-center border flex items-center justify-between ${
                         step.final
-                          ? 'bg-[#103CE7] text-white border-[#103CE7] shadow-xs'
+                          ? 'bg-[#103CE7] text-white border-[#103CE7]'
                           : 'bg-[#F6F5F2] dark:bg-white/5 border-[#E5E3DC] dark:border-white/10'
                       }`}
                     >
-                      <span className="text-[10px] font-mono text-[#FF6004] dark:text-[#FE9E30] block mb-0.5">
-                        Stage 0{idx + 1}
-                      </span>
-                      <span className="text-sm font-bold">{step.title}</span>
+                      <span className="text-[10px] opacity-75 font-mono">Stage 0{idx + 1}</span>
+                      <span className="text-xs font-bold">{step.title}</span>
                     </div>
-                    {!step.final && (
-                      <div className="py-1 text-[#FF6004] font-bold text-xs">&darr;</div>
-                    )}
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
-          </ScrollReveal>
-        </div>
+
+            {/* Right Column: Visual Placement (Whiteboard Diagnostic Session) */}
+            <div className="lg:col-span-6 xl:col-span-5">
+              <div className="relative rounded-2xl overflow-hidden border border-[#E5E3DC] dark:border-white/10 bg-white dark:bg-[#1C1B20] shadow-md group">
+                <div className="relative w-full aspect-[16/10] overflow-hidden bg-zinc-900">
+                  <LazyImage
+                    src="/the-challenge-whiteboard.jpg"
+                    alt="Whiteboard strategy diagnostic session illustrating why high sales activity creates stalled opportunities instead of closed revenue"
+                    referrerPolicy="no-referrer"
+                    containerClassName="w-full h-full absolute inset-0"
+                    className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-102"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+
+                  {/* Ambient Badge Overlay */}
+                  <div className="absolute top-3 left-3 px-3 py-1 rounded-md bg-black/75 backdrop-blur-xs border border-white/15 text-[11px] font-semibold text-white flex items-center gap-1.5 shadow-sm">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] animate-pulse" />
+                    <span>The Activity vs. Revenue Trap</span>
+                  </div>
+
+                  {/* Bottom Explanation Card */}
+                  <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-black/85 backdrop-blur-md border border-white/15 text-white">
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <span className="text-xs font-bold text-[#FE9E30]">Pipeline Bottleneck Analysis</span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-zinc-300">Diagnostic</span>
+                    </div>
+                    <p className="text-[11.5px] text-zinc-300 leading-snug">
+                      High outreach volume, frantic automation, and bloated tech stacks stall at the deal table without commercial dealcraft and strategic qualification.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ScrollReveal>
       </section>
 
       {/* 4. SERVICES */}
@@ -661,7 +736,7 @@ export const HomePage: React.FC = () => {
               <p>
                 SalesNego does not treat strategy, revenue operations and sales execution as separate projects.
               </p>
-              <p className="font-medium text-[#161519] dark:text-zinc-200">
+              <p className="font-semibold text-[#103CE7]">
                 We connect all three under one commercial partnership.
               </p>
             </div>
@@ -780,24 +855,78 @@ export const HomePage: React.FC = () => {
         className="w-full py-16 sm:py-24 bg-[#F6F5F2] dark:bg-[#121214] border-b border-[#E5E3DC] dark:border-white/10"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal direction="up" distance={20} className="max-w-3xl mb-12">
-            <span className="text-xs uppercase font-bold tracking-wider text-[#FF6004] block mb-2">
-              How We Are Different
-            </span>
-            <h2 className="font-lexend text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.12] text-[#161519] dark:text-white">
-              We Do Not Stop at Leads or Meetings.
-            </h2>
-            <div className="mt-4 space-y-1.5 text-base text-[#555459] dark:text-zinc-300 leading-relaxed">
-              <p>Lead-generation providers book calls.</p>
-              <p>Advisors offer frameworks.</p>
-              <p className="font-bold text-[#161519] dark:text-white">
-                SalesNego provides commercial execution.
-              </p>
-              <p className="pt-2">
-                We connect strategic thinking, operational discipline and senior commercial ownership across the customer journey.
-              </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-12 lg:mb-16">
+            {/* Left Column: Visual Placement (Single-Handed Ownership Whiteboard) */}
+            <div className="lg:col-span-6 xl:col-span-6 order-2 lg:order-1">
+              <ScrollReveal direction="right" distance={24} delay={0.1}>
+                <div className="relative rounded-2xl overflow-hidden border border-[#E5E3DC] dark:border-white/10 bg-white dark:bg-[#1C1B20] shadow-md group">
+                  <div className="relative w-full aspect-[16/10] overflow-hidden bg-zinc-900">
+                    <LazyImage
+                      src="/how-we-are-different-ownership.jpg"
+                      alt="Single-Handed Ownership and Founder-Led End-to-End Execution whiteboard strategy session"
+                      referrerPolicy="no-referrer"
+                      containerClassName="w-full h-full absolute inset-0"
+                      className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-102"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+
+                    {/* Ambient Top Tag */}
+                    <div className="absolute top-3 left-3 px-3 py-1 rounded-md bg-black/75 backdrop-blur-xs border border-white/15 text-[11px] font-semibold text-white flex items-center gap-1.5 shadow-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#103CE7] animate-pulse" />
+                      <span>Single-Handed Ownership</span>
+                    </div>
+
+                    {/* Bottom Explanation Card */}
+                    <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-black/85 backdrop-blur-md border border-white/15 text-white">
+                      <div className="flex items-center justify-between gap-2 mb-1">
+                        <span className="text-xs font-bold text-[#FE9E30]">Founder-Led Commercial Architecture</span>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-zinc-300">Continuous Loop</span>
+                      </div>
+                      <p className="text-[11.5px] text-zinc-300 leading-snug">
+                        GTM Strategy &amp; Signals &rarr; RevOps &amp; Workflows &rarr; Discovery &amp; Dealcraft &rarr; Contract &amp; Closure.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
             </div>
-          </ScrollReveal>
+
+            {/* Right Column: Heading & Distinction Copy */}
+            <div className="lg:col-span-6 xl:col-span-6 space-y-4 order-1 lg:order-2">
+              <ScrollReveal direction="left" distance={20}>
+                <span className="text-xs uppercase font-bold tracking-wider text-[#FF6004] block mb-2">
+                  How We Are Different
+                </span>
+                <h2 className="font-lexend text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.12] text-[#161519] dark:text-white">
+                  We Do Not Stop at Leads or Meetings.
+                </h2>
+                <div className="mt-4 space-y-2 text-base text-[#555459] dark:text-zinc-300 leading-relaxed">
+                  <div className="p-4 rounded-xl bg-white/60 dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 space-y-2">
+                    <p className="text-sm sm:text-base text-zinc-500 dark:text-zinc-400">
+                      • Lead-generation providers book calls.
+                    </p>
+                    <p className="text-sm sm:text-base text-zinc-500 dark:text-zinc-400">
+                      • Advisors offer frameworks.
+                    </p>
+                    <div className="pt-1 flex flex-wrap items-center gap-2">
+                      <span className="text-sm sm:text-base font-bold text-[#161519] dark:text-white">
+                        • SalesNego provides:
+                      </span>
+                      <span className="inline-flex items-center rounded-[10px] bg-[#103CE7] px-3.5 py-1 text-white font-medium text-xs sm:text-sm tracking-wide shadow-sm min-h-[28px]">
+                        <span>{diffDisplayedText}</span>
+                        <span className="ml-1 inline-block w-[2px] h-[0.9em] bg-white align-middle animate-mf-caret" />
+                      </span>
+                    </div>
+                  </div>
+                  <p className="pt-2 text-sm sm:text-base text-[#555459] dark:text-zinc-300">
+                    We connect strategic thinking, operational discipline and senior commercial ownership across the entire revenue lifecycle—from GTM signals and RevOps workflows to discovery, dealcraft, and contract closure.
+                  </p>
+                </div>
+              </ScrollReveal>
+            </div>
+          </div>
 
           {/* 4 Value Pillars with Staggered Scroll Reveal */}
           <StaggerGroup staggerDelay={0.08} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -805,14 +934,14 @@ export const HomePage: React.FC = () => {
               const Icon = pillar.icon;
               return (
                 <StaggerItem key={pillar.number} distance={20} className="h-full">
-                  <div className="p-6 rounded-[20px] bg-white dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs flex flex-col justify-between hover:border-[#FF6004] dark:hover:border-[#FF6004] transition-colors h-full">
+                  <div className="p-6 rounded-[20px] bg-white dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs flex flex-col justify-between hover:border-[#103CE7] dark:hover:border-[#103CE7] transition-colors h-full">
                     <div>
                       <div className="flex items-center justify-between mb-4">
-                        <span className="font-mono text-xs font-bold text-[#FF6004]">
+                        <span className="font-mono text-xs font-bold text-[#103CE7]">
                           Pillar {pillar.number}
                         </span>
-                        <div className="w-8 h-8 rounded-lg bg-[#FF6004]/10 dark:bg-white/5 flex items-center justify-center text-[#FF6004]">
-                          <Icon className="w-4 h-4" />
+                        <div className="w-8 h-8 rounded-lg bg-[#103CE7]/10 dark:bg-[#103CE7]/20 flex items-center justify-center text-[#103CE7]">
+                          <Icon className="w-4 h-4 text-[#103CE7]" />
                         </div>
                       </div>
                       <h3 className="font-lexend text-xl font-normal text-[#161519] dark:text-white mb-2 leading-snug">
@@ -838,17 +967,64 @@ export const HomePage: React.FC = () => {
         className="top-level-section w-full max-w-full py-16 sm:py-24 bg-white dark:bg-[#161519] border-b border-[#E5E3DC] dark:border-white/10"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal direction="up" distance={20} className="max-w-3xl mb-12">
-            <span className="text-xs uppercase font-bold tracking-wider text-[#FF6004] block mb-2">
-              Commercial Journey
-            </span>
-            <h2 className="font-lexend text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.12] text-[#161519] dark:text-white">
-              One Connected Commercial Journey.
-            </h2>
-            <p className="mt-3 text-base text-[#555459] dark:text-zinc-400 leading-relaxed">
-              An integrated pathway from first market signal to multi-year customer expansion.
-            </p>
-          </ScrollReveal>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-12 lg:mb-16">
+            {/* Left Column: Heading & Context */}
+            <div className="lg:col-span-6 xl:col-span-6 space-y-4">
+              <ScrollReveal direction="up" distance={20}>
+                <span className="text-xs uppercase font-bold tracking-wider text-[#FF6004] block mb-2">
+                  Commercial Journey
+                </span>
+                <h2 className="font-lexend text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.12] text-[#161519] dark:text-white">
+                  One Connected Commercial Journey.
+                </h2>
+                <div className="mt-3 space-y-3 text-base text-[#555459] dark:text-zinc-300 leading-relaxed">
+                  <p>
+                    An integrated commercial architecture transforming early market signals into qualified enterprise opportunities, structured negotiations, and multi-year customer expansion.
+                  </p>
+                  <p className="text-sm sm:text-base font-semibold text-[#103CE7]">
+                    Every stage feeds continuous intelligence backward and forward—ensuring pipeline momentum never gets lost between marketing, SDRs, and closing reps.
+                  </p>
+                </div>
+              </ScrollReveal>
+            </div>
+
+            {/* Right Column: Visual Placement (Connected Commercial Journey Whiteboard Session) */}
+            <div className="lg:col-span-6 xl:col-span-6">
+              <ScrollReveal direction="left" distance={24} delay={0.1}>
+                <div className="relative rounded-2xl overflow-hidden border border-[#E5E3DC] dark:border-white/10 bg-white dark:bg-[#1C1B20] shadow-md group">
+                  <div className="relative w-full aspect-[16/10] overflow-hidden bg-zinc-900">
+                    <LazyImage
+                      src="/connected-commercial-journey.jpg"
+                      alt="Connected Commercial Journey whiteboard strategy workshop illustrating the pathway from First Market Signal to Multi-Year Customer Expansion"
+                      referrerPolicy="no-referrer"
+                      containerClassName="w-full h-full absolute inset-0"
+                      className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-102"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+
+                    {/* Ambient Top Tag */}
+                    <div className="absolute top-3 left-3 px-3 py-1 rounded-md bg-black/75 backdrop-blur-xs border border-white/15 text-[11px] font-semibold text-white flex items-center gap-1.5 shadow-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] animate-pulse" />
+                      <span>End-to-End Commercial Flow</span>
+                    </div>
+
+                    {/* Bottom Explanation Card */}
+                    <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-black/85 backdrop-blur-md border border-white/15 text-white">
+                      <div className="flex items-center justify-between gap-2 mb-1">
+                        <span className="text-xs font-bold text-[#FE9E30]">First Market Signal &rarr; Expansion</span>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-zinc-300">8 Stages</span>
+                      </div>
+                      <p className="text-[11.5px] text-zinc-300 leading-snug">
+                        Understand &rarr; Position &rarr; Prioritise &rarr; Engage &rarr; Diagnose &rarr; Qualify &rarr; Convert &rarr; Expand.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            </div>
+          </div>
 
           {/* 8 Stages Grid with Responsive Auto-Fit Grid */}
           <StaggerGroup
@@ -986,7 +1162,7 @@ export const HomePage: React.FC = () => {
             <h2 className="font-lexend text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.12] text-[#161519] dark:text-white">
               Experience Across SaaS, AI and Technology Sales.
             </h2>
-            <p className="mt-3 text-base text-[#555459] dark:text-zinc-400 leading-relaxed">
+            <p className="mt-3 text-base text-[#103CE7] font-medium leading-relaxed">
               Commercial engagements across sectors, markets and deal stages.
             </p>
           </ScrollReveal>

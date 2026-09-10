@@ -321,55 +321,6 @@ export const ExperienceMarqueeSlider: React.FC<ExperienceMarqueeSliderProps> = (
           })}
         </div>
       </div>
-
-      {/* Interactive Controls Pill (Slide Left, Play/Pause, Slide Right, Drag Hint) */}
-      <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
-        <div className="inline-flex items-center gap-1 p-1 rounded-full bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-2xs">
-          <button
-            type="button"
-            onClick={slideLeft}
-            className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:bg-black/5 dark:hover:bg-white/10 transition-all cursor-pointer"
-            title="Move left"
-          >
-            <ChevronLeft className="w-3.5 h-3.5 text-[#FF6004]" />
-            <span>Move Left</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setIsPaused((prev) => !prev)}
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold text-zinc-800 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all cursor-pointer"
-            title={isPaused ? 'Resume auto-sliding' : 'Pause auto-sliding'}
-          >
-            {isPaused ? (
-              <>
-                <Play className="w-3.5 h-3.5 text-[#FF6004]" />
-                <span>Resume</span>
-              </>
-            ) : (
-              <>
-                <Pause className="w-3.5 h-3.5 text-[#FF6004]" />
-                <span>Pause</span>
-              </>
-            )}
-          </button>
-
-          <button
-            type="button"
-            onClick={slideRight}
-            className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:bg-black/5 dark:hover:bg-white/10 transition-all cursor-pointer"
-            title="Move right"
-          >
-            <span>Move Right</span>
-            <ChevronRight className="w-3.5 h-3.5 text-[#FF6004]" />
-          </button>
-        </div>
-
-        <div className="inline-flex items-center gap-1.5 text-[11px] text-zinc-500 dark:text-zinc-400 bg-black/5 dark:bg-white/5 px-3 py-1 rounded-full">
-          <MoveHorizontal className="w-3 h-3 text-[#FF6004]" />
-          <span>Hover to drag or click arrows to move left &amp; right</span>
-        </div>
-      </div>
     </div>
   );
 };
