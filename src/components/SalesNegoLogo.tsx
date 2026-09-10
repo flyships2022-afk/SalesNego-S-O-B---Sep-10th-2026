@@ -36,6 +36,7 @@ export const SalesNegoLogo: React.FC<LogoProps> = ({
             alt="SalesNego"
             className={`${imgClassName} object-contain transition-transform duration-200 group-hover:scale-102`}
             loading="eager"
+            decoding="async"
           />
         ) : (
           /* Auto mode for Header: Dark logo on crisp white header in Light Mode, white logo on dark header in Dark Mode */
@@ -51,6 +52,7 @@ export const SalesNegoLogo: React.FC<LogoProps> = ({
               alt="SalesNego"
               className={`${imgClassName} object-contain dark:hidden transition-transform duration-200 group-hover:scale-102`}
               loading="eager"
+              decoding="async"
             />
             <img
               src="/salesnego-logo-2.png"
@@ -63,6 +65,7 @@ export const SalesNegoLogo: React.FC<LogoProps> = ({
               alt="SalesNego"
               className={`${imgClassName} object-contain hidden dark:block transition-transform duration-200 group-hover:scale-102`}
               loading="eager"
+              decoding="async"
             />
           </>
         )}

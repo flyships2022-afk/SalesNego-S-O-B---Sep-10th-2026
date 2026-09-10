@@ -166,6 +166,8 @@ export const ContactPage: React.FC = () => {
                     <img
                       src="https://ik.imagekit.io/4rtwqlnkg/Linkedin%20logo.png?updatedAt=1788412751308"
                       alt="SalesNego LinkedIn"
+                      loading="lazy"
+                      decoding="async"
                       className="w-8 h-8 object-contain rounded-full"
                     />
                   </a>

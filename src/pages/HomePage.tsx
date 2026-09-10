@@ -40,6 +40,7 @@ import { ProcessCircleMotion } from '../components/ProcessCircleMotion';
 import { TestimonialCarousel } from '../components/TestimonialCarousel';
 import { ScrollReveal, StaggerGroup, StaggerItem } from '../components/ScrollReveal';
 import { ClientLogoCard } from '../components/ClientLogoCard';
+import { LazyImage } from '../components/LazyImage';
 
 export const HomePage: React.FC = () => {
   const { navigate, openCalendly } = useNavigation();
@@ -646,11 +647,11 @@ export const HomePage: React.FC = () => {
           <StaggerGroup
             staggerDelay={0.1}
             style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}
-            className="grid gap-6 lg:gap-8 responsive-grid-autofit"
+            className="grid gap-6 lg:gap-8 responsive-grid-autofit py-2"
           >
             {coreServices.map((svc) => (
               <StaggerItem key={svc.id} distance={24} className="h-full">
-                <div className="group relative p-8 rounded-[20px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 hover:border-[#FF6004] dark:hover:border-[#FF6004] transition-all duration-200 flex flex-col justify-between shadow-2xs hover:shadow-md h-full">
+                <div className="group relative p-8 rounded-[20px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 hover:border-[#FF6004] dark:hover:border-[#FF6004] transform transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-1 shadow-xs hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-black/60 hover:z-10 flex flex-col justify-between h-full will-change-transform">
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-4">
                       <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#FF6004]/10 text-[#FF6004] dark:bg-white/10 dark:text-zinc-200">
@@ -856,16 +857,13 @@ export const HomePage: React.FC = () => {
                 {/* Founder Image */}
                 <div className="lg:col-span-4 flex flex-col items-start space-y-4">
                   <div className="relative w-full max-w-[280px] aspect-[3/4] rounded-[20px] overflow-hidden border border-[#E5E3DC] dark:border-white/10 shadow-md bg-gray-100 dark:bg-black/20">
-                    <img
+                    <LazyImage
                       src="/raja-kumar.jpg"
-                      onError={(e) => {
-                        const target = e.currentTarget as HTMLImageElement;
-                        target.onerror = null;
-                        target.src =
-                          'https://www.image2url.com/r2/default/images/1785784733130-463697ea-d4b8-40a6-a8e3-46ef59c33d68.jpg';
-                      }}
+                      fallbackSrc="https://www.image2url.com/r2/default/images/1785784733130-463697ea-d4b8-40a6-a8e3-46ef59c33d68.jpg"
                       alt="Raja Kumar — Founder & Principal Commercial Operator at SalesNego"
                       className="w-full h-full object-cover object-top"
+                      containerClassName="w-full h-full"
+                      aspectRatio="3/4"
                       loading="lazy"
                     />
                   </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { ArrowUpRight, Cpu, UserCheck, ArrowRight } from 'lucide-react';
+import { LazyImage } from '../components/LazyImage';
 
 export const AboutPage: React.FC = () => {
   const { openCalendly, navigate } = useNavigation();
@@ -121,17 +122,14 @@ export const AboutPage: React.FC = () => {
               {/* Founder Portrait & Details */}
               <div className="flex flex-col items-start w-full mb-5">
                 <div className="relative w-full max-w-[280px] sm:max-w-[300px] aspect-[3/4] rounded-xl overflow-hidden shadow-md border border-gray-200 dark:border-zinc-700/60 shrink-0 bg-white dark:bg-[#27272A] mb-4">
-                  <img
+                  <LazyImage
                     src="/raja-kumar.jpg"
-                    onError={(e) => {
-                      const target = e.currentTarget as HTMLImageElement;
-                      target.onerror = null;
-                      target.src =
-                        'https://www.image2url.com/r2/default/images/1785784733130-463697ea-d4b8-40a6-a8e3-46ef59c33d68.jpg';
-                    }}
+                    fallbackSrc="https://www.image2url.com/r2/default/images/1785784733130-463697ea-d4b8-40a6-a8e3-46ef59c33d68.jpg"
                     alt="Raja Kumar - Founder & Principal Commercial Operator of SalesNego"
                     className="w-full h-full object-cover object-top"
-                    loading="eager"
+                    containerClassName="w-full h-full"
+                    aspectRatio="3/4"
+                    loading="lazy"
                   />
                 </div>
                 <div>

@@ -84,6 +84,8 @@ export const Footer: React.FC = () => {
                   <img
                     src="https://ik.imagekit.io/4rtwqlnkg/Linkedin%20logo.png?updatedAt=1788412751308"
                     alt="LinkedIn"
+                    loading="lazy"
+                    decoding="async"
                     className="w-4 h-4 object-contain rounded-full"
                   />
                   <span>LinkedIn</span>
