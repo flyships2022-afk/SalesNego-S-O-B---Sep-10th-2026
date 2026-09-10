@@ -379,12 +379,13 @@ export const HomePage: React.FC = () => {
         id="hero-section"
         aria-label="Hero Introduction"
         style={{ maxWidth: '100%', boxSizing: 'border-box' }}
-        className="top-level-section relative w-full max-w-full bg-[#F6F5F2] dark:bg-[#0A0B0E] p-2.5 sm:p-3.5 lg:p-4"
+        className="top-level-section relative w-full max-w-full bg-[#F5F2EC] dark:bg-[#07080A] p-2.5 sm:p-3.5 lg:p-4"
       >
-        <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-br from-white via-[#FAF9F5] to-[#F0EEE8] text-[#161519] dark:from-[#0F1117] dark:via-[#0A0B0E] dark:to-[#07080A] dark:text-white p-5 sm:p-7 lg:p-8 min-h-0 lg:min-h-[560px] flex flex-col justify-between border border-[#E5E3DC] dark:border-[#1E2230] shadow-xl transition-colors duration-200">
-          {/* Subtle Ambient Background Mesh - Crisp Cool Obsidian with High Contrast Glows */}
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#FF6004]/10 dark:bg-[#FF6004]/14 rounded-full blur-[140px] pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-[450px] h-[450px] bg-[#103CE7]/10 dark:bg-[#103CE7]/12 rounded-full blur-[120px] pointer-events-none" />
+        <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-br from-[#FFFDFB] via-[#FAF4ED] to-[#F2E7D8] text-[#161519] dark:from-[#150D08] dark:via-[#0D0B0F] dark:to-[#060608] dark:text-white p-5 sm:p-7 lg:p-8 min-h-0 lg:min-h-[560px] flex flex-col justify-between border border-[#E5DDD0] dark:border-[#2A1D16] shadow-xl transition-colors duration-200">
+          {/* Subtle Ambient Background Mesh - Darker Warm Orange & Obsidian Black Undertones */}
+          <div className="absolute -top-12 -right-12 w-[520px] h-[520px] bg-gradient-to-bl from-[#FF6004]/18 via-[#C84500]/10 to-transparent rounded-full blur-[130px] pointer-events-none" />
+          <div className="absolute -bottom-10 -left-10 w-[460px] h-[460px] bg-gradient-to-tr from-[#FF6004]/10 via-[#103CE7]/08 to-transparent rounded-full blur-[140px] pointer-events-none" />
+          <div className="absolute top-1/4 left-1/3 w-[360px] h-[360px] bg-[#FF6004]/05 dark:bg-[#FF6004]/08 rounded-full blur-[110px] pointer-events-none" />
           <div className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:36px_36px]" />
 
           {/* Top Eyebrow Bar */}
@@ -476,29 +477,31 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Bottom Hero Trust Metrics Bar with Staggered Scroll Entrance */}
-          <StaggerGroup
-            staggerDelay={0.08}
-            className="relative z-10 pt-5 mt-5 border-t border-black/10 dark:border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-6 items-start"
-          >
-            <StaggerItem distance={16}>
-              <div>
-                <span className="block font-lexend text-2xl sm:text-3xl font-bold text-[#161519] dark:text-white">14+</span>
-                <span className="text-xs text-zinc-500 dark:text-zinc-400">Years B2B Commercial Leadership</span>
-              </div>
-            </StaggerItem>
-            <StaggerItem distance={16}>
-              <div className="text-left sm:text-center">
-                <span className="block font-lexend text-2xl sm:text-3xl font-bold text-[#161519] dark:text-white">5</span>
-                <span className="text-xs text-zinc-500 dark:text-zinc-400">Key Markets - North America, India, Europe, Australia</span>
-              </div>
-            </StaggerItem>
-            <StaggerItem distance={16}>
-              <div className="text-left sm:text-right">
-                <span className="block font-lexend text-2xl sm:text-3xl font-bold text-[#FF6004]">100%</span>
-                <span className="text-xs text-zinc-500 dark:text-zinc-400">Pipeline-to-Revenue Ownership</span>
-              </div>
-            </StaggerItem>
-          </StaggerGroup>
+          <div className="relative z-10 pt-5 mt-5 border-t border-black/10 dark:border-white/10 w-full">
+            <StaggerGroup
+              staggerDelay={0.08}
+              className="max-w-2xl lg:max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 items-center text-center"
+            >
+              <StaggerItem distance={16}>
+                <div className="px-2 sm:px-3">
+                  <span className="block font-lexend text-2xl sm:text-3xl font-bold text-[#161519] dark:text-white">14+</span>
+                  <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 block">Years B2B Commercial Leadership</span>
+                </div>
+              </StaggerItem>
+              <StaggerItem distance={16}>
+                <div className="px-2 sm:px-3 sm:border-x sm:border-black/10 dark:sm:border-white/10">
+                  <span className="block font-lexend text-2xl sm:text-3xl font-bold text-[#161519] dark:text-white">5</span>
+                  <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 block">Key Markets - North America, India, Europe, Australia</span>
+                </div>
+              </StaggerItem>
+              <StaggerItem distance={16}>
+                <div className="px-2 sm:px-3">
+                  <span className="block font-lexend text-2xl sm:text-3xl font-bold text-[#161519] dark:text-white">100%</span>
+                  <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 block">Pipeline-to-Revenue Ownership</span>
+                </div>
+              </StaggerItem>
+            </StaggerGroup>
+          </div>
         </div>
       </section>
 
