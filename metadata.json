@@ -1,0 +1,8 @@
+{
+  "name": "Suyash - SalesNego (orange)- Metafic Website structure - Sep 8th, 2026",
+  "description": "SalesNego connects B2B GTM strategy, Revenue Operations, AI-accelerated workflows and commercial execution from market signal to closed revenue.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

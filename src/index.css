@@ -1,0 +1,331 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --theme-primary: #FF6004;
+  --theme-accent: #FF6004;
+  --theme-primary-hover: #E05300;
+  --theme-secondary: #FE9E30;
+  --theme-blue: #103CE7;
+  --theme-text: #161519;
+  --theme-body: #555459;
+  --theme-white: #FFFFFF;
+  --theme-bg-light: #F6F5F2;
+  --theme-border-light: #E5E3DC;
+  --theme-bg-dark: #121214;
+  --theme-bg-dark-card: #1C1B20;
+  --theme-border-dark: rgba(255, 255, 255, 0.1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #F6F5F2;
+  color: #161519;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.font-lexend {
+  font-family: 'Lexend', sans-serif;
+}
+
+html.dark body {
+  background-color: #121214;
+  color: #F6F5F2;
+}
+
+@keyframes mf-caret {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-mf-caret {
+  animation: mf-caret 900ms steps(2) infinite;
+}
+
+/* Silk-smooth Infinite Marquee Ticker for Client Logos */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+/* Pause animation on hover for better user interaction */
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Slow, Silk-smooth Infinite Marquee Animation for Experience Cards in Desktop Mode */
+@keyframes experienceMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-experience-slide,
+.animate-experience-marquee {
+  display: flex;
+  width: max-content;
+  animation: experienceMarquee 55s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.animate-experience-slide:hover,
+.animate-experience-slide.is-paused,
+.animate-experience-marquee:hover,
+.animate-experience-marquee.is-paused {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-experience-slide,
+  .animate-experience-marquee {
+    animation: none !important;
+  }
+}
+
+/* Subtle blinking / breathing animation for WhatsApp floating trigger */
+@keyframes slightBlink {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.96);
+    box-shadow: 0 4px 12px -2px rgba(37, 211, 102, 0.35);
+  }
+}
+
+.animate-slight-blink {
+  animation: slightBlink 2.2s ease-in-out infinite;
+}
+
+.animate-slight-blink:hover {
+  animation-play-state: paused;
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+/* Metafic-style Agency Scroll Reveal Utilities & Keyframes */
+@keyframes revealFadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  .reveal-on-scroll.is-revealed {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Logo Container Card Styling - Smooth edges, equal size and theme background match */
+.logo-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(246, 245, 242, 0.85);
+  border: 1px solid rgba(229, 227, 220, 0.9);
+  border-radius: 1rem;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
+}
+
+.logo-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 96, 4, 0.4);
+}
+
+/* Dark Mode Logo Container Card Styling - Obsidian tone matching background */
+.dark .logo-card {
+  background: #1C1B20 !important;
+  background-color: #1C1B20 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: none !important;
+  border-radius: 1rem !important;
+  padding: 0.75rem 1rem;
+}
+
+.dark .logo-card:hover {
+  border-color: rgba(255, 96, 4, 0.4) !important;
+}
+
+/* Client Logos - Light & Dark Mode Adjustments */
+.client-logos img,
+.client-logos svg,
+.logo-card img,
+.logo-card svg {
+  max-height: 48px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* High-clarity vector/grayscale inversion for client logos in dark mode */
+.dark .client-logo-vector {
+  filter: brightness(0) invert(1) !important;
+  opacity: 0.85 !important;
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.dark .client-logo-vector:hover,
+.dark .group:hover .client-logo-vector {
+  opacity: 1 !important;
+}
+
+/* Invert dark logos/text to white in dark mode */
+.dark img[alt*="Aarav Nexus"],
+.dark .logo-aarav-nexus {
+  filter: brightness(0) invert(1) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-marquee {
+    animation: none !important;
+    transform: none !important;
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE MOBILE & TABLET FIXES
+   ========================================================================== */
+
+/* 1. Mobile Navigation & Header Layout */
+@media (max-width: 768px) {
+  .nav-header-container {
+    flex-wrap: wrap !important;
+    height: auto !important;
+    min-height: 4rem !important;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  .nav-mobile-cta-full {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* 2. Flexible Grid & Container Widths */
+.responsive-grid-autofit {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+}
+
+/* Ensure all top-level section containers use max-width: 100% and padding: 0 16px to prevent horizontal scrolling */
+section,
+.top-level-section,
+main {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 768px) {
+  section,
+  .top-level-section {
+    max-width: 100% !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+}
+
+/* Prevent global horizontal viewport spillover */
+html,
+body,
+#root {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+/* 3. Fluid Typography & Spacing */
+.fluid-hero-heading {
+  font-size: clamp(2rem, 5vw, 3.5rem) !important;
+  line-height: 1.15 !important;
+}
+
+/* 4. Form & Input Responsiveness */
+input,
+select,
+textarea {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 5. Logo Wall & Iframe Scaling */
+.logo-wall-wrapper,
+.client-logos-wrapper,
+.interactive-preview-card,
+.iframe-wrapper,
+.preview-card-wrapper,
+#partners-section,
+#process-circle-motion-block {
+  max-width: 100% !important;
+  height: auto !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+
+iframe {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
