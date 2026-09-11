@@ -133,19 +133,20 @@ export const CaseStudiesPage: React.FC = () => {
                   </div>
 
                   {item.image && (
-                    <div className="relative w-full aspect-[16/9] mb-4 rounded-xl overflow-hidden border border-black/5 dark:border-white/10 bg-zinc-900 shadow-xs group/img">
-                      <LazyImage
-                        src={item.image}
-                        alt={item.imageAlt || item.domain}
-                        referrerPolicy="no-referrer"
-                        containerClassName="w-full h-full absolute inset-0"
-                        className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover/img:scale-103"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
+                    <div className="mb-4">
+                      <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden border border-black/5 dark:border-white/10 bg-zinc-900 shadow-xs group/img">
+                        <LazyImage
+                          src={item.image}
+                          alt={item.imageAlt || item.domain}
+                          referrerPolicy="no-referrer"
+                          containerClassName="w-full h-full absolute inset-0"
+                          className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover/img:scale-103"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </div>
                       {item.imageTag && (
-                        <div className="absolute bottom-2 left-2 right-2 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-xs border border-white/15 text-[10.5px] text-zinc-200 font-medium flex items-center justify-between">
+                        <div className="mt-2 flex items-center justify-between px-2.5 py-1 rounded-md bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 text-[10.5px] text-zinc-600 dark:text-zinc-300 font-medium">
                           <span className="truncate">{item.imageTag}</span>
                           <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0 ml-1 animate-pulse" />
                         </div>

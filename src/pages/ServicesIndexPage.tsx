@@ -116,11 +116,10 @@ export const ServicesIndexPage: React.FC = () => {
                     loading="lazy"
                     decoding="async"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
-                  <div className="absolute bottom-2.5 left-2.5 right-2.5 px-3 py-1.5 rounded-lg bg-black/80 backdrop-blur-xs border border-white/15 text-xs text-zinc-200 font-medium flex items-center justify-between">
-                    <span>GTM Strategy &amp; ICP Priority</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] animate-pulse" />
-                  </div>
+                </div>
+                <div className="mt-2.5 px-3 py-2 rounded-lg bg-black/40 dark:bg-black/30 border border-white/10 text-xs text-zinc-200 font-medium flex items-center justify-between">
+                  <span>GTM Strategy &amp; ICP Priority</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] animate-pulse" />
                 </div>
               </div>
             </div>
@@ -166,11 +165,10 @@ export const ServicesIndexPage: React.FC = () => {
                     loading="lazy"
                     decoding="async"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
-                  <div className="absolute bottom-2.5 left-2.5 right-2.5 px-3 py-1.5 rounded-lg bg-black/80 backdrop-blur-xs border border-white/15 text-xs text-zinc-200 font-medium flex items-center justify-between">
-                    <span>RevOps &amp; AI Infrastructure</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] animate-pulse" />
-                  </div>
+                </div>
+                <div className="mt-2.5 px-3 py-2 rounded-lg bg-black/40 dark:bg-black/30 border border-white/10 text-xs text-zinc-200 font-medium flex items-center justify-between">
+                  <span>RevOps &amp; AI Infrastructure</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] animate-pulse" />
                 </div>
               </div>
             </div>
@@ -216,11 +214,10 @@ export const ServicesIndexPage: React.FC = () => {
                     loading="lazy"
                     decoding="async"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
-                  <div className="absolute bottom-2.5 left-2.5 right-2.5 px-3 py-1.5 rounded-lg bg-black/80 backdrop-blur-xs border border-white/15 text-xs text-zinc-200 font-medium flex items-center justify-between">
-                    <span>Deal Closing &amp; Commercial Pod</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] animate-pulse" />
-                  </div>
+                </div>
+                <div className="mt-2.5 px-3 py-2 rounded-lg bg-black/40 dark:bg-black/30 border border-white/10 text-xs text-zinc-200 font-medium flex items-center justify-between">
+                  <span>Deal Closing &amp; Commercial Pod</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] animate-pulse" />
                 </div>
               </div>
             </div>

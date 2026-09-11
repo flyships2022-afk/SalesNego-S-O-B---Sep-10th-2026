@@ -732,24 +732,24 @@ export const HomePage: React.FC = () => {
                     loading="lazy"
                     decoding="async"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
 
                   {/* Ambient Badge Overlay */}
                   <div className="absolute top-3 left-3 px-3 py-1 rounded-md bg-black/75 backdrop-blur-xs border border-white/15 text-[11px] font-semibold text-white flex items-center gap-1.5 shadow-sm">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] animate-pulse" />
                     <span>The Activity vs. Revenue Trap</span>
                   </div>
+                </div>
 
-                  {/* Bottom Explanation Card */}
-                  <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-black/85 backdrop-blur-md border border-white/15 text-white">
-                    <div className="flex items-center justify-between gap-2 mb-1">
-                      <span className="text-xs font-bold text-[#FE9E30]">Pipeline Bottleneck Analysis</span>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-zinc-300">Diagnostic</span>
-                    </div>
-                    <p className="text-[11.5px] text-zinc-300 leading-snug">
-                      High outreach volume, frantic automation, and bloated tech stacks stall at the deal table without commercial dealcraft and strategic qualification.
-                    </p>
+                {/* Content Box (Clean dedicated card below image - zero overlap on diagram) */}
+                <div className="p-3.5 sm:p-4 bg-white dark:bg-[#1C1B20] border-t border-[#E5E3DC] dark:border-white/10">
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <span className="text-xs sm:text-sm font-bold text-[#FF6004] dark:text-[#FE9E30]">Pipeline Bottleneck Analysis</span>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-black/5 dark:bg-white/10 text-zinc-600 dark:text-zinc-300">Diagnostic</span>
                   </div>
+                  <p className="text-xs sm:text-[12.5px] text-[#555459] dark:text-zinc-300 leading-snug">
+                    High outreach volume, frantic automation, and bloated tech stacks stall at the deal table without commercial dealcraft and strategic qualification.
+                  </p>
                 </div>
               </div>
             </div>
@@ -806,19 +806,20 @@ export const HomePage: React.FC = () => {
                     </div>
 
                     {svc.image && (
-                      <div className="relative w-full aspect-[16/10] mb-5 rounded-xl overflow-hidden border border-[#E5E3DC] dark:border-white/10 bg-zinc-900 shadow-xs group/img">
-                        <LazyImage
-                          src={svc.image}
-                          alt={svc.imageAlt || svc.title}
-                          referrerPolicy="no-referrer"
-                          containerClassName="w-full h-full absolute inset-0"
-                          className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover/img:scale-105"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent pointer-events-none" />
+                      <div className="mb-5">
+                        <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden border border-[#E5E3DC] dark:border-white/10 bg-zinc-900 shadow-xs group/img">
+                          <LazyImage
+                            src={svc.image}
+                            alt={svc.imageAlt || svc.title}
+                            referrerPolicy="no-referrer"
+                            containerClassName="w-full h-full absolute inset-0"
+                            className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover/img:scale-105"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </div>
                         {svc.imageTag && (
-                          <div className="absolute bottom-2.5 left-2.5 right-2.5 px-2.5 py-1.5 rounded-lg bg-black/80 backdrop-blur-xs border border-white/15 text-[11px] text-zinc-200 font-medium flex items-center justify-between shadow-xs">
+                          <div className="mt-2.5 flex items-center justify-between px-3 py-1.5 rounded-lg bg-black/5 dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-[11px] text-[#555459] dark:text-zinc-300 font-medium">
                             <span className="truncate">{svc.imageTag}</span>
                             <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0 ml-1.5 animate-pulse" />
                           </div>
@@ -909,24 +910,24 @@ export const HomePage: React.FC = () => {
                       loading="lazy"
                       decoding="async"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
 
                     {/* Ambient Top Tag */}
                     <div className="absolute top-3 left-3 px-3 py-1 rounded-md bg-black/75 backdrop-blur-xs border border-white/15 text-[11px] font-semibold text-white flex items-center gap-1.5 shadow-sm">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse" />
                       <span>Single-Handed Ownership</span>
                     </div>
+                  </div>
 
-                    {/* Bottom Explanation Card */}
-                    <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-black/85 backdrop-blur-md border border-white/15 text-white">
-                      <div className="flex items-center justify-between gap-2 mb-1">
-                        <span className="text-xs font-bold text-[#FE9E30]">Founder-Led Commercial Architecture</span>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-zinc-300">Continuous Loop</span>
-                      </div>
-                      <p className="text-[11.5px] text-zinc-300 leading-snug">
-                        GTM Strategy &amp; Signals &rarr; RevOps &amp; Workflows &rarr; Discovery &amp; Dealcraft &rarr; Contract &amp; Closure.
-                      </p>
+                  {/* Content Box (Dedicated card below image - zero overlap on diagram) */}
+                  <div className="p-3.5 sm:p-4 bg-white dark:bg-[#1C1B20] border-t border-[#E5E3DC] dark:border-white/10">
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <span className="text-xs sm:text-sm font-bold text-[#FF6004] dark:text-[#FE9E30]">Founder-Led Commercial Architecture</span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-black/5 dark:bg-white/10 text-zinc-600 dark:text-zinc-300">Continuous Loop</span>
                     </div>
+                    <p className="text-xs sm:text-[12.5px] text-[#555459] dark:text-zinc-300 leading-snug">
+                      GTM Strategy &amp; Signals &rarr; RevOps &amp; Workflows &rarr; Discovery &amp; Dealcraft &rarr; Contract &amp; Closure.
+                    </p>
                   </div>
                 </div>
               </ScrollReveal>
@@ -1041,24 +1042,24 @@ export const HomePage: React.FC = () => {
                       loading="lazy"
                       decoding="async"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
 
                     {/* Ambient Top Tag */}
                     <div className="absolute top-3 left-3 px-3 py-1 rounded-md bg-black/75 backdrop-blur-xs border border-white/15 text-[11px] font-semibold text-white flex items-center gap-1.5 shadow-sm">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] animate-pulse" />
                       <span>End-to-End Commercial Flow</span>
                     </div>
+                  </div>
 
-                    {/* Bottom Explanation Card */}
-                    <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-black/85 backdrop-blur-md border border-white/15 text-white">
-                      <div className="flex items-center justify-between gap-2 mb-1">
-                        <span className="text-xs font-bold text-[#FE9E30]">First Market Signal &rarr; Expansion</span>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-zinc-300">8 Stages</span>
-                      </div>
-                      <p className="text-[11.5px] text-zinc-300 leading-snug">
-                        Understand &rarr; Position &rarr; Prioritise &rarr; Engage &rarr; Diagnose &rarr; Qualify &rarr; Convert &rarr; Expand.
-                      </p>
+                  {/* Content Box (Dedicated card below image - zero overlap on diagram) */}
+                  <div className="p-3.5 sm:p-4 bg-white dark:bg-[#1C1B20] border-t border-[#E5E3DC] dark:border-white/10">
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <span className="text-xs sm:text-sm font-bold text-[#FF6004] dark:text-[#FE9E30]">First Market Signal &rarr; Expansion</span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-black/5 dark:bg-white/10 text-zinc-600 dark:text-zinc-300">8 Stages</span>
                     </div>
+                    <p className="text-xs sm:text-[12.5px] text-[#555459] dark:text-zinc-300 leading-snug">
+                      Understand &rarr; Position &rarr; Prioritise &rarr; Engage &rarr; Diagnose &rarr; Qualify &rarr; Convert &rarr; Expand.
+                    </p>
                   </div>
                 </div>
               </ScrollReveal>
@@ -1245,19 +1246,20 @@ export const HomePage: React.FC = () => {
                         </h3>
 
                         {item.image && (
-                          <div className="relative w-full aspect-[16/9] mb-3 rounded-xl overflow-hidden border border-black/5 dark:border-white/10 bg-zinc-900 group/thumb">
-                            <LazyImage
-                              src={item.image}
-                              alt={item.imageAlt || item.domain}
-                              referrerPolicy="no-referrer"
-                              containerClassName="w-full h-full absolute inset-0"
-                              className="w-full h-full object-cover object-center"
-                              loading="lazy"
-                              decoding="async"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
+                          <div className="mb-3">
+                            <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden border border-black/5 dark:border-white/10 bg-zinc-900 group/thumb">
+                              <LazyImage
+                                src={item.image}
+                                alt={item.imageAlt || item.domain}
+                                referrerPolicy="no-referrer"
+                                containerClassName="w-full h-full absolute inset-0"
+                                className="w-full h-full object-cover object-center"
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            </div>
                             {item.imageTag && (
-                              <div className="absolute bottom-2 left-2 right-2 px-2 py-1 rounded-md bg-black/80 backdrop-blur-xs border border-white/15 text-[10px] text-zinc-200 font-medium flex items-center justify-between">
+                              <div className="mt-2 flex items-center justify-between px-2.5 py-1 rounded-md bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 text-[10px] text-zinc-600 dark:text-zinc-300 font-medium">
                                 <span className="truncate">{item.imageTag}</span>
                                 <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0 ml-1 animate-pulse" />
                               </div>
@@ -1336,29 +1338,28 @@ export const HomePage: React.FC = () => {
 
                 {/* Right: Executive Commercial Alignment & Partnership Image */}
                 <div className="lg:col-span-6 xl:col-span-5 w-full">
-                  <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-zinc-900 group">
-                    <LazyImage
-                      src="/commercial-alignment-partner.jpg"
-                      alt="Candid executive consultation and commercial partnership alignment session between a B2B tech founder and senior commercial partner reviewing revenue milestones"
-                      referrerPolicy="no-referrer"
-                      containerClassName="w-full h-full absolute inset-0"
-                      className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-102"
-                      loading="lazy"
-                      decoding="async"
-                    />
+                  <div className="relative w-full rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-zinc-900 group">
+                    <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] overflow-hidden bg-zinc-900">
+                      <LazyImage
+                        src="/commercial-alignment-partner.jpg"
+                        alt="Candid executive consultation and commercial partnership alignment session between a B2B tech founder and senior commercial partner reviewing revenue milestones"
+                        referrerPolicy="no-referrer"
+                        containerClassName="w-full h-full absolute inset-0"
+                        className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-102"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
 
-                    {/* Gradient vignette for contrast */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
-
-                    {/* Floating status pill on the image */}
-                    <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-black/75 backdrop-blur-md border border-white/15 text-white flex items-center justify-between gap-3 shadow-lg">
+                    {/* Status Content Box placed cleanly below image without overlapping */}
+                    <div className="p-3.5 sm:p-4 bg-black/90 dark:bg-[#1C1B20] border-t border-white/10 text-white flex items-center justify-between gap-3">
                       <div className="flex items-center gap-2.5 min-w-0">
                         <div className="w-2 h-2 rounded-full bg-[#FF6004] animate-pulse shrink-0" />
                         <div className="min-w-0">
-                          <p className="text-xs font-bold text-white truncate">
+                          <p className="text-xs sm:text-sm font-bold text-white truncate">
                             Commercial Alignment &amp; Governance
                           </p>
-                          <p className="text-[11px] text-zinc-300 truncate">
+                          <p className="text-[11px] sm:text-xs text-zinc-300 truncate">
                             Milestone-Driven · Senior Operators · Selective Pods
                           </p>
                         </div>
