@@ -18,6 +18,8 @@ export const Navbar: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('home');
   const [activeTooltipId, setActiveTooltipId] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const isManualScrollingRef = useRef<boolean>(false);
+  const scrollTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -69,30 +71,49 @@ export const Navbar: React.FC = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
+      // Do not allow scroll listener to override active button during programmatic smooth scrolling
+      if (isManualScrollingRef.current) return;
+
       // On homepage, detect active section for smooth scrolling indicator
       if (currentPath === '/') {
+        // If user reached bottom of document, activate contact
+        const scrollBottom = window.innerHeight + window.scrollY;
+        const docHeight = document.documentElement.scrollHeight;
+        if (scrollBottom >= docHeight - 80) {
+          setActiveSection('contact');
+          return;
+        }
+
+        // Sections mapped to nav keys in DOM order
         const sections = [
-          { id: 'contact-section', name: 'contact' },
-          { id: 'about-section', name: 'about' },
-          { id: 'experience-section', name: 'portfolio' },
-          { id: 'services-section', name: 'services' },
-          { id: 'hero-section', name: 'home' },
+          { id: 'hero-section', key: 'home' },
+          { id: 'services-section', key: 'services' },
+          { id: 'about-section', key: 'about' },
+          { id: 'experience-section', key: 'portfolio' },
+          { id: 'contact-section', key: 'contact' },
         ];
 
-        const scrollPosition = window.scrollY + 180;
+        // Trigger point below top of viewport accounting for sticky navbar height ~80px + margin
+        const triggerPoint = window.scrollY + 200;
+        let matched = 'home';
         for (const sec of sections) {
           const el = document.getElementById(sec.id);
-          if (el && scrollPosition >= el.offsetTop) {
-            setActiveSection(sec.name);
-            break;
+          if (el && triggerPoint >= el.offsetTop) {
+            matched = sec.key;
           }
         }
+        setActiveSection(matched);
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) {
+        window.clearTimeout(scrollTimeoutRef.current);
+      }
+    };
   }, [currentPath]);
 
   const navItems: { label: string; path: RoutePath; sectionId?: string; sectionKey: string; tooltip: string }[] = [
@@ -159,12 +180,29 @@ export const Navbar: React.FC = () => {
     setMobileMenuOpen(false);
     setServicesDropdownOpen(false);
 
+    // Immediately update active section so the orange indicator moves without delay
+    setActiveSection(item.sectionKey);
+
+    // Lock scroll spy during smooth scroll transition so it doesn't fight the user's click
+    isManualScrollingRef.current = true;
+    if (scrollTimeoutRef.current) {
+      window.clearTimeout(scrollTimeoutRef.current);
+    }
+    scrollTimeoutRef.current = window.setTimeout(() => {
+      isManualScrollingRef.current = false;
+    }, 950);
+
+    const navOffset = 84;
+
     if (item.sectionKey === 'contact') {
       if (currentPath === '/') {
         const element = document.getElementById('contact-section');
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          setActiveSection('contact');
+          const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({
+            top: Math.max(0, elementPosition - navOffset),
+            behavior: 'smooth',
+          });
           return;
         }
       }
@@ -173,11 +211,18 @@ export const Navbar: React.FC = () => {
     }
 
     if (currentPath === '/') {
+      if (item.sectionKey === 'home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
       if (item.sectionId) {
         const element = document.getElementById(item.sectionId);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          setActiveSection(item.sectionKey);
+          const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({
+            top: Math.max(0, elementPosition - navOffset),
+            behavior: 'smooth',
+          });
           return;
         }
       }
@@ -192,7 +237,7 @@ export const Navbar: React.FC = () => {
       return activeSection === item.sectionKey;
     }
     if (item.path === '/') return false;
-    return currentPath.startsWith(item.path);
+    return currentPath === item.path || currentPath.startsWith(item.path + '/');
   };
 
   return (
@@ -245,18 +290,35 @@ export const Navbar: React.FC = () => {
                     aria-expanded={servicesDropdownOpen}
                     aria-haspopup="true"
                     aria-describedby={isTooltipVisible ? tooltipId : undefined}
-                    className={`inline-flex items-center gap-1.5 rounded-full px-3 xl:px-4 py-1.5 xl:py-2 text-[13px] xl:text-[14px] font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] ${
-                      active
-                        ? 'bg-[#FF6004] text-white shadow-xs'
-                        : 'text-[#161519] dark:text-zinc-200 hover:text-[#FF6004] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+                    className={`relative inline-flex items-center gap-1.5 rounded-full px-3 xl:px-4 py-1.5 xl:py-2 text-[13px] xl:text-[14px] font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] ${
+                      !active ? 'hover:bg-black/5 dark:hover:bg-white/5' : ''
                     }`}
                   >
-                    <span>{item.label}</span>
-                    <ChevronDown
-                      className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                        servicesDropdownOpen ? 'rotate-180' : ''
+                    {active && (
+                      <motion.div
+                        layoutId="activeNavIndicator"
+                        className="absolute inset-0 rounded-full bg-[#FF6004] shadow-xs pointer-events-none"
+                        transition={{
+                          type: 'spring',
+                          stiffness: 450,
+                          damping: 34,
+                        }}
+                      />
+                    )}
+                    <span
+                      className={`relative z-10 flex items-center gap-1.5 transition-colors duration-200 ${
+                        active
+                          ? 'text-white font-semibold'
+                          : 'text-[#161519] dark:text-zinc-200 hover:text-[#FF6004] dark:hover:text-white'
                       }`}
-                    />
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown
+                        className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                          servicesDropdownOpen ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </span>
                   </button>
 
                   {/* ARIA Tooltip for Keyboard & Focus Users */}
@@ -375,14 +437,31 @@ export const Navbar: React.FC = () => {
                   onMouseEnter={() => setActiveTooltipId(tooltipId)}
                   onMouseLeave={() => setActiveTooltipId((prev) => (prev === tooltipId ? null : prev))}
                   aria-describedby={isTooltipVisible ? tooltipId : undefined}
-                  className={`inline-flex items-center gap-1 rounded-full px-3 xl:px-4 py-1.5 xl:py-2 text-[13px] xl:text-[14px] font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] ${
-                    active
-                      ? 'bg-[#FF6004] text-white shadow-xs'
-                      : 'text-[#161519] dark:text-zinc-200 hover:text-[#FF6004] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+                  className={`relative inline-flex items-center gap-1 rounded-full px-3.5 xl:px-4 py-1.5 xl:py-2 text-[13px] xl:text-[14px] font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] ${
+                    !active ? 'hover:bg-black/5 dark:hover:bg-white/5' : ''
                   }`}
                   aria-current={active ? 'page' : undefined}
                 >
-                  <span>{item.label}</span>
+                  {active && (
+                    <motion.div
+                      layoutId="activeNavIndicator"
+                      className="absolute inset-0 rounded-full bg-[#FF6004] shadow-xs pointer-events-none"
+                      transition={{
+                        type: 'spring',
+                        stiffness: 450,
+                        damping: 34,
+                      }}
+                    />
+                  )}
+                  <span
+                    className={`relative z-10 transition-colors duration-200 ${
+                      active
+                        ? 'text-white font-semibold'
+                        : 'text-[#161519] dark:text-zinc-200 hover:text-[#FF6004] dark:hover:text-white'
+                    }`}
+                  >
+                    {item.label}
+                  </span>
                 </button>
 
                 {/* ARIA Tooltip for Keyboard & Mouse Users */}
@@ -626,14 +705,25 @@ export const Navbar: React.FC = () => {
                             key={item.label}
                             type="button"
                             onClick={() => handleNavClick(item)}
-                            className={`text-left px-4 py-3 rounded-full text-base font-semibold transition-all flex items-center justify-between ${
-                              active
-                                ? 'bg-[#FF6004] text-white shadow-xs'
-                                : 'text-[#161519] dark:text-zinc-200 hover:bg-black/5 dark:hover:bg-white/5'
+                            className={`relative text-left px-4 py-3 rounded-full text-base font-semibold transition-colors flex items-center justify-between overflow-hidden ${
+                              !active ? 'hover:bg-black/5 dark:hover:bg-white/5' : ''
                             }`}
                           >
-                            <span>{item.label}</span>
-                            <ArrowRight className="w-4 h-4 opacity-70" />
+                            {active && (
+                              <motion.div
+                                layoutId="activeMobileNavIndicator"
+                                className="absolute inset-0 rounded-full bg-[#FF6004] shadow-xs pointer-events-none"
+                                transition={{
+                                  type: 'spring',
+                                  stiffness: 450,
+                                  damping: 34,
+                                }}
+                              />
+                            )}
+                            <span className={`relative z-10 transition-colors duration-200 ${active ? 'text-white font-bold' : 'text-[#161519] dark:text-zinc-200'}`}>
+                              {item.label}
+                            </span>
+                            <ArrowRight className={`relative z-10 w-4 h-4 transition-colors ${active ? 'text-white' : 'opacity-70 text-zinc-400'}`} />
                           </button>
                         );
                       })}

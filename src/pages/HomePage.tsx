@@ -762,7 +762,7 @@ export const HomePage: React.FC = () => {
         id="services-section"
         aria-label="Core Services"
         style={{ maxWidth: '100%', boxSizing: 'border-box' }}
-        className="top-level-section w-full max-w-full py-16 sm:py-24 bg-white dark:bg-[#161519] border-b border-[#E5E3DC] dark:border-white/10"
+        className="top-level-section w-full max-w-full py-16 sm:py-24 bg-white dark:bg-[#161519] border-b border-[#E5E3DC] dark:border-white/10 scroll-mt-24"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal direction="up" distance={20} className="max-w-3xl mb-12">
@@ -1107,7 +1107,7 @@ export const HomePage: React.FC = () => {
         id="about-section"
         aria-label="Founder & Commercial Leadership"
         style={{ maxWidth: '100%', boxSizing: 'border-box' }}
-        className="top-level-section w-full max-w-full py-16 sm:py-24 bg-[#F6F5F2] dark:bg-[#121214] border-b border-[#E5E3DC] dark:border-white/10"
+        className="top-level-section w-full max-w-full py-16 sm:py-24 bg-[#F6F5F2] dark:bg-[#121214] border-b border-[#E5E3DC] dark:border-white/10 scroll-mt-24"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal direction="up" distance={24}>
@@ -1190,7 +1190,7 @@ export const HomePage: React.FC = () => {
         id="experience-section"
         aria-label="Selected Experience"
         style={{ maxWidth: '100%', boxSizing: 'border-box' }}
-        className="top-level-section w-full max-w-full py-16 sm:py-24 bg-white dark:bg-[#161519] border-b border-[#E5E3DC] dark:border-white/10"
+        className="top-level-section w-full max-w-full py-16 sm:py-24 bg-white dark:bg-[#161519] border-b border-[#E5E3DC] dark:border-white/10 scroll-mt-24"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal direction="up" distance={20} className="max-w-3xl mb-12">
@@ -1448,7 +1448,7 @@ export const HomePage: React.FC = () => {
         id="contact-section"
         aria-label="Ready To Discuss Your Project"
         style={{ maxWidth: '100%', boxSizing: 'border-box' }}
-        className="top-level-section w-full max-w-full py-16 sm:py-24 bg-white dark:bg-[#161519]"
+        className="top-level-section w-full max-w-full py-16 sm:py-24 bg-white dark:bg-[#161519] scroll-mt-24"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal direction="up" distance={24}>
