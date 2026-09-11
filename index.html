@@ -10,12 +10,12 @@
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#FF6004" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Ccircle cx='256' cy='256' r='256' fill='%23FFFFFF'/%3E%3Cg transform='translate(256, 256) scale(0.72) translate(-256, -256)'%3E%3Cpath d='M85 94L247 256L85 418' fill='none' stroke='%232563EB' stroke-width='96' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M265 94L427 256L265 418' fill='none' stroke='%23FF6004' stroke-width='96' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=white-bg-4" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=white-bg-4" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=white-bg-4" />
-    <link rel="shortcut icon" href="/favicon.ico?v=white-bg-4" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=white-bg-4" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Ccircle cx='256' cy='256' r='256' fill='%23FFFFFF'/%3E%3Cg transform='translate(256, 256) scale(0.80) translate(-256, -256)'%3E%3Cpath d='M85 94L247 256L85 418' fill='none' stroke='%230A4CF6' stroke-width='104' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M265 94L427 256L265 418' fill='none' stroke='%23FF6004' stroke-width='104' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=salesnego-circle-2026" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=salesnego-circle-2026" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=salesnego-circle-2026" />
+    <link rel="shortcut icon" href="/favicon.ico?v=salesnego-circle-2026" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=salesnego-circle-2026" />
     <link rel="preconnect" href="https://calendly.com" />
     <link rel="preconnect" href="https://assets.calendly.com" />
     <link rel="dns-prefetch" href="https://calendly.com" />
@@ -34,12 +34,12 @@
               document.documentElement.classList.add('dark');
             }
           }
-          // Force Chrome and browser tabs to immediately use the white background circle icon
-          var svgWhiteUri = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Ccircle cx='256' cy='256' r='256' fill='%23FFFFFF'/%3E%3Cg transform='translate(256, 256) scale(0.72) translate(-256, -256)'%3E%3Cpath d='M85 94L247 256L85 418' fill='none' stroke='%232563EB' stroke-width='96' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M265 94L427 256L265 418' fill='none' stroke='%23FF6004' stroke-width='96' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E";
+          // Force Chrome and all browsers to immediately render the crisp official SalesNego Circle Favicon
+          var svgUri = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Ccircle cx='256' cy='256' r='256' fill='%23FFFFFF'/%3E%3Cg transform='translate(256, 256) scale(0.80) translate(-256, -256)'%3E%3Cpath d='M85 94L247 256L85 418' fill='none' stroke='%230A4CF6' stroke-width='104' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M265 94L427 256L265 418' fill='none' stroke='%23FF6004' stroke-width='104' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E";
           var links = document.querySelectorAll("link[rel*='icon']");
           links.forEach(function(l) {
             if (l.type === 'image/svg+xml') {
-              l.href = svgWhiteUri;
+              l.href = svgUri;
             }
           });
         } catch (e) {}

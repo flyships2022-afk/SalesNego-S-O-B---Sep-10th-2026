@@ -2,12 +2,12 @@
   <!-- Crisp white circular badge background for maximum contrast in both dark & light browser tabs -->
   <circle cx="256" cy="256" r="256" fill="#FFFFFF" />
   <!-- Centered SalesNego Chevrons -->
-  <g transform="translate(256, 256) scale(0.72) translate(-256, -256)">
+  <g transform="translate(256, 256) scale(0.80) translate(-256, -256)">
     <path
       d="M 85 94 L 247 256 L 85 418"
       fill="none"
-      stroke="#2563EB"
-      stroke-width="96"
+      stroke="#0A4CF6"
+      stroke-width="104"
       stroke-linecap="round"
       stroke-linejoin="round"
     />
@@ -15,7 +15,7 @@
       d="M 265 94 L 427 256 L 265 418"
       fill="none"
       stroke="#FF6004"
-      stroke-width="96"
+      stroke-width="104"
       stroke-linecap="round"
       stroke-linejoin="round"
     />
