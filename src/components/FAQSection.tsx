@@ -107,7 +107,7 @@ export const FAQSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-10 items-start">
           {/* Left Column: Optimized Commercial Discussion Image Card */}
           <div className="lg:col-span-5 w-full">
-            <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-[480px] xl:h-[500px] rounded-2xl overflow-hidden border border-[#E5E3DC] dark:border-white/10 shadow-sm bg-zinc-100 dark:bg-[#1C1B20] group">
+            <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9] lg:aspect-auto lg:h-[480px] xl:h-[500px] rounded-2xl overflow-hidden border border-[#E5E3DC] dark:border-white/10 shadow-sm bg-zinc-100 dark:bg-[#1C1B20] group">
               <LazyImage
                 src="/faq-commercial-consultation.jpg"
                 alt="SalesNego senior commercial advisors and tech executives in a consultative Q&A strategy session reviewing commercial terms and roadmap"

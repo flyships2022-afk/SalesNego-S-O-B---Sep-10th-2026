@@ -450,8 +450,8 @@ export const HomePage: React.FC = () => {
             <div className="absolute top-1/4 left-1/3 w-[360px] h-[360px] bg-[#FF6004]/05 dark:bg-[#FF6004]/08 rounded-full blur-[110px] pointer-events-none" />
             <div className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:36px_36px]" />
 
-            {/* Top Eyebrow Bar - Shifted rightward for balanced optical alignment */}
-            <div className="relative z-10 flex items-center justify-between gap-4 flex-wrap pb-2 sm:pb-3 sm:pl-2 md:pl-6 lg:pl-8 xl:pl-10">
+            {/* Top Eyebrow Bar - Balanced optical alignment across mobile, tablet, and desktop */}
+            <div className="relative z-10 flex items-center justify-between gap-4 flex-wrap pb-2 sm:pb-3 sm:pl-0 md:pl-0 lg:pl-6 xl:pl-8">
               {/* 1. Eyebrow Tag */}
               <div className="mb-2 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold bg-black/5 dark:bg-white/5 text-zinc-800 dark:text-zinc-100 border border-black/10 dark:border-white/10 backdrop-blur-md">
                 <span className="w-2 h-2 rounded-full bg-[#FF6004] animate-pulse" />
@@ -466,8 +466,8 @@ export const HomePage: React.FC = () => {
 
             {/* Main Content Area: Left Headline & Narrative + Right Process Circle Motion Block */}
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center py-2 sm:py-4 my-auto w-full">
-              {/* Left Column: Headline, Focus Pill, Description, CTAs (lg:col-span-7) - Moved rightward for comfortable user view */}
-              <div className="lg:col-span-7 xl:col-span-7 max-w-2xl sm:pl-2 md:pl-6 lg:pl-8 xl:pl-10">
+              {/* Left Column: Headline, Focus Pill, Description, CTAs (lg:col-span-7) */}
+              <div className="lg:col-span-7 xl:col-span-7 max-w-2xl sm:pl-0 md:pl-0 lg:pl-6 xl:pl-8">
                 {/* 2. Main H1 Title with Fluid Clamp Typography */}
                 <h1
                   style={{ fontSize: 'clamp(2.1rem, 4.5vw, 3.4rem)' }}
@@ -532,7 +532,7 @@ export const HomePage: React.FC = () => {
               {/* Right Column: Process Circle Motion Block (lg:col-span-5) */}
               <div
                 style={{ maxWidth: '100%', height: 'auto', overflowX: 'hidden' }}
-                className="lg:col-span-5 xl:col-span-5 flex items-center justify-center lg:justify-end w-full max-w-full overflow-x-hidden h-auto preview-card-wrapper pr-0 sm:pr-2 lg:pr-4"
+                className="lg:col-span-5 xl:col-span-5 flex items-center justify-center lg:justify-end w-full max-w-full overflow-x-hidden h-auto preview-card-wrapper pr-0 sm:pr-0 lg:pr-2 my-4 lg:my-0"
               >
                 <ProcessCircleMotion />
               </div>
@@ -782,15 +782,14 @@ export const HomePage: React.FC = () => {
             </div>
           </ScrollReveal>
 
-          {/* 3 Services Grid with Responsive Auto-Fit Grid */}
+          {/* 3 Services Grid: 1 column on mobile, 3 columns on tablet portrait, landscape & desktop */}
           <StaggerGroup
             staggerDelay={0.1}
-            style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}
-            className="grid gap-6 lg:gap-8 responsive-grid-autofit py-2"
+            className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-8 py-2"
           >
             {coreServices.map((svc) => (
               <StaggerItem key={svc.id} distance={24} className="h-full">
-                <div className="group relative p-8 rounded-[20px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 hover:border-[#FF6004] dark:hover:border-[#FF6004] transform transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-1 shadow-xs hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-black/60 hover:z-10 flex flex-col justify-between h-full will-change-transform">
+                <div className="group relative p-5 sm:p-6 lg:p-7 xl:p-8 rounded-[20px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 hover:border-[#FF6004] dark:hover:border-[#FF6004] transform transition-all duration-300 ease-out hover:scale-102 lg:hover:scale-105 hover:-translate-y-1 shadow-xs hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-black/60 hover:z-10 flex flex-col justify-between h-full will-change-transform">
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-4">
                       <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#FF6004]/10 text-[#FF6004] dark:bg-white/10 dark:text-zinc-200">
@@ -968,13 +967,13 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
 
-          {/* 4 Value Pillars with Staggered Scroll Reveal */}
-          <StaggerGroup staggerDelay={0.08} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* 4 Value Pillars: 2x2 grid on tablet portrait, 4 cols on tablet landscape & desktop */}
+          <StaggerGroup staggerDelay={0.08} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
             {whySalesnegoPillars.map((pillar) => {
               const Icon = pillar.icon;
               return (
                 <StaggerItem key={pillar.number} distance={20} className="h-full">
-                  <div className="p-6 rounded-[20px] bg-white dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs flex flex-col justify-between hover:border-[#2563EB] dark:hover:border-[#3B82F6] transition-colors h-full">
+                  <div className="p-5 sm:p-6 rounded-[20px] bg-white dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs flex flex-col justify-between hover:border-[#2563EB] dark:hover:border-[#3B82F6] transition-colors h-full">
                     <div>
                       <div className="flex items-center justify-between mb-4">
                         <span className="font-mono text-xs font-bold text-[#2563EB] dark:text-[#3B82F6]">
@@ -1066,11 +1065,10 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
 
-          {/* 8 Stages Grid with Responsive Auto-Fit Grid */}
+          {/* 8 Stages Grid: 2 cols on tablet portrait (4 rows), 4 cols on tablet landscape (2 rows) */}
           <StaggerGroup
             staggerDelay={0.06}
-            style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}
-            className="grid gap-4 sm:gap-6 responsive-grid-autofit"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6"
           >
             {commercialJourneyStages.map((stage) => (
               <StaggerItem key={stage.step} distance={16} className="h-full">
@@ -1113,11 +1111,11 @@ export const HomePage: React.FC = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal direction="up" distance={24}>
-            <div className="p-8 sm:p-12 rounded-[24px] bg-white dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-sm">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div className="p-6 sm:p-8 lg:p-12 rounded-[24px] bg-white dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-sm">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 lg:gap-12 items-center">
                 {/* Founder Image */}
-                <div className="lg:col-span-4 flex flex-col items-start space-y-4">
-                  <div className="relative w-full max-w-[280px] aspect-[3/4] rounded-[20px] overflow-hidden border border-[#E5E3DC] dark:border-white/10 shadow-md bg-gray-100 dark:bg-black/20">
+                <div className="md:col-span-5 lg:col-span-4 flex flex-col items-start space-y-3 sm:space-y-4">
+                  <div className="relative w-full max-w-[240px] sm:max-w-[280px] aspect-[3/4] rounded-[20px] overflow-hidden border border-[#E5E3DC] dark:border-white/10 shadow-md bg-gray-100 dark:bg-black/20">
                     <LazyImage
                       src="/raja-kumar.jpg"
                       fallbackSrc="https://www.image2url.com/r2/default/images/1785784733130-463697ea-d4b8-40a6-a8e3-46ef59c33d68.jpg"
@@ -1130,7 +1128,7 @@ export const HomePage: React.FC = () => {
                   </div>
 
                   <div>
-                    <h3 className="font-lexend text-2xl font-bold text-[#161519] dark:text-white">
+                    <h3 className="font-lexend text-xl sm:text-2xl font-bold text-[#161519] dark:text-white">
                       Raja Kumar
                     </h3>
                     <p className="text-sm font-bold text-[#FF6004] mt-0.5">
@@ -1144,7 +1142,7 @@ export const HomePage: React.FC = () => {
                 </div>
 
                 {/* Founder Narrative */}
-                <div className="lg:col-span-8 space-y-4">
+                <div className="md:col-span-7 lg:col-span-8 space-y-4">
                   <span className="text-xs uppercase font-bold tracking-wider text-[#FF6004] block">
                     Commercial Leadership
                   </span>
@@ -1481,22 +1479,22 @@ export const HomePage: React.FC = () => {
                       </a>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] sm:text-xs">
                       <div className="p-3 rounded-xl bg-white dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10">
                         <span className="font-bold text-[#161519] dark:text-white block">North America:</span>
-                        <a href="tel:+14156886517" className="text-[#555459] dark:text-zinc-400 hover:text-[#FF6004]">
+                        <a href="tel:+14156886517" className="text-[#555459] dark:text-zinc-400 hover:text-[#FF6004] whitespace-nowrap block mt-0.5">
                           +1 415 688 6517
                         </a>
                       </div>
                       <div className="p-3 rounded-xl bg-white dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10">
                         <span className="font-bold text-[#161519] dark:text-white block">UAE:</span>
-                        <a href="tel:+971528770047" className="text-[#555459] dark:text-zinc-400 hover:text-[#FF6004]">
+                        <a href="tel:+971528770047" className="text-[#555459] dark:text-zinc-400 hover:text-[#FF6004] whitespace-nowrap block mt-0.5">
                           +971 52 877 0047
                         </a>
                       </div>
                       <div className="p-3 rounded-xl bg-white dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10">
                         <span className="font-bold text-[#161519] dark:text-white block">India:</span>
-                        <a href="tel:+919884450102" className="text-[#555459] dark:text-zinc-400 hover:text-[#FF6004]">
+                        <a href="tel:+919884450102" className="text-[#555459] dark:text-zinc-400 hover:text-[#FF6004] whitespace-nowrap block mt-0.5">
                           +91 98844 50102
                         </a>
                       </div>

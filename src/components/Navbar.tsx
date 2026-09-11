@@ -204,16 +204,16 @@ export const Navbar: React.FC = () => {
           : 'bg-[#F6F5F2] dark:bg-[#121214] border-b border-[#E5E3DC]/60 dark:border-white/5'
       }`}
     >
-      <div className="nav-header-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[4.75rem] sm:min-h-[5.5rem] md:min-h-[6rem] py-2 sm:py-2.5 flex items-center justify-between gap-3 sm:gap-4">
-        {/* Left: Official Brand Logo - Significantly Increased for Desktop, Tablet, & Mobile */}
+      <div className="nav-header-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[4.5rem] sm:min-h-[4.75rem] md:min-h-[5rem] lg:min-h-[5.5rem] py-2 sm:py-2.5 flex items-center justify-between gap-2 sm:gap-4">
+        {/* Left: Official Brand Logo - Balanced across Desktop, Tablet & Mobile */}
         <div className="shrink-0 flex items-center">
-          <SalesNegoLogo imgClassName="h-12 sm:h-14 md:h-16 lg:h-18 xl:h-20 w-auto max-w-[220px] sm:max-w-[280px] md:max-w-[340px] lg:max-w-[380px]" />
+          <SalesNegoLogo imgClassName="h-10 sm:h-11 md:h-12 lg:h-13 xl:h-16 w-auto max-w-[200px] sm:max-w-[230px] md:max-w-[250px] lg:max-w-[280px] xl:max-w-[340px]" />
         </div>
 
-        {/* Desktop Navigation Pill Bar (Metafic style: rounded-full pills) */}
+        {/* Desktop & Tablet Landscape Navigation Pill Bar (Metafic style: rounded-full pills) */}
         <nav
           aria-label="Primary Navigation"
-          className="hidden md:flex items-center gap-1.5 p-1.5 rounded-full bg-white/80 dark:bg-[#1C1B20]/80 border border-[#E5E3DC] dark:border-white/10 backdrop-blur-md shadow-2xs"
+          className="hidden lg:flex items-center gap-1 xl:gap-1.5 p-1 xl:p-1.5 rounded-full bg-white/80 dark:bg-[#1C1B20]/80 border border-[#E5E3DC] dark:border-white/10 backdrop-blur-md shadow-2xs"
         >
           {navItems.map((item) => {
             const active = isItemActive(item);
@@ -245,7 +245,7 @@ export const Navbar: React.FC = () => {
                     aria-expanded={servicesDropdownOpen}
                     aria-haspopup="true"
                     aria-describedby={isTooltipVisible ? tooltipId : undefined}
-                    className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[14px] font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] ${
+                    className={`inline-flex items-center gap-1.5 rounded-full px-3 xl:px-4 py-1.5 xl:py-2 text-[13px] xl:text-[14px] font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] ${
                       active
                         ? 'bg-[#FF6004] text-white shadow-xs'
                         : 'text-[#161519] dark:text-zinc-200 hover:text-[#FF6004] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
@@ -375,7 +375,7 @@ export const Navbar: React.FC = () => {
                   onMouseEnter={() => setActiveTooltipId(tooltipId)}
                   onMouseLeave={() => setActiveTooltipId((prev) => (prev === tooltipId ? null : prev))}
                   aria-describedby={isTooltipVisible ? tooltipId : undefined}
-                  className={`inline-flex items-center gap-1 rounded-full px-4 py-2 text-[14px] font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] ${
+                  className={`inline-flex items-center gap-1 rounded-full px-3 xl:px-4 py-1.5 xl:py-2 text-[13px] xl:text-[14px] font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] ${
                     active
                       ? 'bg-[#FF6004] text-white shadow-xs'
                       : 'text-[#161519] dark:text-zinc-200 hover:text-[#FF6004] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
@@ -539,12 +539,12 @@ export const Navbar: React.FC = () => {
             </AnimatePresence>
           </div>
 
-          {/* Mobile Hamburger Menu Toggle */}
+          {/* Mobile & Tablet Portrait Hamburger Menu Toggle */}
           <button
             id="mobile-menu-toggle"
             type="button"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
-            className="md:hidden p-2 rounded-full text-[#161519] dark:text-white hover:bg-black/5 dark:hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004]"
+            className="lg:hidden p-2 rounded-full text-[#161519] dark:text-white hover:bg-black/5 dark:hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004]"
             aria-expanded={mobileMenuOpen}
             aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
           >
@@ -553,12 +553,12 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Accessible Mobile Navigation Drawer (Portaled to document.body to avoid header backdrop-blur containing block) */}
+      {/* Accessible Mobile & Tablet Navigation Drawer (Portaled to document.body to avoid header backdrop-blur containing block) */}
       {mounted &&
         createPortal(
           <AnimatePresence>
             {mobileMenuOpen && (
-              <div className="fixed inset-0 z-[100] md:hidden" id="mobile-drawer-root">
+              <div className="fixed inset-0 z-[100] lg:hidden" id="mobile-drawer-root">
                 <motion.div
                   key="mobile-drawer-backdrop"
                   initial={{ opacity: 0 }}
@@ -583,7 +583,7 @@ export const Navbar: React.FC = () => {
                   animate={{ x: 0 }}
                   exit={{ x: '100%' }}
                   transition={{ type: 'tween', duration: 0.25, ease: 'easeOut' }}
-                  className="fixed right-0 top-0 bottom-0 w-[85%] max-w-sm h-full h-[100dvh] bg-[#F6F5F2] dark:bg-[#161519] text-[#161519] dark:text-[#FFFFFF] border-l border-[#E5E3DC] dark:border-white/10 shadow-2xl overflow-y-auto overscroll-contain z-10 flex flex-col justify-between p-6"
+                  className="fixed right-0 top-0 bottom-0 w-[85%] sm:w-[70%] md:w-[400px] max-w-md h-full h-[100dvh] bg-[#F6F5F2] dark:bg-[#161519] text-[#161519] dark:text-[#FFFFFF] border-l border-[#E5E3DC] dark:border-white/10 shadow-2xl overflow-y-auto overscroll-contain z-10 flex flex-col justify-between p-6"
                 >
                   <div className="flex flex-col space-y-6">
                     {/* Header: Brand Logo, Theme Toggle & Close */}

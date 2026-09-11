@@ -121,6 +121,37 @@ export const ExperienceMarqueeSlider: React.FC<ExperienceMarqueeSliderProps> = (
     setIsDragging(false);
   };
 
+  // Touch Drag Handlers for Tablets & Touch Screens
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const container = scrollRef.current;
+    if (!container || e.touches.length === 0) return;
+    setIsDragging(true);
+    setStartX(e.touches[0].pageX - container.offsetLeft);
+    setScrollStart(container.scrollLeft);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || e.touches.length === 0) return;
+    const container = scrollRef.current;
+    if (!container) return;
+    const currentX = e.touches[0].pageX - container.offsetLeft;
+    const walk = (currentX - startX) * 1.5;
+    container.scrollLeft = scrollStart - walk;
+
+    const halfWidth = container.scrollWidth / 2;
+    if (container.scrollLeft >= halfWidth * 1.6) {
+      container.scrollLeft -= halfWidth;
+      setScrollStart(container.scrollLeft + walk);
+    } else if (container.scrollLeft <= 20) {
+      container.scrollLeft += halfWidth;
+      setScrollStart(container.scrollLeft + walk);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
+
   // Wheel horizontal scroll support
   const handleWheel = (e: React.WheelEvent) => {
     const container = scrollRef.current;
@@ -177,6 +208,9 @@ export const ExperienceMarqueeSlider: React.FC<ExperienceMarqueeSliderProps> = (
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUpOrLeave}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         onWheel={handleWheel}
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         className={`flex items-stretch overflow-x-auto overflow-y-hidden py-4 px-4 sm:px-6 lg:px-8 [&::-webkit-scrollbar]:hidden ${
@@ -190,7 +224,7 @@ export const ExperienceMarqueeSlider: React.FC<ExperienceMarqueeSliderProps> = (
             return (
               <div
                 key={`exp-card-track1-${idx}`}
-                className="w-[370px] lg:w-[420px] shrink-0 p-6 sm:p-7 rounded-[22px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs hover:bg-[#161519] dark:hover:bg-black hover:border-[#FF6004] hover:shadow-xl transition-all duration-300 flex flex-col justify-between group select-none pointer-events-auto"
+                className="w-[300px] sm:w-[340px] md:w-[360px] lg:w-[400px] xl:w-[420px] shrink-0 p-5 sm:p-6 lg:p-7 rounded-[22px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs hover:bg-[#161519] dark:hover:bg-black hover:border-[#FF6004] hover:shadow-xl transition-all duration-300 flex flex-col justify-between group select-none pointer-events-auto"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
@@ -259,7 +293,7 @@ export const ExperienceMarqueeSlider: React.FC<ExperienceMarqueeSliderProps> = (
             return (
               <div
                 key={`exp-card-track2-${idx}`}
-                className="w-[370px] lg:w-[420px] shrink-0 p-6 sm:p-7 rounded-[22px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs hover:bg-[#161519] dark:hover:bg-black hover:border-[#FF6004] hover:shadow-xl transition-all duration-300 flex flex-col justify-between group select-none pointer-events-auto"
+                className="w-[300px] sm:w-[340px] md:w-[360px] lg:w-[400px] xl:w-[420px] shrink-0 p-5 sm:p-6 lg:p-7 rounded-[22px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 shadow-xs hover:bg-[#161519] dark:hover:bg-black hover:border-[#FF6004] hover:shadow-xl transition-all duration-300 flex flex-col justify-between group select-none pointer-events-auto"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">

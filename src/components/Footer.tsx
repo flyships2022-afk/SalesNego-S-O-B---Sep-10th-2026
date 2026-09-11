@@ -52,7 +52,7 @@ export const Footer: React.FC = () => {
         {/* Top Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-14 border-b border-white/10">
           {/* Brand Col */}
-          <div className="lg:col-span-5 flex flex-col items-start space-y-4">
+          <div className="md:col-span-2 lg:col-span-5 flex flex-col items-start space-y-4">
             <SalesNegoLogo showTagline={true} imgClassName="h-10 sm:h-12 w-auto" variant="white" />
             <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
               From Market Signal to Closed Revenue.
@@ -104,7 +104,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Navigation Col */}
-          <div className="lg:col-span-3 flex flex-col space-y-3">
+          <div className="md:col-span-1 lg:col-span-3 flex flex-col space-y-3">
             <span className="text-xs uppercase tracking-wider font-bold text-[#FE9E30] block mb-1">
               Navigation
             </span>
@@ -124,7 +124,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Services & Capabilities Col */}
-          <div className="lg:col-span-4 flex flex-col space-y-4">
+          <div className="md:col-span-1 lg:col-span-4 flex flex-col space-y-4">
             <span className="text-xs uppercase tracking-wider font-bold text-[#FE9E30] block mb-1">
               Connected Commercial System
             </span>

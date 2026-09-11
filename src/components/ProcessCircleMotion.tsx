@@ -148,7 +148,7 @@ export const ProcessCircleMotion: React.FC = () => {
     <div
       id="process-circle-motion-block"
       style={{ maxWidth: '100%', height: 'auto', overflowX: 'hidden' }}
-      className="interactive-preview-card preview-card-wrapper relative w-full max-w-[440px] sm:max-w-[480px] lg:max-w-[460px] xl:max-w-[500px] select-none"
+      className="interactive-preview-card preview-card-wrapper relative w-full max-w-[380px] sm:max-w-[430px] md:max-w-[450px] lg:max-w-[390px] xl:max-w-[480px] select-none mx-auto"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       role="region"
