@@ -690,16 +690,23 @@ export const HomePage: React.FC = () => {
           >
             {coreServices.map((svc) => (
               <StaggerItem key={svc.id} distance={24} className="h-full">
-                <div className="group relative p-5 sm:p-6 lg:p-7 xl:p-8 rounded-[20px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 hover:border-[#FF6004] dark:hover:border-[#FF6004] transform transition-all duration-300 ease-out hover:scale-102 lg:hover:scale-105 hover:-translate-y-1 shadow-xs hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-black/60 hover:z-10 flex flex-col justify-between h-full will-change-transform">
+                <div
+                  onClick={(e) => {
+                    // Avoid double trigger if clicking internal buttons
+                    if ((e.target as HTMLElement).closest('button')) return;
+                    navigate(svc.path as any);
+                  }}
+                  className="group relative p-5 sm:p-6 lg:p-7 xl:p-8 rounded-[20px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 hover:bg-[#161519] dark:hover:bg-black hover:border-[#FF6004] dark:hover:border-[#FF6004] transform transition-all duration-300 ease-out hover:scale-102 lg:hover:scale-105 hover:-translate-y-1 shadow-xs hover:shadow-2xl hover:shadow-black/20 dark:hover:shadow-black/70 hover:z-10 flex flex-col justify-between h-full will-change-transform cursor-pointer"
+                >
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-4">
-                      <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#FF6004]/10 text-[#FF6004] dark:bg-white/10 dark:text-zinc-200">
+                      <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#FF6004]/10 text-[#FF6004] dark:bg-white/10 dark:text-zinc-200 group-hover:bg-[#FF6004] group-hover:text-white transition-colors duration-300">
                         {svc.badge}
                       </span>
                       <button
                         type="button"
                         onClick={() => navigate(svc.path as any)}
-                        className="w-8 h-8 rounded-full bg-white dark:bg-white/10 flex items-center justify-center text-[#161519] dark:text-white group-hover:bg-[#2563EB] dark:group-hover:bg-[#3B82F6] group-hover:text-white transition-all cursor-pointer"
+                        className="w-8 h-8 rounded-full bg-white dark:bg-white/10 flex items-center justify-center text-[#161519] dark:text-white group-hover:bg-[#FF6004] group-hover:text-white transition-all duration-300 cursor-pointer"
                         aria-label={`Learn more about ${svc.title}`}
                       >
                         <ArrowUpRight className="w-4 h-4" />
@@ -708,7 +715,7 @@ export const HomePage: React.FC = () => {
 
                     {svc.image && (
                       <div className="mb-5">
-                        <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden border border-[#E5E3DC] dark:border-white/10 bg-zinc-900 shadow-xs group/img">
+                        <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden border border-[#E5E3DC] dark:border-white/10 group-hover:border-white/15 bg-zinc-900 shadow-xs group/img transition-colors duration-300">
                           <LazyImage
                             src={svc.image}
                             alt={svc.imageAlt || svc.title}
@@ -720,7 +727,7 @@ export const HomePage: React.FC = () => {
                           />
                         </div>
                         {svc.imageTag && (
-                          <div className="mt-2.5 flex items-center justify-between px-3 py-1.5 rounded-lg bg-black/5 dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-[11px] text-[#555459] dark:text-zinc-300 font-medium">
+                          <div className="mt-2.5 flex items-center justify-between px-3 py-1.5 rounded-lg bg-black/5 dark:bg-white/5 group-hover:bg-white/10 border border-[#E5E3DC] dark:border-white/10 group-hover:border-white/15 text-[11px] text-[#555459] dark:text-zinc-300 group-hover:text-zinc-200 font-medium transition-colors duration-300">
                             <span className="truncate">{svc.imageTag}</span>
                             <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0 ml-1.5 animate-pulse" />
                           </div>
@@ -728,27 +735,27 @@ export const HomePage: React.FC = () => {
                       </div>
                     )}
 
-                    <h3 className="font-lexend text-2xl font-normal text-[#161519] dark:text-white group-hover:text-[#FF6004] dark:group-hover:text-[#FF6004] transition-colors leading-tight mb-2">
+                    <h3 className="font-lexend text-2xl font-normal text-[#161519] dark:text-white group-hover:text-white transition-colors duration-300 leading-tight mb-2">
                       {svc.title}
                     </h3>
 
-                    <p className="text-xs font-semibold text-[#2563EB] dark:text-[#3B82F6] mb-3">
+                    <p className="text-xs font-semibold text-[#2563EB] dark:text-[#3B82F6] group-hover:text-[#FE9E30] dark:group-hover:text-[#FE9E30] transition-colors duration-300 mb-3">
                       {svc.subtitle}
                     </p>
 
-                    <p className="text-sm text-[#555459] dark:text-zinc-300 leading-relaxed mb-6">
+                    <p className="text-sm text-[#555459] dark:text-zinc-300 group-hover:text-zinc-300 transition-colors duration-300 leading-relaxed mb-6">
                       {svc.description}
                     </p>
 
-                    <div className="space-y-2 mb-8 pt-4 border-t border-[#E5E3DC] dark:border-white/10">
-                      <span className="text-xs uppercase font-bold tracking-wider text-zinc-400 block mb-2">
+                    <div className="space-y-2 mb-8 pt-4 border-t border-[#E5E3DC] dark:border-white/10 group-hover:border-white/15 transition-colors duration-300">
+                      <span className="text-xs uppercase font-bold tracking-wider text-zinc-400 group-hover:text-zinc-300 block mb-2 transition-colors duration-300">
                         Key Areas:
                       </span>
                       <div className="flex flex-wrap gap-1.5">
                         {svc.keyAreas.map((item) => (
                           <span
                             key={item}
-                            className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-white dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-[#161519] dark:text-zinc-200"
+                            className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-white dark:bg-white/5 group-hover:bg-white/10 border border-[#E5E3DC] dark:border-white/10 group-hover:border-white/15 text-[#161519] dark:text-zinc-200 group-hover:text-white transition-colors duration-300"
                           >
                             {item}
                           </span>
@@ -757,11 +764,11 @@ export const HomePage: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="pt-4 flex items-center justify-between border-t border-[#E5E3DC] dark:border-white/10 mt-auto">
+                  <div className="pt-4 flex items-center justify-between border-t border-[#E5E3DC] dark:border-white/10 group-hover:border-white/15 transition-colors duration-300 mt-auto">
                     <button
                       type="button"
                       onClick={() => navigate(svc.path as any)}
-                      className="inline-flex items-center gap-1.5 text-sm font-bold text-[#2563EB] dark:text-[#3B82F6] hover:underline"
+                      className="inline-flex items-center gap-1.5 text-sm font-bold text-[#2563EB] dark:text-[#3B82F6] group-hover:text-[#FF6004] dark:group-hover:text-[#FE9E30] hover:underline transition-colors duration-300"
                     >
                       <span>Learn More &rarr;</span>
                     </button>
@@ -769,7 +776,7 @@ export const HomePage: React.FC = () => {
                     <button
                       type="button"
                       onClick={openCalendly}
-                      className="text-xs font-semibold text-[#555459] dark:text-zinc-400 hover:text-[#2563EB] dark:hover:text-[#3B82F6]"
+                      className="text-xs font-semibold text-[#555459] dark:text-zinc-400 group-hover:text-zinc-300 hover:text-white dark:hover:text-white transition-colors duration-300"
                     >
                       Discuss Priorities
                     </button>

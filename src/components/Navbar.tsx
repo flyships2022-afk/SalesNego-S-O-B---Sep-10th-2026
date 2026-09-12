@@ -1,7 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Sun, Moon, Menu, X, ArrowUpRight, ChevronDown, Sparkles, ArrowRight, ShieldCheck, PhoneCall, Mail } from 'lucide-react';
+import {
+  Sun,
+  Moon,
+  Menu,
+  X,
+  ArrowUpRight,
+  ChevronDown,
+  ChevronRight,
+  Sparkles,
+  ArrowRight,
+  ShieldCheck,
+  PhoneCall,
+  Mail,
+  Compass,
+  Layers,
+  Briefcase,
+  Users,
+  Calendar,
+} from 'lucide-react';
 import { useNavigation } from '../context/NavigationContext';
 import { useTheme } from '../context/ThemeContext';
 import { SalesNegoLogo } from './SalesNegoLogo';
@@ -13,6 +31,7 @@ export const Navbar: React.FC = () => {
   const isDark = theme === 'dark';
   const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileServicesExpanded, setMobileServicesExpanded] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('home');
@@ -116,13 +135,23 @@ export const Navbar: React.FC = () => {
     };
   }, [currentPath]);
 
-  const navItems: { label: string; path: RoutePath; sectionId?: string; sectionKey: string; tooltip: string }[] = [
+  const navItems: {
+    label: string;
+    path: RoutePath;
+    sectionId?: string;
+    sectionKey: string;
+    tooltip: string;
+    icon: React.ComponentType<{ className?: string }>;
+    subtitle: string;
+  }[] = [
     {
       label: 'Home',
       path: '/',
       sectionId: 'hero-section',
       sectionKey: 'home',
       tooltip: 'Homepage & commercial overview',
+      icon: Compass,
+      subtitle: 'Overview & Commercial System',
     },
     {
       label: 'Services',
@@ -130,6 +159,8 @@ export const Navbar: React.FC = () => {
       sectionId: 'services-section',
       sectionKey: 'services',
       tooltip: 'GTM Strategy, RevOps & Execution',
+      icon: Layers,
+      subtitle: 'Strategy, RevOps & Execution',
     },
     {
       label: 'Portfolio',
@@ -137,6 +168,8 @@ export const Navbar: React.FC = () => {
       sectionId: 'experience-section',
       sectionKey: 'portfolio',
       tooltip: 'Client portfolio & case studies',
+      icon: Briefcase,
+      subtitle: 'Client Case Studies & Results',
     },
     {
       label: 'About Us',
@@ -144,6 +177,8 @@ export const Navbar: React.FC = () => {
       sectionId: 'about-section',
       sectionKey: 'about',
       tooltip: 'Founder leadership & mission',
+      icon: Users,
+      subtitle: 'Founder Leadership & Track Record',
     },
     {
       label: 'Contact',
@@ -151,6 +186,8 @@ export const Navbar: React.FC = () => {
       sectionId: 'contact-section',
       sectionKey: 'contact',
       tooltip: 'Submit commercial proposal inquiry',
+      icon: PhoneCall,
+      subtitle: 'Inquire & Commercial Proposals',
     },
   ];
 
@@ -638,20 +675,22 @@ export const Navbar: React.FC = () => {
           <AnimatePresence>
             {mobileMenuOpen && (
               <div className="fixed inset-0 z-[100] lg:hidden" id="mobile-drawer-root">
+                {/* Modern Backdrop Blur Overlay */}
                 <motion.div
                   key="mobile-drawer-backdrop"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+                  transition={{ duration: 0.28, ease: 'easeOut' }}
                   onClick={() => {
                     document.body.style.overflow = '';
                     setMobileMenuOpen(false);
                   }}
-                  className="fixed inset-0 bg-black/70 backdrop-blur-xs"
+                  className="fixed inset-0 bg-black/75 dark:bg-black/85 backdrop-blur-md"
                   aria-hidden="true"
                 />
 
+                {/* Slide-in Navigation Panel */}
                 <motion.div
                   key="mobile-nav-panel"
                   id="mobile-nav-panel"
@@ -661,13 +700,17 @@ export const Navbar: React.FC = () => {
                   initial={{ x: '100%' }}
                   animate={{ x: 0 }}
                   exit={{ x: '100%' }}
-                  transition={{ type: 'tween', duration: 0.25, ease: 'easeOut' }}
-                  className="fixed right-0 top-0 bottom-0 w-[85%] sm:w-[70%] md:w-[400px] max-w-md h-full h-[100dvh] bg-[#F6F5F2] dark:bg-[#161519] text-[#161519] dark:text-[#FFFFFF] border-l border-[#E5E3DC] dark:border-white/10 shadow-2xl overflow-y-auto overscroll-contain z-10 flex flex-col justify-between p-6"
+                  transition={{ type: 'spring', damping: 28, stiffness: 280, mass: 0.85 }}
+                  className="fixed right-0 top-0 bottom-0 w-[88%] sm:w-[75%] md:w-[420px] max-w-md h-full h-[100dvh] bg-[#F6F5F2] dark:bg-[#121215] text-[#161519] dark:text-white border-l border-[#E5E3DC] dark:border-white/10 shadow-[-16px_0_50px_rgba(0,0,0,0.35)] dark:shadow-[-20px_0_60px_rgba(0,0,0,0.8)] overflow-y-auto overscroll-contain z-10 flex flex-col justify-between p-5 sm:p-6"
                 >
-                  <div className="flex flex-col space-y-6">
-                    {/* Header: Brand Logo, Theme Toggle & Close */}
+                  {/* Decorative Brand Gradient Accent Line & Glow */}
+                  <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#FF6004] via-[#FE9E30]/70 to-transparent pointer-events-none" />
+                  <div className="absolute -top-12 -right-12 w-48 h-48 bg-[#FF6004]/10 rounded-full blur-3xl pointer-events-none" />
+
+                  <div className="relative z-10 flex flex-col space-y-5">
+                    {/* Header: Brand Logo, Theme Toggle & Tactile Close */}
                     <div className="flex items-center justify-between pb-4 border-b border-[#E5E3DC] dark:border-white/10">
-                      <SalesNegoLogo imgClassName="h-11 sm:h-12 w-auto max-w-[220px]" />
+                      <SalesNegoLogo imgClassName="h-10 sm:h-11 w-auto max-w-[210px]" />
                       <div className="flex items-center gap-1.5">
                         <button
                           type="button"
@@ -688,7 +731,7 @@ export const Navbar: React.FC = () => {
                             document.body.style.overflow = '';
                             setMobileMenuOpen(false);
                           }}
-                          className="p-2 rounded-full text-[#161519] dark:text-white hover:bg-black/5 dark:hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004]"
+                          className="p-2 rounded-full text-[#161519] dark:text-white hover:bg-black/5 dark:hover:bg-white/10 hover:text-[#FF6004] dark:hover:text-[#FF6004] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] active:scale-90"
                           aria-label="Close menu"
                         >
                           <X className="w-6 h-6" />
@@ -696,66 +739,195 @@ export const Navbar: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Navigation Items */}
-                    <nav aria-label="Mobile Menu Links" className="flex flex-col space-y-2">
+                    {/* Staggered Navigation Items List */}
+                    <motion.div
+                      initial="hidden"
+                      animate="visible"
+                      variants={{
+                        hidden: { opacity: 0 },
+                        visible: {
+                          opacity: 1,
+                          transition: {
+                            staggerChildren: 0.05,
+                            delayChildren: 0.08,
+                          },
+                        },
+                      }}
+                      className="flex flex-col space-y-1.5"
+                    >
+                      <span className="text-[10px] uppercase font-bold tracking-wider text-[#FF6004] px-2 mb-1">
+                        Navigation
+                      </span>
+
                       {navItems.map((item) => {
                         const active = isItemActive(item);
+                        const Icon = item.icon;
+                        const isServices = item.label === 'Services';
+
                         return (
-                          <button
+                          <motion.div
                             key={item.label}
-                            type="button"
-                            onClick={() => handleNavClick(item)}
-                            className={`relative text-left px-4 py-3 rounded-full text-base font-semibold transition-colors flex items-center justify-between overflow-hidden ${
-                              !active ? 'hover:bg-black/5 dark:hover:bg-white/5' : ''
-                            }`}
-                          >
-                            {active && (
-                              <motion.div
-                                layoutId="activeMobileNavIndicator"
-                                className="absolute inset-0 rounded-full bg-[#FF6004] shadow-xs pointer-events-none"
-                                transition={{
+                            variants={{
+                              hidden: { opacity: 0, x: 20 },
+                              visible: {
+                                opacity: 1,
+                                x: 0,
+                                transition: {
                                   type: 'spring',
-                                  stiffness: 450,
-                                  damping: 34,
-                                }}
-                              />
+                                  damping: 24,
+                                  stiffness: 300,
+                                },
+                              },
+                            }}
+                            className="flex flex-col"
+                          >
+                            <div
+                              className={`group relative rounded-xl transition-all flex items-center justify-between p-1.5 overflow-hidden border ${
+                                active
+                                  ? 'bg-[#FF6004]/10 dark:bg-[#FF6004]/15 border-[#FF6004]/40 shadow-xs'
+                                  : 'bg-transparent hover:bg-black/5 dark:hover:bg-white/5 border-transparent hover:border-[#E5E3DC] dark:hover:border-white/10'
+                              }`}
+                            >
+                              <button
+                                type="button"
+                                onClick={() => handleNavClick(item)}
+                                className="flex-1 text-left px-2 py-1.5 flex items-center gap-3 cursor-pointer"
+                              >
+                                <div
+                                  className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+                                    active
+                                      ? 'bg-[#FF6004] text-white shadow-xs'
+                                      : 'bg-black/5 dark:bg-white/5 text-[#555459] dark:text-zinc-300 group-hover:bg-[#FF6004]/10 group-hover:text-[#FF6004]'
+                                  }`}
+                                >
+                                  <Icon className="w-4 h-4" />
+                                </div>
+                                <div className="flex flex-col">
+                                  <span
+                                    className={`text-sm font-bold transition-colors ${
+                                      active
+                                        ? 'text-[#FF6004] dark:text-[#FE9E30]'
+                                        : 'text-[#161519] dark:text-white group-hover:text-[#FF6004] dark:group-hover:text-white'
+                                    }`}
+                                  >
+                                    {item.label}
+                                  </span>
+                                  <span className="text-[11px] text-[#71717A] dark:text-zinc-400 font-normal truncate max-w-[200px]">
+                                    {item.subtitle}
+                                  </span>
+                                </div>
+                              </button>
+
+                              {isServices ? (
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setMobileServicesExpanded((prev) => !prev);
+                                  }}
+                                  className={`p-2 rounded-lg transition-colors cursor-pointer ${
+                                    mobileServicesExpanded
+                                      ? 'text-[#FF6004] bg-[#FF6004]/10'
+                                      : 'text-zinc-400 hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
+                                  }`}
+                                  aria-label={
+                                    mobileServicesExpanded
+                                      ? 'Collapse Commercial Capabilities'
+                                      : 'Expand Commercial Capabilities'
+                                  }
+                                >
+                                  <ChevronDown
+                                    className={`w-4 h-4 transition-transform duration-250 ${
+                                      mobileServicesExpanded ? 'rotate-180 text-[#FF6004]' : ''
+                                    }`}
+                                  />
+                                </button>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => handleNavClick(item)}
+                                  className="p-2 text-zinc-400 group-hover:text-[#FF6004] transition-colors"
+                                  aria-label={`Go to ${item.label}`}
+                                >
+                                  <ChevronRight className="w-4 h-4" />
+                                </button>
+                              )}
+                            </div>
+
+                            {/* Nested Commercial Solutions Accordion for Services */}
+                            {isServices && (
+                              <AnimatePresence>
+                                {mobileServicesExpanded && (
+                                  <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+                                    className="overflow-hidden pl-4 pr-1 pt-2 space-y-1.5"
+                                  >
+                                    <div className="border-l-2 border-[#FF6004]/30 pl-3 py-1 space-y-1.5">
+                                      {servicesList.map((svc) => (
+                                        <button
+                                          key={svc.path}
+                                          type="button"
+                                          onClick={() => {
+                                            document.body.style.overflow = '';
+                                            setMobileMenuOpen(false);
+                                            navigate(svc.path);
+                                          }}
+                                          className="w-full text-left p-2 rounded-lg bg-black/5 dark:bg-white/5 hover:bg-[#FF6004]/10 dark:hover:bg-white/10 border border-transparent hover:border-[#FF6004]/30 transition-all flex items-start justify-between gap-2 group/sub"
+                                        >
+                                          <div>
+                                            <div className="flex items-center gap-1.5 mb-0.5">
+                                              <span className="text-xs font-semibold text-[#161519] dark:text-zinc-200 group-hover/sub:text-[#FF6004] transition-colors">
+                                                {svc.title}
+                                              </span>
+                                            </div>
+                                            <span className="text-[10px] font-bold uppercase tracking-wider text-[#FF6004]">
+                                              {svc.badge}
+                                            </span>
+                                          </div>
+                                          <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover/sub:text-[#FF6004] transition-colors shrink-0 mt-0.5" />
+                                        </button>
+                                      ))}
+
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          document.body.style.overflow = '';
+                                          setMobileMenuOpen(false);
+                                          navigate('/services');
+                                        }}
+                                        className="w-full text-left pt-1.5 px-2 text-[11px] font-bold text-[#FF6004] hover:underline flex items-center gap-1"
+                                      >
+                                        <span>View Complete Services Overview</span>
+                                        <ArrowRight className="w-3 h-3" />
+                                      </button>
+                                    </div>
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
                             )}
-                            <span className={`relative z-10 transition-colors duration-200 ${active ? 'text-white font-bold' : 'text-[#161519] dark:text-zinc-200'}`}>
-                              {item.label}
-                            </span>
-                            <ArrowRight className={`relative z-10 w-4 h-4 transition-colors ${active ? 'text-white' : 'opacity-70 text-zinc-400'}`} />
-                          </button>
+                          </motion.div>
                         );
                       })}
-                    </nav>
-
-                    {/* Sub-services links */}
-                    <div className="pt-4 border-t border-[#E5E3DC] dark:border-white/10">
-                      <span className="text-[11px] uppercase font-bold tracking-wider text-[#FF6004] block mb-2 px-2">
-                        Core Solutions
-                      </span>
-                      <div className="space-y-1">
-                        {servicesList.map((svc) => (
-                          <button
-                            key={svc.path}
-                            type="button"
-                            onClick={() => {
-                              document.body.style.overflow = '';
-                              setMobileMenuOpen(false);
-                              navigate(svc.path);
-                            }}
-                            className="w-full text-left px-3 py-2.5 text-xs font-medium text-[#555459] dark:text-zinc-300 hover:text-[#FF6004] dark:hover:text-white rounded-lg hover:bg-black/5 dark:hover:bg-white/5 flex items-center justify-between"
-                          >
-                            <span className="truncate">{svc.title}</span>
-                            <ArrowUpRight className="w-3.5 h-3.5 shrink-0 ml-2 text-zinc-400" />
-                          </button>
-                        ))}
-                      </div>
-                    </div>
+                    </motion.div>
                   </div>
 
-                  {/* Mobile Drawer Bottom CTAs */}
-                  <div className="pt-6 mt-6 border-t border-[#E5E3DC] dark:border-white/10 space-y-3 shrink-0">
+                  {/* Mobile Drawer Bottom CTAs & Commercial Contact */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.22, duration: 0.25 }}
+                    className="relative z-10 pt-4 mt-4 border-t border-[#E5E3DC] dark:border-white/10 space-y-3 shrink-0"
+                  >
+                    {/* Live Availability Badge */}
+                    <div className="flex items-center justify-center gap-2 py-1 px-2.5 rounded-full bg-black/5 dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-[11px] font-medium text-[#555459] dark:text-zinc-300">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                      <span>Commercial Advisory &amp; Pods Open</span>
+                    </div>
+
+                    {/* Primary Metafic-style Gradient Button */}
                     <button
                       id="mobile-drawer-cta-btn"
                       type="button"
@@ -765,21 +937,24 @@ export const Navbar: React.FC = () => {
                         openCalendly();
                       }}
                       style={{ width: '100%', boxSizing: 'border-box' }}
-                      className="w-full py-3.5 px-4 rounded-full bg-[#FF6004] text-white text-center font-bold text-sm shadow-md hover:bg-[#E05300] active:scale-98 transition-all flex items-center justify-center gap-2 nav-mobile-cta-full"
+                      className="w-full py-3.5 px-4 rounded-full bg-gradient-to-r from-[#FF6004] to-[#FE9E30] text-white text-center font-bold text-sm shadow-md hover:shadow-lg hover:shadow-[#FF6004]/30 active:scale-98 transition-all flex items-center justify-center gap-2 nav-mobile-cta-full cursor-pointer"
                     >
+                      <Calendar className="w-4 h-4 shrink-0" />
                       <span>Discuss Your Growth Priorities</span>
                       <ArrowUpRight className="w-4 h-4 shrink-0" />
                     </button>
 
-                    <div className="text-center">
+                    {/* Direct Contact Links */}
+                    <div className="flex items-center justify-center gap-4 pt-1">
                       <a
                         href="mailto:sales@salesnego.com"
-                        className="text-xs text-[#555459] dark:text-zinc-400 hover:text-[#FF6004] dark:hover:text-white transition-colors"
+                        className="inline-flex items-center gap-1.5 text-xs text-[#555459] dark:text-zinc-400 hover:text-[#FF6004] dark:hover:text-white transition-colors"
                       >
-                        sales@salesnego.com
+                        <Mail className="w-3.5 h-3.5 text-[#FF6004]" />
+                        <span>sales@salesnego.com</span>
                       </a>
                     </div>
-                  </div>
+                  </motion.div>
                 </motion.div>
               </div>
             )}
