@@ -163,15 +163,6 @@ export const Navbar: React.FC = () => {
       subtitle: 'Strategy, RevOps & Execution',
     },
     {
-      label: 'Portfolio',
-      path: '/case-studies',
-      sectionId: 'experience-section',
-      sectionKey: 'portfolio',
-      tooltip: 'Client portfolio & case studies',
-      icon: Briefcase,
-      subtitle: 'Client Case Studies & Results',
-    },
-    {
       label: 'About Us',
       path: '/about',
       sectionId: 'about-section',
@@ -179,6 +170,15 @@ export const Navbar: React.FC = () => {
       tooltip: 'Founder leadership & mission',
       icon: Users,
       subtitle: 'Founder Leadership & Track Record',
+    },
+    {
+      label: 'Portfolio',
+      path: '/case-studies',
+      sectionId: 'experience-section',
+      sectionKey: 'portfolio',
+      tooltip: 'Client portfolio & case studies',
+      icon: Briefcase,
+      subtitle: 'Client Case Studies & Results',
     },
     {
       label: 'Contact',

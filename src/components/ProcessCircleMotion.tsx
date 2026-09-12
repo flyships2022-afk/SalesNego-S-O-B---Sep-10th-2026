@@ -37,7 +37,7 @@ const PROCESS_STAGES: ProcessStage[] = [
     stepNumber: '01',
     name: 'Understand',
     shortName: 'Understand',
-    badge: '01 · Market Intelligence',
+    badge: 'Market Intelligence',
     subtitle: 'Category & Environment',
     description: 'Understand the market, category, and commercial environment.',
     metric: 'Market',
@@ -51,7 +51,7 @@ const PROCESS_STAGES: ProcessStage[] = [
     stepNumber: '02',
     name: 'Build',
     shortName: 'Build',
-    badge: '02 · RevOps System',
+    badge: 'RevOps System',
     subtitle: 'Infrastructure & Workflows',
     description: 'Build the commercial infrastructure required for disciplined execution.',
     metric: 'RevOps',
@@ -65,7 +65,7 @@ const PROCESS_STAGES: ProcessStage[] = [
     stepNumber: '03',
     name: 'Execute',
     shortName: 'Execute',
-    badge: '03 · Discovery & Alignment',
+    badge: 'Discovery & Alignment',
     subtitle: 'Account Engagement',
     description: 'Engage relevant accounts and diagnose customer problems with informed commercial context.',
     metric: 'Direct',
@@ -79,7 +79,7 @@ const PROCESS_STAGES: ProcessStage[] = [
     stepNumber: '04',
     name: 'Close',
     shortName: 'Close',
-    badge: '04 · Commercial Closure',
+    badge: 'Commercial Closure',
     subtitle: 'Proposal & Negotiation',
     description: 'Align solution, business case, proposal, and negotiation toward closure.',
     metric: 'Revenue',
@@ -93,7 +93,7 @@ const PROCESS_STAGES: ProcessStage[] = [
     stepNumber: '05',
     name: 'Grow',
     shortName: 'Grow',
-    badge: '05 · Account Expansion',
+    badge: 'Account Expansion',
     subtitle: 'Adoption & Retention',
     description: 'Support adoption and pursue validated adjacent customer needs.',
     metric: 'Growth',
@@ -129,9 +129,9 @@ export const ProcessCircleMotion: React.FC = () => {
   const ActiveIcon = activeStage.icon;
 
   // 5 nodes positioned at equal angles: -90°, -18°, 54°, 126°, 198°
-  // Center is (210, 210), Radius = 145
+  // Center is (210, 210), Radius = 138 (gives generous clearance for top/bottom/side nodes)
   const centerCoord = 210;
-  const orbitRadius = 145;
+  const orbitRadius = 138;
 
   const getNodeCoords = (index: number) => {
     const angleInDegrees = -90 + index * (360 / PROCESS_STAGES.length);
@@ -147,8 +147,8 @@ export const ProcessCircleMotion: React.FC = () => {
   return (
     <div
       id="process-circle-motion-block"
-      style={{ maxWidth: '100%', height: 'auto', overflowX: 'hidden' }}
-      className="interactive-preview-card preview-card-wrapper relative w-full max-w-[380px] sm:max-w-[430px] md:max-w-[450px] lg:max-w-[390px] xl:max-w-[480px] select-none mx-auto"
+      style={{ maxWidth: '100%', height: 'auto' }}
+      className="interactive-preview-card preview-card-wrapper relative w-full max-w-[360px] sm:max-w-[420px] md:max-w-[450px] lg:max-w-[390px] xl:max-w-[460px] select-none mx-auto flex flex-col"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       role="region"
@@ -162,21 +162,25 @@ export const ProcessCircleMotion: React.FC = () => {
         }}
       />
 
-      {/* Top Tag: Connected Commercial Journey with Anchor Cord */}
-      <div className="absolute top-1 left-2 sm:left-4 z-20">
+      {/* Top Tag: Connected Commercial Journey Header Row (In-flow to prevent overlapping Node 01 on mobile) */}
+      <div className="relative z-20 flex items-center justify-between px-2 sm:px-3 pt-0.5 pb-2 sm:pb-3 w-full">
         <motion.div
           animate={shouldReduceMotion ? {} : { y: [0, -2, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide bg-white/95 dark:bg-[#1C1B20]/95 text-[#161519] dark:text-zinc-200 border border-zinc-200/90 dark:border-white/15 shadow-sm backdrop-blur-md"
+          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-semibold tracking-wide bg-white/95 dark:bg-[#1C1B20]/95 text-[#161519] dark:text-zinc-200 border border-zinc-200/90 dark:border-white/15 shadow-xs backdrop-blur-md"
         >
           <span className="w-2 h-2 rounded-full bg-[#FF6004] animate-pulse shrink-0" />
           <span>Connected Commercial Journey</span>
           <Sparkles className="w-3 h-3 text-[#FF6004] shrink-0" />
         </motion.div>
+
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-zinc-500 dark:text-zinc-400">
+          <span>Stage: {activeStage.name}</span>
+        </div>
       </div>
 
-      {/* Main Circular Visual Canvas Container */}
-      <div className="relative aspect-square w-full p-2 sm:p-3 pt-6 sm:pt-6 pb-0 sm:pb-0 flex items-center justify-center">
+      {/* Main Circular Visual Canvas Container - Strictly balanced with symmetric padding */}
+      <div className="relative aspect-square w-full max-w-[330px] sm:max-w-[390px] md:max-w-[420px] mx-auto p-1 flex items-center justify-center">
         {/* SVG Orbital Track & Animated Commercial Journey Cord */}
         <svg
           viewBox="0 0 420 420"
@@ -208,25 +212,13 @@ export const ProcessCircleMotion: React.FC = () => {
             </filter>
           </defs>
 
-          {/* Connection Cord from Top Satellite Badge to Stage 01 Node */}
-          <path
-            d="M 85 24 C 85 46, 175 48, 204 62"
-            fill="none"
-            stroke="#FF6004"
-            strokeWidth="1.5"
-            strokeDasharray="3 3"
-            opacity="0.65"
-          />
-          <circle cx="85" cy="24" r="2.5" fill="#FF6004" />
-          <circle cx="204" cy="62" r="2.5" fill="#FF6004" />
-
           {/* Outer Faint Guide Ring with Decorative Dash */}
           <circle
             cx="210"
             cy="210"
-            r="185"
+            r="176"
             fill="none"
-            className="stroke-zinc-200 dark:stroke-white/5"
+            className="stroke-zinc-200/90 dark:stroke-white/5"
             strokeWidth="1"
             strokeDasharray="4 6"
           />
@@ -283,7 +275,7 @@ export const ProcessCircleMotion: React.FC = () => {
           })}
 
           {/* Center ambient glow circle */}
-          <circle cx="210" cy="210" r="105" fill="url(#hubCenterGlow)" />
+          <circle cx="210" cy="210" r="98" fill="url(#hubCenterGlow)" />
 
           {/* Smooth Traveling Flow Energy on the Orbital Cord */}
           {!shouldReduceMotion && (
@@ -348,8 +340,8 @@ export const ProcessCircleMotion: React.FC = () => {
           {/* Cardinal Coordinate Tick Marks */}
           {[0, 90, 180, 270].map((deg) => {
             const rad = (deg * Math.PI) / 180;
-            const r1 = 180;
-            const r2 = 190;
+            const r1 = 172;
+            const r2 = 180;
             return (
               <line
                 key={`tick-${deg}`}
@@ -374,17 +366,20 @@ export const ProcessCircleMotion: React.FC = () => {
           const leftPct = (x / 420) * 100;
           const topPct = (y / 420) * 100;
 
+          // For bottom nodes (idx 2, 3), flip tooltip to bottom-full mb-1 so it points upwards into empty space
+          const isBottomNode = idx === 2 || idx === 3;
+
           return (
             <div
               key={stage.id}
-              className="absolute -translate-x-1/2 -translate-y-1/2 z-10"
+              className="absolute -translate-x-1/2 -translate-y-1/2 z-20"
               style={{ left: `${leftPct}%`, top: `${topPct}%` }}
             >
               {/* Outer Pulse Wave for Active Node */}
               {isActive && !shouldReduceMotion && (
                 <motion.div
                   initial={{ scale: 0.9, opacity: 0.8 }}
-                  animate={{ scale: 1.6, opacity: 0 }}
+                  animate={{ scale: 1.5, opacity: 0 }}
                   transition={{ duration: 1.8, repeat: Infinity, ease: 'easeOut' }}
                   className="absolute inset-0 rounded-full pointer-events-none"
                   style={{ backgroundColor: stage.color }}
@@ -399,15 +394,15 @@ export const ProcessCircleMotion: React.FC = () => {
                   setIsAutoPlaying(false);
                 }}
                 onMouseEnter={() => setActiveIndex(idx)}
-                aria-label={`Select stage ${stage.stepNumber}: ${stage.name}`}
-                className={`group relative flex items-center justify-center rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FF6004] ${
+                aria-label={`Select ${stage.name} stage`}
+                className={`group relative flex items-center justify-center rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FF6004] cursor-pointer ${
                   isActive
-                    ? 'w-12 h-12 sm:w-14 sm:h-14 shadow-lg scale-105'
-                    : 'w-9 h-9 sm:w-10 sm:h-10 hover:scale-110 hover:shadow-md'
+                    ? 'w-11 h-11 sm:w-13 sm:h-13 shadow-lg scale-105'
+                    : 'w-8 h-8 sm:w-9 sm:h-9 hover:scale-110 hover:shadow-md'
                 } ${
                   isActive
                     ? 'text-white'
-                    : 'bg-white/90 dark:bg-[#1C1B20]/90 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-white/15'
+                    : 'bg-white/95 dark:bg-[#1C1B20]/95 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-white/15'
                 }`}
                 style={{
                   backgroundColor: isActive ? stage.color : undefined,
@@ -418,33 +413,24 @@ export const ProcessCircleMotion: React.FC = () => {
                 <NodeIcon
                   className={`transition-transform duration-200 ${
                     isActive
-                      ? 'w-5 h-5 sm:w-6 sm:h-6 scale-110'
-                      : 'w-4 h-4 text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white'
+                      ? 'w-5 h-5 sm:w-6 sm:h-6 scale-105'
+                      : 'w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white'
                   }`}
                 />
-
-                {/* Step badge on top of node */}
-                <span
-                  className={`absolute -top-1.5 -right-1.5 flex items-center justify-center rounded-full text-[9px] font-bold px-1.5 py-0.2 shadow-xs transition-colors ${
-                    isActive
-                      ? 'bg-white text-zinc-900 dark:bg-[#121214] dark:text-white border border-black/10 dark:border-white/20'
-                      : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 border border-zinc-200 dark:border-white/10'
-                  }`}
-                >
-                  {stage.stepNumber}
-                </span>
               </button>
 
               {/* Node Tooltip Label Pill (Shows permanently for active, on hover for others) */}
               <div
-                className={`absolute top-full left-1/2 -translate-x-1/2 mt-1.5 pointer-events-none transition-all duration-200 whitespace-nowrap ${
+                className={`absolute left-1/2 -translate-x-1/2 pointer-events-none transition-all duration-200 whitespace-nowrap z-30 ${
+                  isBottomNode ? 'bottom-full mb-1' : 'top-full mt-1'
+                } ${
                   isActive
                     ? 'opacity-100 translate-y-0'
                     : 'opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0'
                 }`}
               >
                 <div
-                  className={`px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] font-semibold tracking-tight shadow-sm backdrop-blur-md ${
+                  className={`px-2 py-0.5 rounded-md text-[9px] sm:text-[11px] font-semibold tracking-tight shadow-xs backdrop-blur-md ${
                     isActive
                       ? 'bg-white/95 dark:bg-[#161519]/95 text-zinc-900 dark:text-white border border-zinc-200 dark:border-white/15'
                       : 'bg-white/80 dark:bg-zinc-900/80 text-zinc-600 dark:text-zinc-300 border border-zinc-200 dark:border-white/10'
@@ -457,8 +443,8 @@ export const ProcessCircleMotion: React.FC = () => {
           );
         })}
 
-        {/* Central Core Display Hub */}
-        <div className="relative z-15 w-[168px] h-[168px] sm:w-[196px] sm:h-[196px] rounded-full p-3 flex flex-col items-center justify-center text-center bg-white/95 dark:bg-[#141318]/95 border border-zinc-200/90 dark:border-white/15 shadow-2xl backdrop-blur-xl transition-all duration-300">
+        {/* Central Core Display Hub - Mathematically locked to the absolute center (50%/50%) */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-15 w-[150px] h-[150px] sm:w-[190px] sm:h-[190px] rounded-full p-2.5 sm:p-3 flex flex-col items-center justify-center text-center bg-white/95 dark:bg-[#141318]/95 border border-zinc-200/90 dark:border-white/15 shadow-2xl backdrop-blur-xl transition-all duration-300 pointer-events-auto">
           {/* Inner ambient ring */}
           <div
             className="absolute inset-1 rounded-full pointer-events-none transition-opacity duration-500 opacity-20 dark:opacity-25"
@@ -471,46 +457,46 @@ export const ProcessCircleMotion: React.FC = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeStage.id}
-              initial={{ opacity: 0, scale: 0.92, y: 6 }}
+              initial={{ opacity: 0, scale: 0.92, y: 4 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.94, y: -6 }}
+              exit={{ opacity: 0, scale: 0.94, y: -4 }}
               transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1] }}
               className="w-full flex flex-col items-center justify-center text-center px-1"
             >
               {/* Phase Eyebrow with Beacon */}
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide bg-zinc-100 dark:bg-white/10 text-zinc-700 dark:text-zinc-200 border border-zinc-200/60 dark:border-white/10 mb-1.5">
+              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold tracking-wide bg-zinc-100 dark:bg-white/10 text-zinc-700 dark:text-zinc-200 border border-zinc-200/60 dark:border-white/10 mb-1">
                 <span
                   className="w-1.5 h-1.5 rounded-full animate-ping"
                   style={{ backgroundColor: activeStage.color }}
                 />
-                <span className="truncate">{activeStage.badge}</span>
+                <span className="truncate max-w-[120px] sm:max-w-[150px]">{activeStage.badge}</span>
               </div>
 
               {/* Stage Title */}
-              <h4 className="font-lexend text-sm sm:text-base font-bold text-zinc-900 dark:text-white leading-tight">
+              <h4 className="font-lexend text-xs sm:text-base font-bold text-zinc-900 dark:text-white leading-tight">
                 {activeStage.name}
               </h4>
 
               {/* Metric Callout Pill */}
               <div
-                className="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold text-white shadow-xs"
+                className="mt-1 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] sm:text-[11px] font-bold text-white shadow-xs"
                 style={{ backgroundColor: activeStage.color }}
               >
                 <span>{activeStage.metric}</span>
-                <span className="font-normal opacity-90 text-[9px] sm:text-[10px]">
+                <span className="font-normal opacity-90 text-[8px] sm:text-[10px]">
                   {activeStage.metricLabel}
                 </span>
               </div>
 
               {/* Micro Subtitle */}
-              <p className="mt-1 text-[10px] sm:text-[11px] text-zinc-500 dark:text-zinc-400 line-clamp-1 max-w-[150px]">
+              <p className="mt-0.5 text-[9px] sm:text-[10px] text-zinc-500 dark:text-zinc-400 line-clamp-1 max-w-[125px] sm:max-w-[150px]">
                 {activeStage.subtitle}
               </p>
             </motion.div>
           </AnimatePresence>
 
           {/* Stepper Dots & Play/Pause Interactive Bar */}
-          <div className="mt-2 flex items-center justify-center gap-1.5 z-20">
+          <div className="mt-1.5 flex items-center justify-center gap-1.5 z-20">
             {PROCESS_STAGES.map((s, i) => (
               <button
                 key={`dot-${s.id}`}
@@ -519,10 +505,10 @@ export const ProcessCircleMotion: React.FC = () => {
                   setActiveIndex(i);
                   setIsAutoPlaying(false);
                 }}
-                aria-label={`Jump to stage ${s.stepNumber}`}
-                className={`transition-all duration-300 rounded-full ${
+                aria-label={`Jump to ${s.name} stage`}
+                className={`transition-all duration-300 rounded-full cursor-pointer ${
                   i === activeIndex
-                    ? 'w-4 h-1.5 bg-[#FF6004]'
+                    ? 'w-3.5 h-1.5 bg-[#FF6004]'
                     : 'w-1.5 h-1.5 bg-zinc-300 dark:bg-white/20 hover:bg-zinc-400 dark:hover:bg-white/40'
                 }`}
               />
@@ -534,7 +520,7 @@ export const ProcessCircleMotion: React.FC = () => {
               onClick={() => setIsAutoPlaying(!isAutoPlaying)}
               aria-label={isAutoPlaying ? 'Pause automatic process cycle' : 'Play automatic process cycle'}
               title={isAutoPlaying ? 'Pause cycle' : 'Resume cycle'}
-              className="ml-1 p-0.5 text-zinc-400 hover:text-zinc-700 dark:hover:text-white transition-colors focus:outline-none"
+              className="ml-1 p-0.5 text-zinc-400 hover:text-zinc-700 dark:hover:text-white transition-colors focus:outline-none cursor-pointer"
             >
               {isAutoPlaying ? (
                 <Pause className="w-2.5 h-2.5" />
@@ -547,21 +533,21 @@ export const ProcessCircleMotion: React.FC = () => {
       </div>
 
       {/* Detail Narrative Bar under the circle */}
-      <div className="-mt-3 sm:-mt-5 w-full px-2">
-        <div className="p-3 rounded-[16px] bg-white/80 dark:bg-[#161519]/80 border border-zinc-200/80 dark:border-white/10 backdrop-blur-md flex items-center justify-between gap-3 shadow-xs">
+      <div className="mt-2 sm:mt-3 w-full px-1 sm:px-2">
+        <div className="p-2.5 sm:p-3 rounded-[16px] bg-white/85 dark:bg-[#161519]/85 border border-zinc-200/80 dark:border-white/10 backdrop-blur-md flex items-center justify-between gap-3 shadow-xs">
           <div className="flex items-center gap-2.5 min-w-0 w-full">
             <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 text-white font-bold text-xs"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center shrink-0 text-white font-bold text-xs shadow-xs"
               style={{ backgroundColor: activeStage.color }}
             >
-              {activeStage.stepNumber}
+              <ActiveIcon className="w-4 h-4 text-white" />
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-1.5">
                 <span className="text-xs font-bold text-zinc-900 dark:text-white truncate">
                   {activeStage.name}
                 </span>
-                <span className="text-[10px] text-zinc-500 dark:text-zinc-400 hidden sm:inline">
+                <span className="text-[10px] text-zinc-500 dark:text-zinc-400 truncate hidden xs:inline">
                   — {activeStage.subtitle}
                 </span>
               </div>
@@ -569,6 +555,15 @@ export const ProcessCircleMotion: React.FC = () => {
                 {activeStage.description}
               </p>
             </div>
+            <button
+              type="button"
+              onClick={() => setActiveIndex((prev) => (prev + 1) % PROCESS_STAGES.length)}
+              className="p-1 rounded-full text-zinc-400 hover:text-zinc-700 dark:hover:text-white transition-colors shrink-0 cursor-pointer"
+              aria-label="Next stage"
+              title="Next stage"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </div>

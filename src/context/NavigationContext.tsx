@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { RoutePath } from '../types';
+import { updateDocumentSEO, SEO_CONFIG } from '../utils/seo';
 
 interface NavigationContextType {
   currentPath: RoutePath;
@@ -11,23 +12,11 @@ interface NavigationContextType {
 
 const NavigationContext = createContext<NavigationContextType | undefined>(undefined);
 
-const pathToTitleMap: Record<RoutePath, string> = {
-  '/': 'SalesNego | B2B GTM, RevOps & Commercial Execution',
-  '/about': 'About SalesNego | Commercial Strategy Connected to Execution',
-  '/services': 'Services | One Commercial System. Three Connected Capabilities',
-  '/services/gtm-strategy-market-intelligence': 'GTM Strategy & Market Intelligence | SalesNego',
-  '/services/revops-ai-sales': 'RevOps & AI-Accelerated Sales | SalesNego',
-  '/services/commercial-execution': 'End-to-End Commercial Execution | SalesNego',
-  '/case-studies': 'Commercial & Technology Experience | SalesNego',
-  '/contact': 'Contact SalesNego | Let\'s Discuss Your Commercial Priorities',
-  '/privacy': 'Privacy Policy | SalesNego',
-};
-
 export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentPath, setCurrentPath] = useState<RoutePath>(() => {
     if (typeof window !== 'undefined') {
       const p = window.location.pathname as RoutePath;
-      if (p in pathToTitleMap) {
+      if (p in SEO_CONFIG) {
         return p;
       }
     }
@@ -39,7 +28,7 @@ export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   useEffect(() => {
     const handlePopState = () => {
       const p = window.location.pathname as RoutePath;
-      if (p in pathToTitleMap) {
+      if (p in SEO_CONFIG) {
         setCurrentPath(p);
       } else {
         setCurrentPath('/');
@@ -51,9 +40,8 @@ export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   }, []);
 
   useEffect(() => {
-    // Update document title for SEO
-    const title = pathToTitleMap[currentPath] || 'SalesNego | B2B GTM, RevOps & Commercial Execution';
-    document.title = title;
+    // Centrally update title, meta description, OpenGraph, Twitter, canonical and structured schema
+    updateDocumentSEO(currentPath);
   }, [currentPath]);
 
   const navigate = (path: RoutePath, targetElementId?: string) => {

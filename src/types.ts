@@ -9,6 +9,23 @@ export type RoutePath =
   | '/contact'
   | '/privacy';
 
+export interface RouteSEOConfig {
+  title: string;
+  description: string;
+  keywords?: string;
+  canonical?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogType?: 'website' | 'article' | 'profile';
+  ogImage?: string;
+  ogUrl?: string;
+  twitterCard?: 'summary' | 'summary_large_image';
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterImage?: string;
+  structuredData?: Record<string, unknown>;
+}
+
 export interface JourneyStage {
   id: string;
   name: string;

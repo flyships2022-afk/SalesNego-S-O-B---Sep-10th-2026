@@ -9,8 +9,8 @@ export const Footer: React.FC = () => {
 
   const navLinks: { label: string; path: RoutePath; sectionId?: string }[] = [
     { label: 'Home', path: '/', sectionId: 'hero-section' },
-    { label: 'About Us', path: '/about' },
     { label: 'Services', path: '/services' },
+    { label: 'About Us', path: '/about' },
     { label: 'Case Studies', path: '/case-studies' },
     { label: 'Contact', path: '/', sectionId: 'contact-section' },
     { label: 'Privacy Policy', path: '/privacy' },

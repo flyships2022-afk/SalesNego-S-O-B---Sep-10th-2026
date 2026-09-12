@@ -394,7 +394,7 @@ export const HomePage: React.FC = () => {
         className="top-level-section relative w-full bg-[#F5F2EC] dark:bg-[#07080A] p-2.5 sm:p-3.5 lg:p-4"
       >
         <div className="max-w-[1400px] mx-auto w-full">
-          <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-br from-[#FFFDFB] via-[#FAF4ED] to-[#F2E7D8] text-[#161519] dark:from-[#150D08] dark:via-[#0D0B0F] dark:to-[#060608] dark:text-white p-6 sm:p-8 md:p-10 lg:p-12 min-h-0 lg:min-h-[560px] flex flex-col justify-between border border-[#E5DDD0] dark:border-[#2A1D16] shadow-xl transition-colors duration-200">
+          <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-br from-[#FFFDFB] via-[#FAF4ED] to-[#F2E7D8] text-[#161519] dark:from-[#150D08] dark:via-[#0D0B0F] dark:to-[#060608] dark:text-white p-3.5 sm:p-6 md:p-10 lg:p-12 min-h-0 lg:min-h-[560px] flex flex-col justify-between border border-[#E5DDD0] dark:border-[#2A1D16] shadow-xl transition-colors duration-200">
             {/* Subtle Ambient Background Mesh - Darker Warm Orange & Obsidian Black Undertones */}
             <div className="absolute -top-12 -right-12 w-[520px] h-[520px] bg-gradient-to-bl from-[#FF6004]/18 via-[#C84500]/10 to-transparent rounded-full blur-[130px] pointer-events-none" />
             <div className="absolute -bottom-10 -left-10 w-[460px] h-[460px] bg-gradient-to-tr from-[#FF6004]/10 via-[#2563EB]/08 to-transparent rounded-full blur-[140px] pointer-events-none" />
@@ -482,15 +482,15 @@ export const HomePage: React.FC = () => {
 
               {/* Right Column: Process Circle Motion Block (lg:col-span-5) */}
               <div
-                style={{ maxWidth: '100%', height: 'auto', overflowX: 'hidden' }}
-                className="lg:col-span-5 xl:col-span-5 flex items-center justify-center lg:justify-end w-full max-w-full overflow-x-hidden h-auto preview-card-wrapper pr-0 sm:pr-0 lg:pr-2 my-4 lg:my-0"
+                style={{ maxWidth: '100%', height: 'auto' }}
+                className="lg:col-span-5 xl:col-span-5 flex items-center justify-center lg:justify-end w-full max-w-full overflow-hidden h-auto pr-0 sm:pr-0 lg:pr-2 my-2 sm:my-4 lg:my-0"
               >
                 <ProcessCircleMotion />
               </div>
             </div>
 
             {/* Bottom Hero Trust Metrics Bar with Staggered Scroll Entrance */}
-            <div className="relative z-10 pt-5 mt-5 border-t border-black/10 dark:border-white/10 w-full">
+            <div className="relative z-10 pt-4 sm:pt-5 mt-4 sm:mt-5 border-t border-black/10 dark:border-white/10 w-full">
               <StaggerGroup
                 staggerDelay={0.08}
                 className="max-w-2xl lg:max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 items-center text-center"
