@@ -2,7 +2,9 @@ const { Resvg } = require('@resvg/resvg-js');
 const fs = require('fs');
 const { execSync } = require('child_process');
 
-// Official SalesNego Circle Logo with vivid electric blue (#0A4CF6) and primary orange (#FF6004)
+// Official SalesNego Circle Logo with exact requested brand colors:
+// Blue: #3A54E7
+// Orange: #FF914C
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
   <!-- Crisp white circular badge background for maximum contrast in both dark & light browser tabs -->
   <circle cx="256" cy="256" r="256" fill="#FFFFFF" />
@@ -11,7 +13,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width
     <path
       d="M 85 94 L 247 256 L 85 418"
       fill="none"
-      stroke="#0A4CF6"
+      stroke="#3A54E7"
       stroke-width="104"
       stroke-linecap="round"
       stroke-linejoin="round"
@@ -19,7 +21,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width
     <path
       d="M 265 94 L 427 256 L 265 418"
       fill="none"
-      stroke="#FF6004"
+      stroke="#FF914C"
       stroke-width="104"
       stroke-linecap="round"
       stroke-linejoin="round"
@@ -50,4 +52,4 @@ renderPNG(512, 'favicon-512.png');
 // Create multi-resolution favicon.ico containing 16x16, 32x32, 48x48
 execSync('convert public/favicon-16x16.png public/favicon-32x32.png public/favicon-48x48.png public/favicon.ico');
 
-console.log('Official SalesNego Circle Favicons and ICO successfully generated!');
+console.log('Official SalesNego Circle Favicons and ICO (#3A54E7 & #FF914C) successfully generated!');
