@@ -39,7 +39,7 @@ import { ExperienceMarqueeSlider } from '../components/ExperienceMarqueeSlider';
 import { ProcessCircleMotion } from '../components/ProcessCircleMotion';
 import { TestimonialCarousel } from '../components/TestimonialCarousel';
 import { ScrollReveal, StaggerGroup, StaggerItem } from '../components/ScrollReveal';
-import { ClientLogoCard } from '../components/ClientLogoCard';
+import { LogoWallSection } from '../components/LogoWallSection';
 import { LazyImage } from '../components/LazyImage';
 
 export const HomePage: React.FC = () => {
@@ -156,55 +156,6 @@ export const HomePage: React.FC = () => {
 
     return () => clearInterval(pipelineTimer);
   }, []);
-
-  const clientLogos = [
-    {
-      name: 'TC+ LIMS',
-      image: '/tclims-logo.png',
-      fallbackUrl: '/tclims-logo.png',
-      alt: 'TC+ LIMS Logo',
-    },
-    {
-      name: 'KidOye',
-      image: '/kidoye-logo.png',
-      fallbackUrl: '/kidoye-logo.png',
-      alt: 'KidOye Logo',
-    },
-    {
-      name: 'Infocodec',
-      image: '/infocodec-logo.png',
-      fallbackUrl: '/infocodec-logo.png',
-      alt: 'Infocodec Logo',
-    },
-    {
-      name: 'Maple Tax',
-      image: '/mapletax-logo.png',
-      fallbackUrl: '/mapletax-logo.png',
-      alt: 'Maple Tax Logo',
-      sizeClass: 'max-h-12 max-w-[145px]',
-    },
-    {
-      name: 'Metafic',
-      image: '/metafic-logo-clean.png',
-      fallbackUrl: '/metafic-logo-clean.png',
-      alt: 'Metafic Logo',
-    },
-    {
-      name: 'Leadnics',
-      image: '/leadnics-light.png',
-      darkImage: '/leadnics-dark.png',
-      fallbackUrl: '/leadnics-logo.png',
-      alt: 'Leadnics Logo',
-    },
-    {
-      name: 'Aarav Nexus',
-      image: '/aarav-nexus-light.png',
-      darkImage: '/aarav-nexus-dark.png',
-      fallbackUrl: '/aarav-nexus-logo.png',
-      alt: 'Aarav Nexus Logo',
-      sizeClass: 'max-h-12 max-w-[145px]',
-    },
-  ];
 
   const coreServices = [
     {
@@ -568,58 +519,8 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. PARTNERS, NOT JUST CLIENTS (Infinite Smooth Marquee with Scroll Reveal) */}
-      <section
-        id="partners-section"
-        aria-label="Approved Client Logos"
-        style={{ maxWidth: '100%', height: 'auto', overflowX: 'hidden', boxSizing: 'border-box' }}
-        className="top-level-section logo-wall-wrapper client-logos-wrapper w-full max-w-full h-auto py-12 bg-white dark:bg-[#161519] border-b border-[#E5E3DC] dark:border-white/10 overflow-x-hidden relative"
-      >
-        <ScrollReveal direction="up" distance={20} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
-          <h2 className="font-lexend text-xl sm:text-2xl lg:text-3xl font-normal leading-tight text-[#161519] dark:text-white">
-            Trusted Across SaaS, Technology Products and Services
-          </h2>
-        </ScrollReveal>
-
-        {/* Left and Right Fade Masks for Smooth Edge Transitions */}
-        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-white dark:from-[#161519] to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-white dark:from-[#161519] to-transparent z-10 pointer-events-none" />
-
-        {/* Sliding Track with Scroll Reveal Container */}
-        <ScrollReveal delay={0.1} distance={16}>
-          <div className="flex animate-marquee gap-6 md:gap-8 items-center py-2">
-            {/* First Copy of Logos */}
-            <div className="flex gap-6 md:gap-8 items-center shrink-0">
-              {clientLogos.map((item, index) => (
-                <ClientLogoCard
-                  key={`logo-track-1-${index}`}
-                  name={item.name}
-                  image={item.image}
-                  darkImage={item.darkImage}
-                  fallbackUrl={item.fallbackUrl}
-                  alt={item.alt}
-                  sizeClass={item.sizeClass}
-                />
-              ))}
-            </div>
-
-            {/* Duplicate Copy for Seamless Infinite Loop */}
-            <div className="flex gap-6 md:gap-8 items-center shrink-0" aria-hidden="true">
-              {clientLogos.map((item, index) => (
-                <ClientLogoCard
-                  key={`logo-track-dup-${index}`}
-                  name={item.name}
-                  image={item.image}
-                  darkImage={item.darkImage}
-                  fallbackUrl={item.fallbackUrl}
-                  alt={item.alt}
-                  sizeClass={item.sizeClass}
-                />
-              ))}
-            </div>
-          </div>
-        </ScrollReveal>
-      </section>
+      {/* 2. PARTNERS, NOT JUST CLIENTS & CASE STUDY DISCOVERY (Industry Filtered Logo Wall) */}
+      <LogoWallSection />
 
       {/* 3. THE COMMERCIAL GAP & THE CHALLENGE */}
       <section
