@@ -72,6 +72,7 @@ export const HomePage: React.FC = () => {
   const [diffIsDeleting, setDiffIsDeleting] = useState(false);
 
   // Quick inquiry form state
+  const [hoveredServiceCardId, setHoveredServiceCardId] = useState<string | null>(null);
   const [inquiryName, setInquiryName] = useState('');
   const [inquiryEmail, setInquiryEmail] = useState('');
   const [inquiryCompany, setInquiryCompany] = useState('');
@@ -684,107 +685,163 @@ export const HomePage: React.FC = () => {
           </ScrollReveal>
 
           {/* 3 Services Grid: 1 column on mobile, 3 columns on tablet portrait, landscape & desktop */}
-          <StaggerGroup
-            staggerDelay={0.1}
-            className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-8 py-2"
-          >
-            {coreServices.map((svc) => (
-              <StaggerItem key={svc.id} distance={24} className="h-full">
-                <div
-                  onClick={(e) => {
-                    // Avoid double trigger if clicking internal buttons
-                    if ((e.target as HTMLElement).closest('button')) return;
-                    navigate(svc.path as any);
-                  }}
-                  className="group relative p-5 sm:p-6 lg:p-7 xl:p-8 rounded-[20px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 hover:bg-[#161519] dark:hover:bg-black hover:border-[#FF6004] dark:hover:border-[#FF6004] transform transition-all duration-300 ease-out hover:scale-102 lg:hover:scale-105 hover:-translate-y-1 shadow-xs hover:shadow-2xl hover:shadow-black/20 dark:hover:shadow-black/70 hover:z-10 flex flex-col justify-between h-full will-change-transform cursor-pointer"
-                >
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-4">
-                      <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#FF6004]/10 text-[#FF6004] dark:bg-white/10 dark:text-zinc-200 group-hover:bg-[#FF6004] group-hover:text-white transition-colors duration-300">
-                        {svc.badge}
-                      </span>
+          <div onMouseLeave={() => setHoveredServiceCardId(null)}>
+            <StaggerGroup
+              staggerDelay={0.1}
+              className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-8 py-2 items-start"
+            >
+              {coreServices.map((svc) => {
+              const isCardHovered = hoveredServiceCardId === svc.id;
+
+              return (
+                <StaggerItem key={svc.id} distance={24} className="w-full">
+                  <div
+                    onMouseEnter={() => setHoveredServiceCardId(svc.id)}
+                    onMouseLeave={() => {
+                      setHoveredServiceCardId((curr) => (curr === svc.id ? null : curr));
+                    }}
+                    className={`group relative p-5 sm:p-6 lg:p-7 xl:p-8 rounded-[20px] border transition-all duration-300 ease-out flex flex-col justify-between will-change-transform ${
+                      isCardHovered
+                        ? 'bg-[#161519] dark:bg-black border-[#FF6004] dark:border-[#FF6004] scale-102 lg:scale-105 -translate-y-1 shadow-2xl shadow-black/20 dark:shadow-black/70 z-10'
+                        : 'bg-[#F6F5F2] dark:bg-[#1C1B20] border-[#E5E3DC] dark:border-white/10 shadow-xs hover:border-[#FF6004]/50'
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-4">
+                        <span
+                          className={`text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full transition-colors duration-300 ${
+                            isCardHovered
+                              ? 'bg-[#FF6004] text-white'
+                              : 'bg-[#FF6004]/10 text-[#FF6004] dark:bg-white/10 dark:text-zinc-200'
+                          }`}
+                        >
+                          {svc.badge}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => navigate(svc.path as any)}
+                          className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer shadow-xs hover:scale-110 active:scale-95 ${
+                            isCardHovered
+                              ? 'bg-[#FF6004] text-white'
+                              : 'bg-white dark:bg-white/10 text-[#161519] dark:text-white hover:bg-[#FF6004] hover:text-white'
+                          }`}
+                          aria-label={`View detailed service page for ${svc.title}`}
+                        >
+                          <ArrowUpRight className="w-4 h-4" />
+                        </button>
+                      </div>
+
+                      {svc.image && (
+                        <div className="mb-5">
+                          <div className={`relative w-full aspect-[16/10] rounded-xl overflow-hidden border bg-zinc-900 shadow-xs group/img transition-colors duration-300 ${
+                            isCardHovered ? 'border-white/20' : 'border-[#E5E3DC] dark:border-white/10'
+                          }`}>
+                            <LazyImage
+                              src={svc.image}
+                              alt={svc.imageAlt || svc.title}
+                              referrerPolicy="no-referrer"
+                              containerClassName="w-full h-full absolute inset-0"
+                              className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover/img:scale-105"
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          </div>
+                          {svc.imageTag && (
+                            <div className={`mt-2.5 flex items-center justify-between px-3 py-1.5 rounded-lg border text-[11px] font-medium transition-colors duration-300 ${
+                              isCardHovered
+                                ? 'bg-white/10 border-white/15 text-zinc-200'
+                                : 'bg-black/5 dark:bg-white/5 border-[#E5E3DC] dark:border-white/10 text-[#555459] dark:text-zinc-300'
+                            }`}>
+                              <span className="truncate">{svc.imageTag}</span>
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0 ml-1.5 animate-pulse" />
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      <h3 className={`font-lexend text-2xl font-normal leading-tight mb-2 min-h-[56px] sm:min-h-[60px] transition-colors duration-300 ${
+                        isCardHovered ? 'text-white' : 'text-[#161519] dark:text-white'
+                      }`}>
+                        {svc.title}
+                      </h3>
+
+                      <p className={`text-xs font-semibold mb-3 min-h-[32px] transition-colors duration-300 ${
+                        isCardHovered ? 'text-[#FE9E30]' : 'text-[#2563EB] dark:text-[#3B82F6]'
+                      }`}>
+                        {svc.subtitle}
+                      </p>
+
+                      <p className={`text-sm leading-relaxed mb-6 min-h-[72px] sm:min-h-[80px] transition-colors duration-300 ${
+                        isCardHovered ? 'text-zinc-300' : 'text-[#555459] dark:text-zinc-300'
+                      }`}>
+                        {svc.description}
+                      </p>
+
+                      {/* Key Areas: Completely hidden/closed unless hovering this specific card */}
+                      <div
+                        className={`grid transition-all duration-300 ease-out ${
+                          isCardHovered
+                            ? 'grid-rows-[1fr] opacity-100'
+                            : 'grid-rows-[0fr] opacity-0 pointer-events-none'
+                        }`}
+                      >
+                        <div className="overflow-hidden min-h-0">
+                          <div className={`pt-4 border-t transition-colors duration-300 mb-6 ${
+                            isCardHovered ? 'border-white/15' : 'border-[#E5E3DC] dark:border-white/10'
+                          }`}>
+                            <span className={`text-xs uppercase font-bold tracking-wider block mb-2.5 transition-colors duration-300 ${
+                              isCardHovered ? 'text-zinc-200' : 'text-zinc-400 dark:text-zinc-400'
+                            }`}>
+                              Key Areas:
+                            </span>
+                            <div className="flex flex-wrap gap-1.5">
+                              {svc.keyAreas.map((item) => (
+                                <span
+                                  key={item}
+                                  className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-white/10 border border-white/15 text-white transition-colors duration-300"
+                                >
+                                  {item}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={`pt-4 flex items-center justify-between border-t transition-colors duration-300 mt-auto ${
+                      isCardHovered ? 'border-white/15' : 'border-[#E5E3DC] dark:border-white/10'
+                    }`}>
                       <button
                         type="button"
                         onClick={() => navigate(svc.path as any)}
-                        className="w-8 h-8 rounded-full bg-white dark:bg-white/10 flex items-center justify-center text-[#161519] dark:text-white group-hover:bg-[#FF6004] group-hover:text-white transition-all duration-300 cursor-pointer"
-                        aria-label={`Learn more about ${svc.title}`}
+                        className={`inline-flex items-center gap-1.5 text-sm font-bold hover:underline transition-colors duration-300 cursor-pointer ${
+                          isCardHovered
+                            ? 'text-[#FE9E30]'
+                            : 'text-[#2563EB] dark:text-[#3B82F6] hover:text-[#FF6004]'
+                        }`}
                       >
-                        <ArrowUpRight className="w-4 h-4" />
+                        <span>Learn More &rarr;</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={openCalendly}
+                        className={`text-xs font-semibold transition-colors duration-300 cursor-pointer ${
+                          isCardHovered
+                            ? 'text-zinc-300 hover:text-white'
+                            : 'text-[#555459] dark:text-zinc-400 hover:text-[#161519] dark:hover:text-white'
+                        }`}
+                      >
+                        Discuss Priorities
                       </button>
                     </div>
-
-                    {svc.image && (
-                      <div className="mb-5">
-                        <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden border border-[#E5E3DC] dark:border-white/10 group-hover:border-white/15 bg-zinc-900 shadow-xs group/img transition-colors duration-300">
-                          <LazyImage
-                            src={svc.image}
-                            alt={svc.imageAlt || svc.title}
-                            referrerPolicy="no-referrer"
-                            containerClassName="w-full h-full absolute inset-0"
-                            className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover/img:scale-105"
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        </div>
-                        {svc.imageTag && (
-                          <div className="mt-2.5 flex items-center justify-between px-3 py-1.5 rounded-lg bg-black/5 dark:bg-white/5 group-hover:bg-white/10 border border-[#E5E3DC] dark:border-white/10 group-hover:border-white/15 text-[11px] text-[#555459] dark:text-zinc-300 group-hover:text-zinc-200 font-medium transition-colors duration-300">
-                            <span className="truncate">{svc.imageTag}</span>
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0 ml-1.5 animate-pulse" />
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    <h3 className="font-lexend text-2xl font-normal text-[#161519] dark:text-white group-hover:text-white transition-colors duration-300 leading-tight mb-2">
-                      {svc.title}
-                    </h3>
-
-                    <p className="text-xs font-semibold text-[#2563EB] dark:text-[#3B82F6] group-hover:text-[#FE9E30] dark:group-hover:text-[#FE9E30] transition-colors duration-300 mb-3">
-                      {svc.subtitle}
-                    </p>
-
-                    <p className="text-sm text-[#555459] dark:text-zinc-300 group-hover:text-zinc-300 transition-colors duration-300 leading-relaxed mb-6">
-                      {svc.description}
-                    </p>
-
-                    <div className="space-y-2 mb-8 pt-4 border-t border-[#E5E3DC] dark:border-white/10 group-hover:border-white/15 transition-colors duration-300">
-                      <span className="text-xs uppercase font-bold tracking-wider text-zinc-400 group-hover:text-zinc-300 block mb-2 transition-colors duration-300">
-                        Key Areas:
-                      </span>
-                      <div className="flex flex-wrap gap-1.5">
-                        {svc.keyAreas.map((item) => (
-                          <span
-                            key={item}
-                            className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-white dark:bg-white/5 group-hover:bg-white/10 border border-[#E5E3DC] dark:border-white/10 group-hover:border-white/15 text-[#161519] dark:text-zinc-200 group-hover:text-white transition-colors duration-300"
-                          >
-                            {item}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
                   </div>
-
-                  <div className="pt-4 flex items-center justify-between border-t border-[#E5E3DC] dark:border-white/10 group-hover:border-white/15 transition-colors duration-300 mt-auto">
-                    <button
-                      type="button"
-                      onClick={() => navigate(svc.path as any)}
-                      className="inline-flex items-center gap-1.5 text-sm font-bold text-[#2563EB] dark:text-[#3B82F6] group-hover:text-[#FF6004] dark:group-hover:text-[#FE9E30] hover:underline transition-colors duration-300"
-                    >
-                      <span>Learn More &rarr;</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={openCalendly}
-                      className="text-xs font-semibold text-[#555459] dark:text-zinc-400 group-hover:text-zinc-300 hover:text-white dark:hover:text-white transition-colors duration-300"
-                    >
-                      Discuss Priorities
-                    </button>
-                  </div>
-                </div>
-              </StaggerItem>
-            ))}
+                </StaggerItem>
+              );
+            })}
           </StaggerGroup>
+        </div>
 
           {/* Services Closing Line with Scroll Reveal */}
           <ScrollReveal delay={0.12} distance={16} className="mt-12 text-center p-6 rounded-[18px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10">
