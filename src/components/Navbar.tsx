@@ -23,7 +23,6 @@ import {
 import { useNavigation } from '../context/NavigationContext';
 import { useTheme } from '../context/ThemeContext';
 import { SalesNegoLogo } from './SalesNegoLogo';
-import { Link } from './Link';
 import { RoutePath } from '../types';
 
 export const Navbar: React.FC = () => {
@@ -200,7 +199,7 @@ export const Navbar: React.FC = () => {
       description: 'Define ICPs, buyer roles, category positioning, and high-priority accounts before executing outreach.',
     },
     {
-      title: 'Revenue Operations & AI-Accelerated Sales',
+      title: 'RevOps & AI-Accelerated Sales',
       badge: 'Infrastructure & AI',
       path: '/services/revops-ai-sales' as RoutePath,
       description: 'Connect CRM architecture, qualification matrices, and automated AI workflows to eliminate manual drag.',
@@ -308,7 +307,7 @@ export const Navbar: React.FC = () => {
                 <div
                   key="services-dropdown-container"
                   ref={dropdownRef}
-                  className={`relative ${servicesDropdownOpen ? 'z-50' : ''}`}
+                  className="relative"
                   onMouseEnter={() => {
                     setServicesDropdownOpen(true);
                     setActiveTooltipId(null);
@@ -318,19 +317,7 @@ export const Navbar: React.FC = () => {
                   <button
                     id="nav-link-services"
                     type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setServicesDropdownOpen((prev) => !prev);
-                      setActiveTooltipId(null);
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        setServicesDropdownOpen(true);
-                        setActiveTooltipId(null);
-                      }
-                    }}
+                    onClick={() => handleNavClick(item)}
                     onFocus={() => {
                       if (!servicesDropdownOpen) {
                         setActiveTooltipId(tooltipId);
@@ -399,30 +386,36 @@ export const Navbar: React.FC = () => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 6, scale: 0.98 }}
                         transition={{ duration: 0.18, ease: 'easeOut' }}
-                        className="absolute left-1/2 top-full -translate-x-1/2 pt-2 z-50 w-[640px] pointer-events-auto"
+                        className="absolute left-1/2 top-full -translate-x-1/2 pt-2 z-50 w-[640px]"
                       >
                         <div className="rounded-[20px] bg-white dark:bg-[#1C1B20] p-6 text-[#161519] dark:text-white shadow-[0_20px_50px_rgba(15,15,20,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-[#E5E3DC] dark:border-white/10">
                           <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#E5E3DC] dark:border-white/10">
                             <span className="text-xs uppercase font-bold tracking-wider text-[#FF6004]">
                               Commercial Systems &amp; Capabilities
                             </span>
-                            <Link
-                              to="/services"
-                              onClick={() => setServicesDropdownOpen(false)}
-                              className="text-xs font-semibold text-[#555459] dark:text-zinc-400 hover:text-[#FF6004] dark:hover:text-white flex items-center gap-1 transition-colors"
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setServicesDropdownOpen(false);
+                                navigate('/services');
+                              }}
+                              className="text-xs font-semibold text-[#555459] dark:text-zinc-400 hover:text-[#FF6004] dark:hover:text-white flex items-center gap-1"
                             >
                               <span>View All Services</span>
                               <ArrowRight className="w-3 h-3" />
-                            </Link>
+                            </button>
                           </div>
 
                           <div className="grid grid-cols-1 gap-3">
                             {servicesList.map((svc) => (
-                              <Link
+                              <button
                                 key={svc.path}
-                                to={svc.path}
-                                onClick={() => setServicesDropdownOpen(false)}
-                                className="group text-left p-3.5 rounded-xl hover:bg-[#F6F5F2] dark:hover:bg-white/5 border border-transparent hover:border-[#E5E3DC] dark:hover:border-white/10 transition-all flex items-start gap-3.5 block"
+                                type="button"
+                                onClick={() => {
+                                  setServicesDropdownOpen(false);
+                                  navigate(svc.path);
+                                }}
+                                className="group text-left p-3.5 rounded-xl hover:bg-[#F6F5F2] dark:hover:bg-white/5 border border-transparent hover:border-[#E5E3DC] dark:hover:border-white/10 transition-all flex items-start gap-3.5"
                               >
                                 <div className="w-2 h-2 rounded-full bg-[#FF6004] mt-2 shrink-0 group-hover:scale-125 transition-transform" />
                                 <div className="flex-1">
@@ -439,7 +432,7 @@ export const Navbar: React.FC = () => {
                                   </p>
                                 </div>
                                 <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-[#FF6004] transition-colors shrink-0 mt-1" />
-                              </Link>
+                              </button>
                             ))}
                           </div>
 
@@ -457,7 +450,7 @@ export const Navbar: React.FC = () => {
                                 setServicesDropdownOpen(false);
                                 openCalendly();
                               }}
-                              className="text-xs font-bold text-[#2563EB] dark:text-[#3B82F6] hover:underline shrink-0 cursor-pointer"
+                              className="text-xs font-bold text-[#2563EB] dark:text-[#3B82F6] hover:underline shrink-0"
                             >
                               Discuss Partnership
                             </button>
@@ -797,13 +790,7 @@ export const Navbar: React.FC = () => {
                             >
                               <button
                                 type="button"
-                                onClick={() => {
-                                  if (isServices) {
-                                    setMobileServicesExpanded((prev) => !prev);
-                                  } else {
-                                    handleNavClick(item);
-                                  }
-                                }}
+                                onClick={() => handleNavClick(item)}
                                 className="flex-1 text-left px-2 py-1.5 flex items-center gap-3 cursor-pointer"
                               >
                                 <div
@@ -880,14 +867,15 @@ export const Navbar: React.FC = () => {
                                   >
                                     <div className="border-l-2 border-[#FF6004]/30 pl-3 py-1 space-y-1.5">
                                       {servicesList.map((svc) => (
-                                        <Link
+                                        <button
                                           key={svc.path}
-                                          to={svc.path}
+                                          type="button"
                                           onClick={() => {
                                             document.body.style.overflow = '';
                                             setMobileMenuOpen(false);
+                                            navigate(svc.path);
                                           }}
-                                          className="w-full text-left p-2 rounded-lg bg-black/5 dark:bg-white/5 hover:bg-[#FF6004]/10 dark:hover:bg-white/10 border border-transparent hover:border-[#FF6004]/30 transition-all flex items-start justify-between gap-2 group/sub block"
+                                          className="w-full text-left p-2 rounded-lg bg-black/5 dark:bg-white/5 hover:bg-[#FF6004]/10 dark:hover:bg-white/10 border border-transparent hover:border-[#FF6004]/30 transition-all flex items-start justify-between gap-2 group/sub"
                                         >
                                           <div>
                                             <div className="flex items-center gap-1.5 mb-0.5">
@@ -900,20 +888,21 @@ export const Navbar: React.FC = () => {
                                             </span>
                                           </div>
                                           <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover/sub:text-[#FF6004] transition-colors shrink-0 mt-0.5" />
-                                        </Link>
+                                        </button>
                                       ))}
 
-                                      <Link
-                                        to="/services"
+                                      <button
+                                        type="button"
                                         onClick={() => {
                                           document.body.style.overflow = '';
                                           setMobileMenuOpen(false);
+                                          navigate('/services');
                                         }}
-                                        className="w-full text-left pt-1.5 px-2 text-[11px] font-bold text-[#FF6004] hover:underline flex items-center gap-1 block"
+                                        className="w-full text-left pt-1.5 px-2 text-[11px] font-bold text-[#FF6004] hover:underline flex items-center gap-1"
                                       >
                                         <span>View Complete Services Overview</span>
                                         <ArrowRight className="w-3 h-3" />
-                                      </Link>
+                                      </button>
                                     </div>
                                   </motion.div>
                                 )}
