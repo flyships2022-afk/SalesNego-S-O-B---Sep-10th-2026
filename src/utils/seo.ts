@@ -7,7 +7,7 @@ import { RoutePath, RouteSEOConfig } from '../types';
 export const SITE_URL = 'https://salesnego.com';
 export const SITE_NAME = 'SalesNego';
 export const BRAND_LOGO_URL = 'https://salesnego.com/salesnego-logo-1.png';
-export const DEFAULT_OG_IMAGE = 'https://salesnego.com/salesnego-logo.png';
+export const DEFAULT_OG_IMAGE = 'https://salesnego.com/salesnego-logo-1.png';
 export const DEFAULT_TWITTER_CARD = 'summary_large_image' as const;
 export const DEFAULT_ROBOTS = 'index, follow';
 
