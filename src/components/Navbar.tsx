@@ -172,13 +172,13 @@ export const Navbar: React.FC = () => {
       subtitle: 'Founder Leadership & Track Record',
     },
     {
-      label: 'Portfolio',
+      label: 'Case Studies',
       path: '/case-studies',
       sectionId: 'experience-section',
       sectionKey: 'portfolio',
-      tooltip: 'Client portfolio & case studies',
+      tooltip: 'Selected client case studies & commercial experience',
       icon: Briefcase,
-      subtitle: 'Client Case Studies & Results',
+      subtitle: 'Selected Case Studies & Experience',
     },
     {
       label: 'Contact',
@@ -436,12 +436,12 @@ export const Navbar: React.FC = () => {
                             ))}
                           </div>
 
-                          {/* Featured Pod Notice */}
+                          {/* Featured Advisory Notice */}
                           <div className="mt-4 p-3 rounded-xl bg-[#F6F5F2] dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 flex items-center justify-between">
                             <div className="flex items-center gap-2">
                               <Sparkles className="w-4 h-4 text-[#FF6004]" />
                               <span className="text-xs font-semibold text-[#161519] dark:text-zinc-200">
-                                Dedicated Commercial Pod &amp; Fractional CRO available on monthly retainer
+                                Founder-Led Commercial Advisory &amp; Fractional CRO available on monthly retainer
                               </span>
                             </div>
                             <button
@@ -452,7 +452,7 @@ export const Navbar: React.FC = () => {
                               }}
                               className="text-xs font-bold text-[#2563EB] dark:text-[#3B82F6] hover:underline shrink-0"
                             >
-                              Explore Pod
+                              Discuss Partnership
                             </button>
                           </div>
                         </div>
@@ -924,7 +924,7 @@ export const Navbar: React.FC = () => {
                     {/* Live Availability Badge */}
                     <div className="flex items-center justify-center gap-2 py-1 px-2.5 rounded-full bg-black/5 dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-[11px] font-medium text-[#555459] dark:text-zinc-300">
                       <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-                      <span>Commercial Advisory &amp; Pods Open</span>
+                      <span>Commercial Advisory &amp; Client Capacity Open</span>
                     </div>
 
                     {/* Primary Metafic-style Gradient Button */}

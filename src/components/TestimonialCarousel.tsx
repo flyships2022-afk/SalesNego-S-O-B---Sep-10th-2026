@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { ScrollReveal } from './ScrollReveal';
 import { LazyImage } from './LazyImage';
 import {
@@ -131,8 +131,6 @@ export const TestimonialCarousel: React.FC = () => {
     setTouchStartX(null);
   };
 
-  const current = testimonials[currentIndex];
-
   return (
     <section
       id="testimonials-section"
@@ -219,125 +217,138 @@ export const TestimonialCarousel: React.FC = () => {
             className="relative outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] rounded-2xl"
             aria-live={isPlaying ? 'off' : 'polite'}
           >
-          <div className="relative min-h-[320px] sm:min-h-[280px] md:min-h-[250px] flex items-stretch">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={current.id}
-                custom={direction}
-                initial={{ opacity: 0, x: direction > 0 ? 40 : -40 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: direction > 0 ? -40 : 40 }}
-                transition={{ duration: 0.32, ease: 'easeOut' }}
-                role="group"
-                aria-roledescription="slide"
-                aria-label={`Testimonial ${currentIndex + 1} of ${total}: from ${current.author}, ${current.role} at ${current.company}`}
-                className="w-full p-6 md:p-8 rounded-2xl border border-black/5 dark:border-white/10 bg-white dark:bg-[#1f1d24] shadow-sm relative overflow-hidden flex flex-col justify-between"
-              >
-                {/* Decorative Subtle Gradient Glow */}
-                <div className="absolute top-0 right-0 w-80 h-80 bg-[#FF6004]/5 dark:bg-[#FF6004]/10 rounded-full blur-[80px] pointer-events-none" />
+          <div className="relative grid grid-cols-1 grid-rows-1 rounded-2xl overflow-hidden min-h-[360px] sm:min-h-[300px] md:min-h-[280px]">
+            {testimonials.map((item, idx) => {
+              const isActive = idx === currentIndex;
+              return (
+                <motion.div
+                  key={item.id}
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label={`Testimonial ${idx + 1} of ${total}: from ${item.author}, ${item.role} at ${item.company}`}
+                  aria-hidden={!isActive}
+                  initial={false}
+                  animate={{
+                    opacity: isActive ? 1 : 0,
+                    scale: isActive ? 1 : 0.99,
+                    y: isActive ? 0 : 8,
+                  }}
+                  transition={{
+                    duration: prefersReduced ? 0.01 : 0.35,
+                    ease: [0.25, 0.1, 0.25, 1],
+                  }}
+                  className={`col-start-1 row-start-1 w-full h-full p-6 md:p-8 rounded-2xl border border-black/5 dark:border-white/10 bg-white dark:bg-[#1f1d24] shadow-sm relative overflow-hidden flex flex-col justify-between ${
+                    isActive
+                      ? 'z-10 pointer-events-auto'
+                      : 'z-0 pointer-events-none select-none'
+                  }`}
+                >
+                  {/* Decorative Subtle Gradient Glow */}
+                  <div className="absolute top-0 right-0 w-80 h-80 bg-[#FF6004]/5 dark:bg-[#FF6004]/10 rounded-full blur-[80px] pointer-events-none" />
 
-                {/* Top Badge Strip: Rating + Verified Tag + Domain + Key Metric */}
-                <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 pb-4 sm:pb-5 border-b border-black/5 dark:border-white/10">
-                  <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                    {/* Star Rating */}
-                    <div className="flex items-center gap-1 text-[#FE9E30]" aria-label="5 out of 5 stars">
-                      {[...Array(current.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-current" />
-                      ))}
-                    </div>
-
-                    <span className="hidden sm:inline-block text-zinc-300 dark:text-zinc-700">|</span>
-
-                    {/* Verified Partnership Badge */}
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/40">
-                      <ShieldCheck className="w-3.5 h-3.5" />
-                      <span>{current.verifiedEngagement}</span>
-                    </div>
-
-                    {/* Domain Category */}
-                    <span className="text-xs font-semibold text-[#555459] dark:text-zinc-400 px-2.5 py-1 rounded-full bg-[#F6F5F2] dark:bg-white/5 border border-black/5 dark:border-white/10">
-                      {current.domain}
-                    </span>
-                  </div>
-
-                  {/* Highlight Metric Pill */}
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#2563EB] border border-[#2563EB] text-white shadow-xs">
-                    <TrendingUp className="w-4 h-4 text-white" />
-                    <span className="text-sm font-bold text-white">{current.highlightMetric}</span>
-                    <span className="text-xs font-semibold text-[#FE9E30]">
-                      {current.highlightLabel}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Quote with optional photo placement */}
-                <div className="relative z-10 my-4">
-                  {current.image ? (
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center">
-                      <div className="lg:col-span-7 xl:col-span-8">
-                        <blockquote className="text-base sm:text-lg md:text-xl font-medium leading-relaxed font-lexend text-[#161519] dark:text-white">
-                          &ldquo;{current.quote}&rdquo;
-                        </blockquote>
+                  {/* Top Badge Strip: Rating + Verified Tag + Domain + Key Metric */}
+                  <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 pb-4 sm:pb-5 border-b border-black/5 dark:border-white/10 shrink-0">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                      {/* Star Rating */}
+                      <div className="flex items-center gap-1 text-[#FE9E30]" aria-label="5 out of 5 stars">
+                        {[...Array(item.rating)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-current" />
+                        ))}
                       </div>
 
-                      <div className="lg:col-span-5 xl:col-span-4 w-full">
-                        <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] rounded-xl overflow-hidden border border-black/10 dark:border-white/10 bg-zinc-900 shadow-xs group/img">
-                          <LazyImage
-                            src={current.image}
-                            alt={current.imageAlt || current.company}
-                            referrerPolicy="no-referrer"
-                            containerClassName="w-full h-full absolute inset-0"
-                            className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover/img:scale-105"
-                            loading="lazy"
-                            decoding="async"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent pointer-events-none" />
-                          <div className="absolute bottom-2 left-2 right-2 px-2.5 py-1.5 rounded-lg bg-black/80 backdrop-blur-xs border border-white/15 text-[11px] text-zinc-200 font-medium flex items-center justify-between shadow-xs">
-                            <span className="truncate">{current.imageCaption || current.company}</span>
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0 ml-1.5 animate-pulse" />
+                      <span className="hidden sm:inline-block text-zinc-300 dark:text-zinc-700">|</span>
+
+                      {/* Verified Partnership Badge */}
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/40">
+                        <ShieldCheck className="w-3.5 h-3.5" />
+                        <span>{item.verifiedEngagement}</span>
+                      </div>
+
+                      {/* Domain Category */}
+                      <span className="text-xs font-semibold text-[#555459] dark:text-zinc-400 px-2.5 py-1 rounded-full bg-[#F6F5F2] dark:bg-white/5 border border-black/5 dark:border-white/10">
+                        {item.domain}
+                      </span>
+                    </div>
+
+                    {/* Highlight Metric Pill */}
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#2563EB] border border-[#2563EB] text-white shadow-xs">
+                      <TrendingUp className="w-4 h-4 text-white" />
+                      <span className="text-sm font-bold text-white">{item.highlightMetric}</span>
+                      <span className="text-xs font-semibold text-[#FE9E30]">
+                        {item.highlightLabel}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Quote with optional photo placement */}
+                  <div className="relative z-10 my-4 flex-1 flex flex-col justify-center min-h-[120px] sm:min-h-[100px] md:min-h-[90px]">
+                    {item.image ? (
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center">
+                        <div className="lg:col-span-7 xl:col-span-8">
+                          <blockquote className="text-base sm:text-lg md:text-xl font-medium leading-relaxed font-lexend text-[#161519] dark:text-white">
+                            &ldquo;{item.quote}&rdquo;
+                          </blockquote>
+                        </div>
+
+                        <div className="lg:col-span-5 xl:col-span-4 w-full">
+                          <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] rounded-xl overflow-hidden border border-black/10 dark:border-white/10 bg-zinc-900 shadow-xs group/img">
+                            <LazyImage
+                              src={item.image}
+                              alt={item.imageAlt || item.company}
+                              referrerPolicy="no-referrer"
+                              containerClassName="w-full h-full absolute inset-0"
+                              className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover/img:scale-105"
+                              loading="lazy"
+                              decoding="async"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent pointer-events-none" />
+                            <div className="absolute bottom-2 left-2 right-2 px-2.5 py-1.5 rounded-lg bg-black/80 backdrop-blur-xs border border-white/15 text-[11px] text-zinc-200 font-medium flex items-center justify-between shadow-xs">
+                              <span className="truncate">{item.imageCaption || item.company}</span>
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0 ml-1.5 animate-pulse" />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ) : (
-                    <blockquote className="text-lg md:text-xl font-medium leading-relaxed font-lexend text-[#161519] dark:text-white">
-                      &ldquo;{current.quote}&rdquo;
-                    </blockquote>
-                  )}
-                </div>
-
-                {/* Bottom: Author Footer & Market Context */}
-                <div className="relative z-10 pt-4 sm:pt-5 border-t border-black/5 dark:border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="flex items-center gap-3.5">
-                    {/* Monogram Avatar */}
-                    <div className="w-11 h-11 rounded-full bg-[#161519] dark:bg-white text-white dark:text-[#161519] font-lexend font-bold text-sm flex items-center justify-center shrink-0 shadow-xs">
-                      {current.author
-                        .split(' ')
-                        .map((n) => n[0])
-                        .join('')}
-                    </div>
-
-                    <div>
-                      <h4 className="font-lexend font-bold text-base text-[#161519] dark:text-white leading-tight">
-                        {current.author}
-                      </h4>
-                      <p className="text-xs sm:text-sm text-[#FF6004] font-medium mt-0.5">
-                        {current.role}
-                      </p>
-                      <p className="text-xs text-[#555459] dark:text-zinc-400 mt-0.5">
-                        {current.company}
-                      </p>
-                    </div>
+                    ) : (
+                      <blockquote className="text-lg md:text-xl font-medium leading-relaxed font-lexend text-[#161519] dark:text-white">
+                        &ldquo;{item.quote}&rdquo;
+                      </blockquote>
+                    )}
                   </div>
 
-                  {/* Market & Geography Indicator */}
-                  <div className="flex items-center gap-1.5 text-xs text-[#555459] dark:text-zinc-400 sm:self-center">
-                    <Globe2 className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
-                    <span>Markets: <strong>{current.market}</strong></span>
+                  {/* Bottom: Author Footer & Market Context */}
+                  <div className="relative z-10 pt-4 sm:pt-5 border-t border-black/5 dark:border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="flex items-center gap-3.5">
+                      {/* Monogram Avatar */}
+                      <div className="w-11 h-11 rounded-full bg-[#161519] dark:bg-white text-white dark:text-[#161519] font-lexend font-bold text-sm flex items-center justify-center shrink-0 shadow-xs">
+                        {item.author
+                          .split(' ')
+                          .map((n) => n[0])
+                          .join('')}
+                      </div>
+
+                      <div>
+                        <h4 className="font-lexend font-bold text-base text-[#161519] dark:text-white leading-tight">
+                          {item.author}
+                        </h4>
+                        <p className="text-xs sm:text-sm text-[#FF6004] font-medium mt-0.5">
+                          {item.role}
+                        </p>
+                        <p className="text-xs text-[#555459] dark:text-zinc-400 mt-0.5">
+                          {item.company}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Market & Geography Indicator */}
+                    <div className="flex items-center gap-1.5 text-xs text-[#555459] dark:text-zinc-400 sm:self-center">
+                      <Globe2 className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
+                      <span>Markets: <strong>{item.market}</strong></span>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
 

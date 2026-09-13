@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { X, ExternalLink, ShieldCheck, Clock, Video, Sparkles, RefreshCw } from 'lucide-react';
+import { X, ExternalLink, ShieldCheck, Clock, Video, Sparkles } from 'lucide-react';
 import { useNavigation } from '../context/NavigationContext';
 import { useTheme } from '../context/ThemeContext';
 
@@ -8,7 +8,6 @@ export const CalendlyModal: React.FC = () => {
   const { theme } = useTheme();
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const [isPreloaded, setIsPreloaded] = useState<boolean>(true);
   const [isIframeLoaded, setIsIframeLoaded] = useState<boolean>(false);
 
   const isDark = theme === 'dark';
@@ -25,6 +24,13 @@ export const CalendlyModal: React.FC = () => {
     });
     return `${calendlyUrl}?${params.toString()}`;
   }, [calendlyUrl, isDark]);
+
+  // Reset iframe loaded state when modal closes
+  useEffect(() => {
+    if (!isCalendlyOpen) {
+      setIsIframeLoaded(false);
+    }
+  }, [isCalendlyOpen]);
 
   // Keyboard navigation & body scroll lock
   useEffect(() => {
@@ -47,38 +53,28 @@ export const CalendlyModal: React.FC = () => {
     };
   }, [isCalendlyOpen, closeCalendly]);
 
+  if (!isCalendlyOpen) {
+    return null;
+  }
+
   return (
     <div
       role="dialog"
       aria-modal="true"
       aria-labelledby="calendly-modal-title"
-      aria-hidden={!isCalendlyOpen}
-      className={`fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 transition-all duration-250 ${
-        isCalendlyOpen
-          ? 'opacity-100 visible pointer-events-auto bg-black/80 backdrop-blur-md'
-          : 'opacity-0 invisible pointer-events-none bg-transparent'
-      }`}
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-black/80 backdrop-blur-md transition-opacity duration-200"
       onClick={(e) => {
         if (e.target === e.currentTarget) closeCalendly();
       }}
     >
       <div
         ref={modalRef}
-        className={`relative w-full max-w-4xl h-[720px] max-h-[92vh] flex flex-col rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 transform ${
+        className={`relative w-full max-w-4xl h-[720px] max-h-[92vh] flex flex-col rounded-2xl overflow-hidden shadow-2xl transition-all duration-200 ${
           isDark
             ? 'bg-[#0A0E1A] text-white border border-white/10 shadow-[0_25px_70px_rgba(0,0,0,0.85),0_0_50px_rgba(255,96,4,0.08)]'
             : 'bg-white text-slate-900 border border-slate-200/90 shadow-[0_25px_60px_-15px_rgba(15,23,42,0.2)]'
-        } ${
-          isCalendlyOpen
-            ? 'scale-100 translate-y-0 opacity-100'
-            : 'scale-95 translate-y-3 opacity-0'
         }`}
       >
-        {/* Ambient Top Glow in Dark Mode */}
-        {isDark && (
-          <div className="absolute top-0 right-1/4 w-96 h-32 bg-gradient-to-b from-[#FF6004]/10 to-transparent blur-3xl pointer-events-none" />
-        )}
-
         {/* Modal Header Bar */}
         <div
           className={`flex items-center justify-between px-4 py-3.5 sm:px-6 sm:py-4 border-b shrink-0 z-10 ${
@@ -123,7 +119,7 @@ export const CalendlyModal: React.FC = () => {
                   Discuss Your Priorities
                 </h2>
                 <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                   Real-Time Availability
                 </span>
               </div>
@@ -154,6 +150,7 @@ export const CalendlyModal: React.FC = () => {
             </a>
 
             <button
+              type="button"
               onClick={closeCalendly}
               className={`p-2 rounded-lg transition-colors cursor-pointer ${
                 isDark
@@ -167,7 +164,7 @@ export const CalendlyModal: React.FC = () => {
           </div>
         </div>
 
-        {/* Content iframe wrapper */}
+        {/* Content iframe wrapper (lazy-loaded when opened) */}
         <div
           className={`relative flex-1 w-full h-full min-h-[500px] overflow-hidden ${
             isDark ? 'bg-[#0A0E1A]' : 'bg-white'
@@ -204,7 +201,6 @@ export const CalendlyModal: React.FC = () => {
                     </g>
                   </svg>
                 </div>
-                <div className="absolute -inset-1 rounded-full border-2 border-[#FF6004]/30 animate-ping pointer-events-none" />
               </div>
               <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-1">
                 Connecting to Live Calendar
@@ -213,32 +209,29 @@ export const CalendlyModal: React.FC = () => {
                 Synchronizing available 30-minute founder-led consultation slots...
               </p>
               <div className="w-48 h-1.5 bg-slate-200 dark:bg-zinc-800 rounded-full mt-4 overflow-hidden">
-                <div className="w-full h-full bg-gradient-to-r from-[#FF6004] to-[#FE9E30] animate-pulse rounded-full" />
+                <div className="w-full h-full bg-[#FF6004] rounded-full transition-all duration-300" />
               </div>
             </div>
           )}
 
-          {/* Persistent Preloaded Calendly Iframe */}
-          {isPreloaded && (
-            <iframe
-              src={calendlyEmbedUrl}
-              onLoad={() => setIsIframeLoaded(true)}
-              width="100%"
-              height="100%"
-              frameBorder="0"
-              title="Schedule a commercial meeting with SalesNego"
-              className={`w-full h-full border-0 transition-opacity duration-300 ${
-                isIframeLoaded ? 'opacity-100' : 'opacity-0'
-              }`}
-              allow="camera; microphone; autoplay; fullscreen"
-              style={{
-                width: '100%',
-                height: '100%',
-                minHeight: '520px',
-                colorScheme: isDark ? 'dark' : 'light',
-              }}
-            />
-          )}
+          {/* Lazy-Loaded Calendly Iframe: only mounted when modal is opened */}
+          <iframe
+            src={calendlyEmbedUrl}
+            onLoad={() => setIsIframeLoaded(true)}
+            width="100%"
+            height="100%"
+            title="Schedule a commercial meeting with SalesNego"
+            className={`w-full h-full border-0 transition-opacity duration-300 ${
+              isIframeLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
+            allow="camera; microphone; autoplay; fullscreen"
+            style={{
+              width: '100%',
+              height: '100%',
+              minHeight: '520px',
+              colorScheme: isDark ? 'dark' : 'light',
+            }}
+          />
         </div>
 
         {/* Reassurance Footer Bar */}
@@ -252,7 +245,7 @@ export const CalendlyModal: React.FC = () => {
           <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
             <span className="inline-flex items-center gap-1.5">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-              <span>Strict NDA Confidentiality</span>
+              <span>Confidential Commercial Discussion</span>
             </span>
             <span className="hidden sm:inline text-slate-300 dark:text-zinc-700">•</span>
             <span className="inline-flex items-center gap-1.5">

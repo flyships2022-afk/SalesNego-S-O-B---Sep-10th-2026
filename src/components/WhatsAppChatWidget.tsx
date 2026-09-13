@@ -240,13 +240,11 @@ export const WhatsAppChatWidget: React.FC = () => {
         </div>
       )}
 
-      {/* Floating Trigger: WhatsApp Icon Only with Slight Blinking Animation */}
+      {/* Floating Trigger: WhatsApp Icon Only */}
       <button
         id="whatsapp-chat-button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`pointer-events-auto group relative flex items-center justify-center w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-white dark:bg-[#27272A] border border-gray-200 dark:border-zinc-700/60 shadow-xl hover:shadow-2xl hover:scale-110 active:scale-95 transition-all duration-200 hover:border-[#25D366] dark:hover:border-[#25D366] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#25D366]/40 cursor-pointer ${
-          !isOpen ? 'animate-slight-blink' : ''
-        }`}
+        className="pointer-events-auto group relative flex items-center justify-center w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-white dark:bg-[#27272A] border border-gray-200 dark:border-zinc-700/60 shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 hover:border-[#25D366] dark:hover:border-[#25D366] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#25D366]/40 cursor-pointer"
         aria-label={isOpen ? 'Close WhatsApp Chat' : 'Chat on WhatsApp'}
         title={isOpen ? 'Close' : 'Chat on WhatsApp'}
       >

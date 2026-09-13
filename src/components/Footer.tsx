@@ -1,11 +1,12 @@
 import React from 'react';
 import { SalesNegoLogo } from './SalesNegoLogo';
 import { useNavigation } from '../context/NavigationContext';
+import { Link } from './Link';
 import { Mail, ArrowUpRight, Globe } from 'lucide-react';
 import { RoutePath } from '../types';
 
 export const Footer: React.FC = () => {
-  const { navigate, openCalendly, currentPath } = useNavigation();
+  const { openCalendly } = useNavigation();
 
   const navLinks: { label: string; path: RoutePath; sectionId?: string }[] = [
     { label: 'Home', path: '/', sectionId: 'hero-section' },
@@ -15,27 +16,6 @@ export const Footer: React.FC = () => {
     { label: 'Contact', path: '/', sectionId: 'contact-section' },
     { label: 'Privacy Policy', path: '/privacy' },
   ];
-
-  const handleLinkClick = (item: { label: string; path: RoutePath; sectionId?: string }) => {
-    if (item.label === 'Contact') {
-      if (currentPath === '/') {
-        const el = document.getElementById('contact-section');
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          return;
-        }
-      }
-      navigate('/', 'contact-section');
-      return;
-    }
-
-    if (item.path === '/' && currentPath === '/') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-
-    navigate(item.path, item.sectionId);
-  };
 
   const services = [
     { label: 'GTM Strategy & Market Intelligence', path: '/services/gtm-strategy-market-intelligence' as RoutePath },
@@ -111,13 +91,13 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2.5 text-sm">
               {navLinks.map((item) => (
                 <li key={item.label}>
-                  <button
-                    type="button"
-                    onClick={() => handleLinkClick(item)}
-                    className="text-zinc-300 hover:text-white transition-colors text-left font-medium"
+                  <Link
+                    to={item.path}
+                    targetElementId={item.sectionId}
+                    className="text-zinc-300 hover:text-white transition-colors text-left font-medium block"
                   >
                     {item.label}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -131,13 +111,12 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2.5 text-sm">
               {services.map((item) => (
                 <li key={item.label}>
-                  <button
-                    type="button"
-                    onClick={() => navigate(item.path)}
-                    className="text-zinc-300 hover:text-white transition-colors text-left font-medium"
+                  <Link
+                    to={item.path}
+                    className="text-zinc-300 hover:text-white transition-colors text-left font-medium block"
                   >
                     {item.label}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -156,13 +135,12 @@ export const Footer: React.FC = () => {
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-400 gap-4">
           <p>© {new Date().getFullYear()} SalesNego. All rights reserved. From Market Signal to Closed Revenue.</p>
           <div className="flex items-center gap-6">
-            <button
-              type="button"
-              onClick={() => navigate('/privacy')}
+            <Link
+              to="/privacy"
               className="hover:underline hover:text-white transition-colors"
             >
               Privacy Policy
-            </button>
+            </Link>
             <a
               href="mailto:sales@salesnego.com"
               className="hover:underline hover:text-white transition-colors"

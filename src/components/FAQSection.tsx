@@ -43,23 +43,23 @@ const faqs: FAQItem[] = [
     category: 'Execution',
     question: 'How quickly can SalesNego onboard and launch our commercial motion?',
     answer:
-      'Typical engagements launch within 2 to 3 weeks. During this rapid onboarding phase, we diagnose positioning, calibrate your CRM and RevOps pipeline, configure AI intelligence scrapers, and initiate verified executive outreach without recruiting delays.',
+      'Typical engagements launch within 2 to 3 weeks. During this rapid onboarding phase, we diagnose positioning, calibrate your CRM and RevOps pipeline, configure AI intelligence scrapers, and initiate targeted executive outreach without recruiting delays.',
     highlight: 'Live commercial execution active in 2 to 3 weeks',
   },
   {
     id: 'faq-global-regions',
     category: 'Coverage',
-    question: 'Which geographic regions, jurisdictions, and time zones do you cover?',
+    question: 'Which geographic markets and time zones do you cover?',
     answer:
-      'Our team actively conducts commercial operations across North America (US & Canada), the UAE & Middle East (GCC), the UK & Europe, India, and Australia, providing seamless regional alignment, local business-hour coverage, and cross-border contracting support.',
-    highlight: 'North America, UAE & Middle East, UK/Europe, India, and Australia',
+      'Our team actively conducts commercial operations across North America, the UAE, Europe, India, and Australia, providing seamless regional alignment, local business-hour coverage, and cross-border commercial execution support.',
+    highlight: 'Market Coverage: North America | UAE | Europe | India | Australia',
   },
   {
     id: 'faq-ai-and-human-judgment',
     category: 'Model',
     question: 'How do you balance AI automation with human commercial judgment in enterprise sales?',
     answer:
-      'AI is deployed where speed and scale matter most: background account research, trigger tracking, tech-stack enrichment, and CRM hygiene. High-stakes commercial judgment—discovery questioning, enterprise objection handling, stakeholder consensus, and final contract negotiation—remains 100% human-led.',
+      'AI is deployed where speed and scale matter most: background account research, trigger tracking, tech-stack enrichment, and CRM hygiene. High-stakes commercial judgment—discovery questioning, enterprise objection handling, stakeholder consensus, and final contract negotiation—remains human-led with senior judgment.',
     highlight: 'AI-accelerated velocity paired with authoritative human commercial judgment',
   },
 ];
@@ -141,7 +141,7 @@ export const FAQSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Category Filters & Hover-Activated Accordion Questions */}
+          {/* Right Column: Category Filters & Accordion Questions */}
           <div className="lg:col-span-7 w-full flex flex-col justify-start">
             {/* Space-Efficient Category Filter Pills */}
             <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap mb-4 pb-2 border-b border-[#E5E3DC]/60 dark:border-white/5">
@@ -177,8 +177,6 @@ export const FAQSection: React.FC = () => {
                   <div
                     key={faq.id}
                     id={`faq-card-${faq.id}`}
-                    onMouseEnter={() => setOpenId(faq.id)}
-                    onMouseLeave={() => setOpenId(null)}
                     className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
                       isOpen
                         ? 'bg-[#F6F5F2] dark:bg-[#1C1B20] border-[#FF6004]/50 shadow-xs'

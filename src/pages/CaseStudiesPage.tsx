@@ -114,7 +114,7 @@ export const CaseStudiesPage: React.FC = () => {
               Founder Commercial Track Record
             </h2>
             <p className="text-sm text-[#606060] dark:text-zinc-400 mt-1">
-              Verified commercial engagements across key technology sectors.
+              Selected commercial engagements across key technology sectors.
             </p>
           </div>
 

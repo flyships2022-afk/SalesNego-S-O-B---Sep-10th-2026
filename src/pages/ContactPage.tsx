@@ -376,7 +376,7 @@ export const ContactPage: React.FC = () => {
                         required
                         value={formData.objective}
                         onChange={handleChange}
-                        placeholder="e.g. GTM positioning, build RevOps pipe, end-to-end deal execution"
+                        placeholder="e.g. GTM positioning, build RevOps pipe, full-cycle deal execution"
                         className="w-full px-3.5 py-2.5 text-sm rounded-lg bg-white dark:bg-[#18181B] border border-gray-200 dark:border-zinc-700/60 text-[#191919] dark:text-[#FFFFFF] placeholder:text-gray-400 dark:placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#FF6004]"
                       />
                     </div>

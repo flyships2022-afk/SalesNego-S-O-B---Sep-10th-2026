@@ -3,9 +3,10 @@ import { useNavigation } from '../context/NavigationContext';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { LazyImage } from '../components/LazyImage';
 import { SEO } from '../components/SEO';
+import { Link } from '../components/Link';
 
 export const ServicesIndexPage: React.FC = () => {
-  const { navigate, openCalendly } = useNavigation();
+  const { openCalendly } = useNavigation();
 
   return (
     <div className="w-full flex flex-col">
@@ -45,7 +46,7 @@ export const ServicesIndexPage: React.FC = () => {
             <div className="space-y-4 text-base sm:text-lg text-[#606060] dark:text-zinc-300 leading-relaxed">
               <p>
                 SalesNego combines GTM Strategy &amp; Market Intelligence, RevOps &amp;
-                AI-Accelerated Sales and End-to-End Commercial Execution under one commercial
+                AI-Accelerated Sales and Full-Cycle Commercial Execution under one commercial
                 partnership.
               </p>
               <p>They are not isolated service lines.</p>
@@ -98,13 +99,13 @@ export const ServicesIndexPage: React.FC = () => {
                   We help define markets, ICPs, buyers, positioning, account priorities and commercial
                   hypotheses before execution begins.
                 </p>
-                <button
-                  onClick={() => navigate('/services/gtm-strategy-market-intelligence')}
+                <Link
+                  to="/services/gtm-strategy-market-intelligence"
                   className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-[#FF6004] hover:bg-[#E05300] rounded-lg transition-colors shadow-xs"
                 >
                   <span>Explore Service 01 Detail &rarr;</span>
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </Link>
               </div>
 
               <div className="lg:col-span-5 w-full">
@@ -147,13 +148,13 @@ export const ServicesIndexPage: React.FC = () => {
                   We connect CRM, data, qualification, workflows and AI-supported automation so
                   commercial teams can execute with better intelligence and less manual workload.
                 </p>
-                <button
-                  onClick={() => navigate('/services/revops-ai-sales')}
+                <Link
+                  to="/services/revops-ai-sales"
                   className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-[#FF6004] hover:bg-[#E05300] rounded-lg transition-colors shadow-xs"
                 >
                   <span>Explore Service 02 Detail &rarr;</span>
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </Link>
               </div>
 
               <div className="lg:col-span-5 w-full">
@@ -196,13 +197,13 @@ export const ServicesIndexPage: React.FC = () => {
                   SalesNego supports the commercial journey from account engagement through discovery,
                   qualification, solution alignment, proposals, negotiation, closure and account growth.
                 </p>
-                <button
-                  onClick={() => navigate('/services/commercial-execution')}
+                <Link
+                  to="/services/commercial-execution"
                   className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-[#FF6004] hover:bg-[#E05300] rounded-lg transition-colors shadow-xs"
                 >
                   <span>Explore Service 03 Detail &rarr;</span>
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </Link>
               </div>
 
               <div className="lg:col-span-5 w-full">
@@ -218,7 +219,7 @@ export const ServicesIndexPage: React.FC = () => {
                   />
                 </div>
                 <div className="mt-2.5 px-3 py-2 rounded-lg bg-black/40 dark:bg-black/30 border border-white/10 text-xs text-zinc-200 font-medium flex items-center justify-between">
-                  <span>Deal Closing &amp; Commercial Pod</span>
+                  <span>Full-Cycle Commercial Execution</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] animate-pulse" />
                 </div>
               </div>

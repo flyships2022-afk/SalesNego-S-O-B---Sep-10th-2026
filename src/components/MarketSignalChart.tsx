@@ -1,294 +1,235 @@
 import React, { useState } from 'react';
-import {
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-  Legend,
-  Cell,
-} from 'recharts';
-import { TrendingUp, Activity, Filter, Info } from 'lucide-react';
+import { Search, Lightbulb, HelpCircle, CheckCircle2, ArrowRight, ShieldCheck, Compass, Target } from 'lucide-react';
 
-interface SignalDataPoint {
-  name: string;
-  shortName: string;
-  signalStrength: number;
-  commercialImpact: number;
-  sampleSize: number;
-  category: string;
+interface StageDetail {
+  id: string;
+  stageNumber: string;
+  title: string;
+  subtitle: string;
+  icon: React.ComponentType<{ className?: string }>;
+  description: string;
+  inputs: string[];
+  output: string;
+  disciplineRule: string;
 }
 
-const categoryData: SignalDataPoint[] = [
+const INTELLIGENCE_STAGES: StageDetail[] = [
   {
-    name: 'Executive & C-Suite Shifts',
-    shortName: 'Exec Shifts',
-    signalStrength: 88,
-    commercialImpact: 84,
-    sampleSize: 142,
-    category: 'Organizational',
+    id: 'evidence',
+    stageNumber: '01',
+    title: 'Market Evidence',
+    subtitle: 'Observable Commercial Signals',
+    icon: Search,
+    description:
+      'Identify observable corporate actions such as leadership transitions, tech migrations, funding rounds, and regulatory shifts across target accounts.',
+    inputs: [
+      'C-Suite & Executive Appointments',
+      'Technology Stack Shifts',
+      'Regulatory & Compliance Deadlines',
+      'Public Procurement & RFP Notices',
+    ],
+    output: 'Structured Account Signal Dossier',
+    disciplineRule: 'Signals indicate where to look—not that buying intent already exists.',
   },
   {
-    name: 'Tech Stack Migrations',
-    shortName: 'Tech Migration',
-    signalStrength: 76,
-    commercialImpact: 71,
-    sampleSize: 98,
-    category: 'Infrastructure',
+    id: 'hypothesis',
+    stageNumber: '02',
+    title: 'Commercial Hypothesis',
+    subtitle: 'Account-Specific Problem Thesis',
+    icon: Lightbulb,
+    description:
+      'Translate raw account signals into a clear commercial thesis regarding operational friction, technical debt, or strategic growth objectives.',
+    inputs: [
+      'Specific Workflow Bottlenecks',
+      'Cost or Risk Implications',
+      'Strategic Priority Alignment',
+      'Stakeholder Impact Hypotheses',
+    ],
+    output: 'Executive Problem Thesis',
+    disciplineRule: 'A hypothesis is an assumption to test, not a pitch to force.',
   },
   {
-    name: 'Capex & Series Funding',
-    shortName: 'Funding / Capex',
-    signalStrength: 92,
-    commercialImpact: 89,
-    sampleSize: 115,
-    category: 'Financial',
+    id: 'discovery',
+    stageNumber: '03',
+    title: 'Discovery Question',
+    subtitle: 'Calibrated Diagnostic Inquiry',
+    icon: HelpCircle,
+    description:
+      'Frame consultative, executive-level questions designed to uncover whether the hypothesized challenge matches the prospect’s current internal agenda.',
+    inputs: [
+      'Problem-Validation Inquiries',
+      'Priority Calibration Questions',
+      'Current State vs Desired State',
+      'Decision Authority & Timing',
+    ],
+    output: 'Structured Diagnostic Framework',
+    disciplineRule: 'Senior discovery creates clarity for the buyer, not high-pressure pitching.',
   },
   {
-    name: 'Regulatory Mandates',
-    shortName: 'Compliance',
-    signalStrength: 85,
-    commercialImpact: 91,
-    sampleSize: 76,
-    category: 'Macro',
-  },
-  {
-    name: 'Active RFP / Vendor Evaluation',
-    shortName: 'RFP Evaluation',
-    signalStrength: 96,
-    commercialImpact: 95,
-    sampleSize: 84,
-    category: 'Intent',
-  },
-  {
-    name: 'Sales Capacity Expansion',
-    shortName: 'Hiring Expansion',
-    signalStrength: 70,
-    commercialImpact: 65,
-    sampleSize: 160,
-    category: 'Growth',
+    id: 'validation',
+    stageNumber: '04',
+    title: 'Customer Validation',
+    subtitle: 'Confirmed Commercial Direction',
+    icon: CheckCircle2,
+    description:
+      'Confirm genuine buyer intent, timing, stakeholders, and evaluation criteria before advancing pipeline opportunities into commercial negotiation.',
+    inputs: [
+      'Validated Pain & Business Case',
+      'Identified Economic Buyer',
+      'Agreed Evaluation Criteria',
+      'Mutual Action Plan Scope',
+    ],
+    output: 'Qualified Commercial Engagement',
+    disciplineRule: 'True validation protects time and pipeline integrity for both sides.',
   },
 ];
-
-const quarterlyTrendData = [
-  { period: 'Q1 2025', rawSignals: 58, signalStrength: 52, qualifiedImpact: 46 },
-  { period: 'Q2 2025', rawSignals: 72, signalStrength: 66, qualifiedImpact: 61 },
-  { period: 'Q3 2025', rawSignals: 84, signalStrength: 78, qualifiedImpact: 74 },
-  { period: 'Q4 2025', rawSignals: 93, signalStrength: 86, qualifiedImpact: 82 },
-  { period: 'Q1 2026', rawSignals: 98, signalStrength: 92, qualifiedImpact: 89 },
-  { period: 'Q2 2026 (Est.)', rawSignals: 104, signalStrength: 95, qualifiedImpact: 93 },
-];
-
-interface CustomTooltipProps {
-  active?: boolean;
-  payload?: Array<{
-    value: number;
-    name: string;
-    color: string;
-    payload: Record<string, unknown>;
-  }>;
-  label?: string;
-}
-
-const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label }) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="bg-[#0A192F] border border-[#1E3A5F] rounded-xl p-3.5 shadow-xl text-white text-xs space-y-1.5 min-w-[200px] z-50">
-        <p className="font-bold text-sm text-white border-b border-white/10 pb-1">{label}</p>
-        {payload.map((item, index) => (
-          <div key={index} className="flex items-center justify-between gap-4">
-            <span className="flex items-center gap-1.5 text-slate-300">
-              <span
-                className="w-2.5 h-2.5 rounded-full inline-block"
-                style={{ backgroundColor: item.color }}
-              />
-              {item.name}:
-            </span>
-            <span className="font-bold text-white">{item.value}/100</span>
-          </div>
-        ))}
-      </div>
-    );
-  }
-  return null;
-};
 
 export const MarketSignalChart: React.FC = () => {
-  const [viewMode, setViewMode] = useState<'category' | 'quarterly'>('category');
+  const [activeStageId, setActiveStageId] = useState<string>('evidence');
+
+  const activeStage = INTELLIGENCE_STAGES.find((s) => s.id === activeStageId) || INTELLIGENCE_STAGES[0];
 
   return (
-    <div
-      id="market-signal-trends-widget"
-      className="w-full bg-[#0A192F] dark:bg-[#27272A] border border-[#1E3A5F] dark:border-zinc-700/60 rounded-2xl p-5 sm:p-8 shadow-md"
-    >
-      {/* Header Section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-white/10 pb-5">
+    <div className="w-full bg-[#0A192F] dark:bg-[#1E1E24] rounded-2xl p-6 sm:p-8 lg:p-10 border border-[#1E3A5F] dark:border-white/10 text-white shadow-xl transition-all">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/10">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF6004]/15 border border-[#FF6004]/30 text-[#FE9E30] text-xs font-semibold mb-2">
-            <Activity className="w-3.5 h-3.5" />
-            <span>Market Intelligence Analytics</span>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="w-2 h-2 rounded-full bg-[#FF6004]" />
+            <span className="text-xs uppercase font-bold tracking-wider text-[#FE9E30]">
+              Commercial Intelligence Architecture
+            </span>
           </div>
-          <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
-            Market Signal Strength Trends
+          <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white">
+            Market Evidence to Validated Opportunity
           </h3>
-          <p className="text-xs sm:text-sm text-slate-300 dark:text-zinc-300 max-w-2xl">
-            Empirical index tracking upstream buying signals and commercial validation accuracy.
-            Helps teams prioritize high-conversion accounts before outbound allocation.
+          <p className="text-xs sm:text-sm text-slate-300 dark:text-zinc-300 mt-1 max-w-2xl">
+            A disciplined, non-speculative workflow translating external signals into verified executive conversations.
           </p>
         </div>
 
-        {/* View Toggle */}
-        <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-lg p-1 shrink-0 self-start md:self-auto">
-          <button
-            type="button"
-            onClick={() => setViewMode('category')}
-            className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
-              viewMode === 'category'
-                ? 'bg-[#FF6004] text-white shadow-xs'
-                : 'text-slate-300 hover:text-white'
-            }`}
-          >
-            By Signal Vector
-          </button>
-          <button
-            type="button"
-            onClick={() => setViewMode('quarterly')}
-            className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
-              viewMode === 'quarterly'
-                ? 'bg-[#FF6004] text-white shadow-xs'
-                : 'text-slate-300 hover:text-white'
-            }`}
-          >
-            Quarterly Trend
-          </button>
+        {/* Philosophy Badge */}
+        <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-slate-300 shrink-0">
+          <ShieldCheck className="w-4 h-4 text-[#FF6004] shrink-0" />
+          <span className="font-semibold text-white">Signals Remain Signals · Validation Comes From Discovery</span>
         </div>
       </div>
 
-      {/* KPI Highlight Strip */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-        <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-          <span className="text-[11px] text-slate-400 block font-medium">Avg Signal Index</span>
-          <span className="text-lg sm:text-xl font-extrabold text-white">84.5<span className="text-xs text-slate-400 font-normal"> / 100</span></span>
-        </div>
-        <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-          <span className="text-[11px] text-slate-400 block font-medium">Highest Velocity</span>
-          <span className="text-lg sm:text-xl font-extrabold text-[#FE9E30]">RFP / Intent</span>
-        </div>
-        <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-          <span className="text-[11px] text-slate-400 block font-medium">Conversion Lift</span>
-          <span className="text-lg sm:text-xl font-extrabold text-white">+3.4x</span>
-        </div>
-        <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-          <span className="text-[11px] text-slate-400 block font-medium">Data Confidence</span>
-          <span className="text-lg sm:text-xl font-extrabold text-[#FF6004]">94.2%</span>
-        </div>
-      </div>
-
-      {/* Main Recharts Bar Chart */}
-      <div className="w-full h-[320px] sm:h-[360px] relative">
-        <ResponsiveContainer width="100%" height="100%">
-          {viewMode === 'category' ? (
-            <BarChart
-              data={categoryData}
-              margin={{ top: 20, right: 15, left: -15, bottom: 25 }}
-              barGap={8}
-            >
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" vertical={false} />
-              <XAxis
-                dataKey="shortName"
-                stroke="#94A3B8"
-                fontSize={12}
-                tickLine={false}
-                axisLine={{ stroke: 'rgba(255,255,255,0.15)' }}
-                dy={10}
-              />
-              <YAxis
-                domain={[0, 100]}
-                stroke="#94A3B8"
-                fontSize={12}
-                tickLine={false}
-                axisLine={{ stroke: 'rgba(255,255,255,0.15)' }}
-                tickFormatter={(val) => `${val}`}
-              />
-              <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.04)' }} />
-              <Legend
-                wrapperStyle={{ paddingTop: '16px', fontSize: '12px' }}
-                formatter={(value) => <span className="text-slate-200 text-xs font-medium">{value}</span>}
-              />
-              <Bar
-                dataKey="signalStrength"
-                name="Signal Strength Index"
-                fill="#FF6004"
-                radius={[6, 6, 0, 0]}
+      {/* 4-Step Progression Pipeline Visual */}
+      <div className="mt-8 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+          {INTELLIGENCE_STAGES.map((stage, idx) => {
+            const Icon = stage.icon;
+            const isActive = stage.id === activeStageId;
+            return (
+              <button
+                key={stage.id}
+                type="button"
+                onClick={() => setActiveStageId(stage.id)}
+                className={`text-left p-4 sm:p-5 rounded-xl border transition-all duration-200 cursor-pointer flex flex-col justify-between relative ${
+                  isActive
+                    ? 'bg-white/10 border-[#FF6004] shadow-[0_0_20px_rgba(255,96,4,0.15)] ring-1 ring-[#FF6004]'
+                    : 'bg-white/5 border-white/10 hover:bg-white/[0.08] hover:border-white/20 text-slate-300'
+                }`}
               >
-                {categoryData.map((entry, index) => (
-                  <Cell
-                    key={`cell-sig-${index}`}
-                    fill={entry.signalStrength >= 90 ? '#FF6004' : '#FE9E30'}
-                  />
-                ))}
-              </Bar>
-              <Bar
-                dataKey="commercialImpact"
-                name="Commercial Impact Score"
-                fill="#38BDF8"
-                radius={[6, 6, 0, 0]}
-              />
-            </BarChart>
-          ) : (
-            <BarChart
-              data={quarterlyTrendData}
-              margin={{ top: 20, right: 15, left: -15, bottom: 20 }}
-              barGap={6}
-            >
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" vertical={false} />
-              <XAxis
-                dataKey="period"
-                stroke="#94A3B8"
-                fontSize={12}
-                tickLine={false}
-                axisLine={{ stroke: 'rgba(255,255,255,0.15)' }}
-                dy={8}
-              />
-              <YAxis
-                domain={[0, 100]}
-                stroke="#94A3B8"
-                fontSize={12}
-                tickLine={false}
-                axisLine={{ stroke: 'rgba(255,255,255,0.15)' }}
-                tickFormatter={(val) => `${val}`}
-              />
-              <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.04)' }} />
-              <Legend
-                wrapperStyle={{ paddingTop: '16px', fontSize: '12px' }}
-                formatter={(value) => <span className="text-slate-200 text-xs font-medium">{value}</span>}
-              />
-              <Bar
-                dataKey="signalStrength"
-                name="Signal Strength Index"
-                fill="#FF6004"
-                radius={[6, 6, 0, 0]}
-              />
-              <Bar
-                dataKey="qualifiedImpact"
-                name="Validated Pipeline Impact"
-                fill="#38BDF8"
-                radius={[6, 6, 0, 0]}
-              />
-            </BarChart>
-          )}
-        </ResponsiveContainer>
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="text-xs font-mono font-bold text-[#FF6004] px-2 py-0.5 rounded bg-[#FF6004]/10 border border-[#FF6004]/20">
+                      STEP {stage.stageNumber}
+                    </span>
+                    <Icon className={`w-4 h-4 ${isActive ? 'text-[#FF6004]' : 'text-slate-400'}`} />
+                  </div>
+                  <h4 className="text-base font-bold text-white mb-1">
+                    {stage.title}
+                  </h4>
+                  <p className="text-xs text-slate-300 dark:text-zinc-400 line-clamp-2">
+                    {stage.subtitle}
+                  </p>
+                </div>
+
+                {/* Subtext indicator */}
+                <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px]">
+                  <span className={isActive ? 'text-[#FE9E30] font-semibold' : 'text-slate-400'}>
+                    {isActive ? 'Active View' : 'Inspect Step'}
+                  </span>
+                  {idx < INTELLIGENCE_STAGES.length - 1 && (
+                    <ArrowRight className="w-3.5 h-3.5 text-slate-400 hidden lg:block" />
+                  )}
+                </div>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
-      {/* Strategy Footnote */}
-      <div className="mt-4 pt-3 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between text-xs text-slate-400 gap-2">
-        <div className="flex items-center gap-1.5">
-          <Info className="w-3.5 h-3.5 text-[#FE9E30] shrink-0" />
-          <span>Calculated from multi-source ICP trigger scans, intent data, and conversion post-mortems.</span>
+      {/* Deep-Dive Card for Active Stage */}
+      <div className="rounded-xl bg-white/5 border border-white/10 p-5 sm:p-6 lg:p-7">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div className="lg:col-span-7 space-y-4">
+            <div className="flex items-center gap-2 text-xs uppercase font-bold tracking-wider text-[#FF6004]">
+              <Compass className="w-4 h-4" />
+              <span>Step {activeStage.stageNumber} Deep-Dive: {activeStage.title}</span>
+            </div>
+            <p className="text-sm sm:text-base text-slate-200 leading-relaxed">
+              {activeStage.description}
+            </p>
+
+            {/* Core Discipline Rule */}
+            <div className="p-3.5 rounded-lg bg-black/30 border border-[#FF6004]/30 flex items-start gap-2.5">
+              <Target className="w-4 h-4 text-[#FF6004] shrink-0 mt-0.5" />
+              <div>
+                <span className="text-[11px] uppercase tracking-wider font-bold text-[#FE9E30] block">
+                  Core Discipline
+                </span>
+                <span className="text-xs sm:text-sm font-medium text-white">
+                  {activeStage.disciplineRule}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5 space-y-4 bg-black/20 p-4 sm:p-5 rounded-xl border border-white/10">
+            <div>
+              <span className="text-xs uppercase font-bold tracking-wider text-slate-400 block mb-2.5">
+                Key Analytical Inputs
+              </span>
+              <ul className="space-y-2">
+                {activeStage.inputs.map((input, idx) => (
+                  <li key={idx} className="text-xs sm:text-sm text-slate-200 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0" />
+                    <span>{input}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="pt-3 border-t border-white/10">
+              <span className="text-[11px] uppercase font-bold tracking-wider text-slate-400 block mb-1">
+                Delivered Output
+              </span>
+              <span className="text-xs sm:text-sm font-bold text-white text-[#FE9E30]">
+                {activeStage.output}
+              </span>
+            </div>
+          </div>
         </div>
-        <span className="text-slate-300 font-mono text-[11px]">Updated Quarterly</span>
+      </div>
+
+      {/* Concrete Translation Example Row */}
+      <div className="mt-6 pt-4 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs text-slate-300">
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="font-bold text-white uppercase tracking-wider text-[11px]">Execution Chain:</span>
+          <span className="px-2 py-0.5 rounded bg-white/10 text-white font-medium">Fact</span>
+          <span className="text-slate-400">&rarr;</span>
+          <span className="px-2 py-0.5 rounded bg-white/10 text-white font-medium">Hypothesis</span>
+          <span className="text-slate-400">&rarr;</span>
+          <span className="px-2 py-0.5 rounded bg-white/10 text-white font-medium">Discovery Question</span>
+          <span className="text-slate-400">&rarr;</span>
+          <span className="px-2 py-0.5 rounded bg-[#FF6004]/20 border border-[#FF6004]/40 text-[#FE9E30] font-bold">
+            Customer Validation
+          </span>
+        </div>
+        <span className="text-[11px] text-slate-400">Evidence-led commercial qualification</span>
       </div>
     </div>
   );

@@ -63,7 +63,7 @@ export const HomePage: React.FC = () => {
 
   // Dynamic typing phrases for "How We Are Different" section
   const diffTypingPhrases = [
-    'End-to-End Commercial Execution',
+    'Full-Cycle Commercial Execution',
     'Senior Commercial Ownership',
     'Discovery, Dealcraft & Closure',
     'Continuous Commercial Partnership',
@@ -154,7 +154,7 @@ export const HomePage: React.FC = () => {
   useEffect(() => {
     const pipelineTimer = setInterval(() => {
       setActivePipelineIndex((prev) => (prev + 1) % 5);
-    }, 1800);
+    }, 3200);
 
     return () => clearInterval(pipelineTimer);
   }, []);
@@ -229,7 +229,7 @@ export const HomePage: React.FC = () => {
     {
       number: '01',
       title: 'Senior Commercial Ownership',
-      description: 'Execution led by commercial professionals, not junior call farms.',
+      description: 'Founder-led commercial execution with senior judgment, avoiding the handoff friction and qualification gaps common in conventional outsourced models.',
       icon: UserCheck,
     },
     {
@@ -432,13 +432,13 @@ export const HomePage: React.FC = () => {
 
                 {/* 3. Commercial Focus Pill & Copy */}
                 <div className="mb-4">
-                  <div className="flex items-center flex-wrap gap-2.5 mb-2.5">
-                    <span className="text-xs uppercase font-bold tracking-wider text-zinc-500 dark:text-zinc-400">
+                  <div className="min-h-[42px] sm:min-h-[38px] flex items-center flex-wrap sm:flex-nowrap gap-2 sm:gap-2.5 mb-2.5">
+                    <span className="text-xs uppercase font-bold tracking-wider text-zinc-500 dark:text-zinc-400 shrink-0">
                       Commercial Focus:
                     </span>
-                    <span className="inline-flex items-center rounded-[10px] bg-[#2563EB] px-3.5 py-1 text-white font-medium text-xs sm:text-base tracking-wide shadow-sm min-h-[30px]">
-                      <span>{displayedText}</span>
-                      <span className="ml-1 inline-block w-[2px] h-[0.9em] bg-white align-middle animate-mf-caret" />
+                    <span className="inline-flex items-center rounded-[10px] bg-[#2563EB] px-3.5 py-1 text-white font-medium text-xs sm:text-base tracking-wide shadow-sm h-[32px] sm:h-[34px] overflow-hidden whitespace-nowrap">
+                      <span className="truncate">{displayedText || '\u00A0'}</span>
+                      <span className="ml-1 inline-block w-[2px] h-[0.9em] bg-white align-middle animate-mf-caret shrink-0" />
                     </span>
                   </div>
 
@@ -507,13 +507,13 @@ export const HomePage: React.FC = () => {
                 <StaggerItem distance={16}>
                   <div className="px-2 sm:px-3 sm:border-x sm:border-black/10 dark:sm:border-white/10">
                     <span className="block font-lexend text-2xl sm:text-3xl font-bold text-[#161519] dark:text-white">5</span>
-                    <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 block">Key Markets - North America, India, Europe, Australia</span>
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 block">Key Markets — North America | UAE | Europe | India | Australia</span>
                   </div>
                 </StaggerItem>
                 <StaggerItem distance={16}>
                   <div className="px-2 sm:px-3">
-                    <span className="block font-lexend text-2xl sm:text-3xl font-bold text-[#161519] dark:text-white">100%</span>
-                    <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 block">Pipeline-to-Revenue Ownership</span>
+                    <span className="block font-lexend text-2xl sm:text-3xl font-bold text-[#161519] dark:text-white">Full-Cycle</span>
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 block">Commercial Execution</span>
                   </div>
                 </StaggerItem>
               </StaggerGroup>
@@ -565,7 +565,7 @@ export const HomePage: React.FC = () => {
                   </span>
                 </div>
                 
-                {/* Desktop & Tablet Progression Flow with Animated Moving Highlighter */}
+                {/* Desktop & Tablet Progression Flow */}
                 <div className="hidden sm:flex items-center justify-between gap-1.5 text-xs font-bold text-[#161519] dark:text-white">
                   {pipelineStages.map((stage, idx) => {
                     const isActive = activePipelineIndex === idx;
@@ -574,19 +574,19 @@ export const HomePage: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => setActivePipelineIndex(idx)}
-                          className={`px-2.5 py-1.5 rounded-lg text-center text-[11px] lg:text-xs font-bold transition-all duration-300 transform cursor-pointer ${
+                          className={`px-2.5 py-1.5 rounded-lg text-center text-[11px] lg:text-xs font-bold transition-colors duration-300 border cursor-pointer ${
                             isActive
-                              ? 'bg-[#2563EB] dark:bg-[#3B82F6] text-white shadow-md shadow-blue-500/30 scale-105 ring-2 ring-[#2563EB]/40 dark:ring-[#3B82F6]/50'
-                              : 'bg-[#F6F5F2] dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10 text-[#161519] dark:text-zinc-200 hover:border-[#2563EB]/40'
+                              ? 'bg-[#2563EB] dark:bg-[#3B82F6] text-white border-[#2563EB] dark:border-[#3B82F6] shadow-xs'
+                              : 'bg-[#F6F5F2] dark:bg-white/5 border-[#E5E3DC] dark:border-white/10 text-[#161519] dark:text-zinc-200 hover:border-[#2563EB]/40'
                           }`}
                         >
                           {stage}
                         </button>
                         {idx < pipelineStages.length - 1 && (
                           <span
-                            className={`font-black text-xs shrink-0 transition-all duration-300 ${
+                            className={`font-black text-xs shrink-0 transition-colors duration-300 ${
                               activePipelineIndex === idx
-                                ? 'text-[#2563EB] dark:text-[#3B82F6] scale-125'
+                                ? 'text-[#2563EB] dark:text-[#3B82F6]'
                                 : 'text-[#FF6004]'
                             }`}
                           >
@@ -607,15 +607,15 @@ export const HomePage: React.FC = () => {
                         key={stage}
                         type="button"
                         onClick={() => setActivePipelineIndex(idx)}
-                        className={`py-2 px-3 rounded-lg text-center border flex items-center justify-between transition-all duration-300 cursor-pointer ${
+                        className={`py-2 px-3 rounded-lg text-center border flex items-center justify-between transition-colors duration-300 cursor-pointer ${
                           isActive
-                            ? 'bg-[#2563EB] dark:bg-[#3B82F6] text-white border-[#2563EB] dark:border-[#3B82F6] shadow-md shadow-blue-500/25 scale-[1.02]'
+                            ? 'bg-[#2563EB] dark:bg-[#3B82F6] text-white border-[#2563EB] dark:border-[#3B82F6] shadow-xs'
                             : 'bg-[#F6F5F2] dark:bg-white/5 border-[#E5E3DC] dark:border-white/10 text-[#161519] dark:text-zinc-300'
                         }`}
                       >
                         <span className="text-[10px] opacity-75 font-mono">Stage 0{idx + 1}</span>
                         <span className="text-xs font-bold">{stage}</span>
-                        {isActive && <span className="w-2 h-2 rounded-full bg-white animate-ping" />}
+                        {isActive && <span className="w-2 h-2 rounded-full bg-white opacity-90" />}
                       </button>
                     );
                   })}
@@ -989,7 +989,7 @@ export const HomePage: React.FC = () => {
                     An integrated commercial architecture transforming early market signals into qualified enterprise opportunities, structured negotiations, and multi-year customer expansion.
                   </p>
                   <p className="text-sm sm:text-base font-semibold text-[#2563EB] dark:text-[#3B82F6]">
-                    Every stage feeds continuous intelligence backward and forward—ensuring pipeline momentum never gets lost between marketing, SDRs, and closing reps.
+                    Every stage feeds continuous intelligence backward and forward—helping reduce handoff loss and maintain commercial continuity across the sales cycle.
                   </p>
                 </div>
               </ScrollReveal>
@@ -1131,10 +1131,10 @@ export const HomePage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => navigate('/case-studies')}
-                      className="inline-flex items-center gap-2 rounded-full px-6 py-3 bg-[#161519] dark:bg-white text-white dark:text-[#161519] font-bold text-xs hover:bg-black transition-colors"
+                      className="inline-flex items-center gap-2 rounded-full px-6 py-3 border border-[#161519] dark:border-white bg-[#161519] hover:bg-white text-white hover:text-[#161519] dark:bg-white dark:hover:bg-[#161519] dark:text-[#161519] dark:hover:text-white font-bold text-xs transition-all duration-200 cursor-pointer shadow-xs hover:shadow-md group"
                     >
                       <span>View Client Case Studies</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
                     </button>
 
                     <button
@@ -1260,10 +1260,10 @@ export const HomePage: React.FC = () => {
             <button
               type="button"
               onClick={() => navigate('/case-studies')}
-              className="inline-flex items-center gap-2 rounded-full px-6 py-3 bg-[#161519] dark:bg-white text-white dark:text-[#161519] font-bold text-xs hover:bg-black transition-colors"
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3 border border-[#161519] dark:border-white bg-[#161519] hover:bg-white text-white hover:text-[#161519] dark:bg-white dark:hover:bg-[#161519] dark:text-[#161519] dark:hover:text-white font-bold text-xs transition-all duration-200 cursor-pointer shadow-xs hover:shadow-md group"
             >
               <span>View Case Studies</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
             </button>
           </ScrollReveal>
         </div>
@@ -1327,7 +1327,7 @@ export const HomePage: React.FC = () => {
                             Commercial Alignment &amp; Governance
                           </p>
                           <p className="text-[11px] sm:text-xs text-zinc-300 truncate">
-                            Milestone-Driven · Senior Operators · Selective Pods
+                            Milestone-Driven · Senior Operators · Selective Client Capacity
                           </p>
                         </div>
                       </div>
@@ -1358,7 +1358,7 @@ export const HomePage: React.FC = () => {
                   <div className="p-5 rounded-[18px] bg-white/5 border border-white/10 h-full flex flex-col justify-between hover:border-[#2563EB]/40 hover:bg-white/[0.07] transition-all duration-200">
                     <div>
                       <span className="text-xs text-[#2563EB] dark:text-[#3B82F6] font-bold block mb-1">Scope</span>
-                      <h4 className="font-bold text-sm text-white mb-2 leading-snug">Strategy, RevOps, Execution or Full Commercial Pod</h4>
+                      <h4 className="font-bold text-sm text-white mb-2 leading-snug">Strategy, RevOps, or Full-Cycle Commercial Execution</h4>
                     </div>
                     <p className="text-xs text-zinc-400 mt-2">Tailored to your commercial gaps.</p>
                   </div>

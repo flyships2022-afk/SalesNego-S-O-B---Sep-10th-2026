@@ -124,30 +124,6 @@ html.dark body {
   }
 }
 
-/* Subtle blinking / breathing animation for WhatsApp floating trigger */
-@keyframes slightBlink {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  }
-  50% {
-    opacity: 0.6;
-    transform: scale(0.96);
-    box-shadow: 0 4px 12px -2px rgba(37, 211, 102, 0.35);
-  }
-}
-
-.animate-slight-blink {
-  animation: slightBlink 2.2s ease-in-out infinite;
-}
-
-.animate-slight-blink:hover {
-  animation-play-state: paused;
-  opacity: 1;
-  transform: scale(1.06);
-}
-
 /* Metafic-style Agency Scroll Reveal Utilities & Keyframes */
 @keyframes revealFadeSlideUp {
   from {

@@ -192,7 +192,7 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ client, isOpen, 
           {/* Key Commercial Outcomes */}
           <div className="space-y-3">
             <h4 className="text-xs uppercase font-bold tracking-wider text-zinc-500 dark:text-zinc-400">
-              Verified Commercial Outcomes
+              Selected Commercial Outcomes
             </h4>
             <div className="space-y-2">
               {caseStudy.outcomes.map((outcome, idx) => (

@@ -221,7 +221,7 @@ export const ServiceDetailExecution: React.FC = () => {
             Discuss Your Commercial Priorities
           </h2>
           <p className="text-base text-[#606060] dark:text-zinc-300">
-            Explore how end-to-end commercial execution can support your deal cycles.
+            Explore how full-cycle commercial execution can support your deal cycles.
           </p>
           <button
             onClick={openCalendly}
