@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { RoutePath } from '../types';
 import { updateDocumentSEO, SEO_CONFIG } from '../utils/seo';
+import { scrollToSection } from '../utils/scroll';
 
 interface NavigationContextType {
   currentPath: RoutePath;
@@ -46,16 +47,9 @@ export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
   const navigate = (path: RoutePath, targetElementId?: string) => {
     if (targetElementId && currentPath === path) {
-      // Smoothly scroll to the target element on the current page
-      try {
-        const element = document.getElementById(targetElementId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          return;
-        }
-      } catch {
-        // Fallback for environments where smooth scrolling options throw
-      }
+      // Smoothly scroll to the target element on the current page with sticky header offset
+      scrollToSection(targetElementId, { smooth: true });
+      return;
     }
 
     if (path !== currentPath) {
@@ -69,21 +63,18 @@ export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       setCurrentPath(path);
 
       if (targetElementId) {
-        // Wait for page to mount, then scroll to section smoothly
+        // Wait for page to mount, then scroll to section smoothly with sticky header offset
         setTimeout(() => {
-          try {
-            const element = document.getElementById(targetElementId);
-            if (element) {
-              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else if (typeof window !== 'undefined') {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-          } catch {
-            if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
-              window.scrollTo(0, 0);
-            }
+          const success = scrollToSection(targetElementId, { smooth: true });
+          if (!success && typeof window !== 'undefined') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
           }
-        }, 120);
+        }, 100);
+
+        // Secondary stabilization pass once lazy images and fonts settle
+        setTimeout(() => {
+          scrollToSection(targetElementId, { smooth: true });
+        }, 320);
       } else if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
         try {
           window.scrollTo({ top: 0, behavior: 'smooth' });

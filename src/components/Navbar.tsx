@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, LayoutGroup } from 'motion/react';
 import {
   Sun,
   Moon,
@@ -24,6 +24,7 @@ import { useNavigation } from '../context/NavigationContext';
 import { useTheme } from '../context/ThemeContext';
 import { SalesNegoLogo } from './SalesNegoLogo';
 import { RoutePath } from '../types';
+import { scrollToSection } from '../utils/scroll';
 
 export const Navbar: React.FC = () => {
   const { currentPath, navigate, openCalendly } = useNavigation();
@@ -38,10 +39,32 @@ export const Navbar: React.FC = () => {
   const [activeTooltipId, setActiveTooltipId] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const isManualScrollingRef = useRef<boolean>(false);
+  const targetSectionRef = useRef<string | null>(null);
   const scrollTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  // Listen for physical user scroll input (mouse wheel, touch gesture) to disengage programmatic scroll lock
+  useEffect(() => {
+    const handleUserManualScroll = () => {
+      if (isManualScrollingRef.current) {
+        isManualScrollingRef.current = false;
+        targetSectionRef.current = null;
+        if (scrollTimeoutRef.current) {
+          window.clearTimeout(scrollTimeoutRef.current);
+          scrollTimeoutRef.current = null;
+        }
+      }
+    };
+
+    window.addEventListener('wheel', handleUserManualScroll, { passive: true });
+    window.addEventListener('touchmove', handleUserManualScroll, { passive: true });
+    return () => {
+      window.removeEventListener('wheel', handleUserManualScroll);
+      window.removeEventListener('touchmove', handleUserManualScroll);
+    };
   }, []);
 
   // Prevent background scroll when mobile drawer is open
@@ -95,38 +118,83 @@ export const Navbar: React.FC = () => {
 
       // On homepage, detect active section for smooth scrolling indicator
       if (currentPath === '/') {
-        // If user reached bottom of document, activate contact
-        const scrollBottom = window.innerHeight + window.scrollY;
-        const docHeight = document.documentElement.scrollHeight;
-        if (scrollBottom >= docHeight - 80) {
-          setActiveSection('contact');
+        // 1. If user is at top of the page, activate home
+        if (window.scrollY < 80) {
+          setActiveSection('home');
           return;
         }
 
-        // Sections mapped to nav keys in DOM order
+        // 2. If near bottom of document or contact section is prominently in view, activate contact
+        const scrollBottom = window.innerHeight + window.scrollY;
+        const docHeight = document.documentElement.scrollHeight;
+        const contactEl = document.getElementById('contact-section');
+        if (contactEl) {
+          const contactRect = contactEl.getBoundingClientRect();
+          if (
+            scrollBottom >= docHeight - 120 ||
+            (contactRect.top <= window.innerHeight * 0.55 && contactRect.bottom > 100)
+          ) {
+            setActiveSection('contact');
+            return;
+          }
+        }
+
+        // 3. Sections mapped to nav keys
         const sections = [
           { id: 'hero-section', key: 'home' },
+          { id: 'commercial-gap-section', key: 'home' },
           { id: 'services-section', key: 'services' },
+          { id: 'why-salesnego-section', key: 'services' },
+          { id: 'journey-section', key: 'services' },
           { id: 'about-section', key: 'about' },
           { id: 'experience-section', key: 'portfolio' },
+          { id: 'engagement-section', key: 'portfolio' },
           { id: 'contact-section', key: 'contact' },
         ];
 
-        // Trigger point below top of viewport accounting for sticky navbar height ~80px + margin
-        const triggerPoint = window.scrollY + 200;
-        let matched = 'home';
+        const navThreshold = 140; // 140px from top of viewport (just below sticky header)
+        let matched: string | null = null;
+
         for (const sec of sections) {
           const el = document.getElementById(sec.id);
-          if (el && triggerPoint >= el.offsetTop) {
-            matched = sec.key;
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= navThreshold && rect.bottom > navThreshold) {
+              matched = sec.key;
+              break;
+            }
           }
         }
-        setActiveSection(matched);
+
+        if (matched) {
+          setActiveSection(matched);
+        } else {
+          // Fallback: choose section whose top is closest above or at threshold
+          let closestKey = 'home';
+          let minDistance = Infinity;
+          for (const sec of sections) {
+            const el = document.getElementById(sec.id);
+            if (el) {
+              const rect = el.getBoundingClientRect();
+              if (rect.top <= navThreshold) {
+                const dist = navThreshold - rect.top;
+                if (dist < minDistance) {
+                  minDistance = dist;
+                  closestKey = sec.key;
+                }
+              }
+            }
+          }
+          setActiveSection(closestKey);
+        }
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
+    // Only execute initial scroll calculation if not locked in a programmatic navigation
+    if (!isManualScrollingRef.current) {
+      handleScroll();
+    }
     return () => {
       window.removeEventListener('scroll', handleScroll);
       if (scrollTimeoutRef.current) {
@@ -219,6 +287,7 @@ export const Navbar: React.FC = () => {
 
     // Immediately update active section so the orange indicator moves without delay
     setActiveSection(item.sectionKey);
+    targetSectionRef.current = item.sectionKey;
 
     // Lock scroll spy during smooth scroll transition so it doesn't fight the user's click
     isManualScrollingRef.current = true;
@@ -227,51 +296,36 @@ export const Navbar: React.FC = () => {
     }
     scrollTimeoutRef.current = window.setTimeout(() => {
       isManualScrollingRef.current = false;
-    }, 950);
-
-    const navOffset = 84;
-
-    if (item.sectionKey === 'contact') {
-      if (currentPath === '/') {
-        const element = document.getElementById('contact-section');
-        if (element) {
-          const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-          window.scrollTo({
-            top: Math.max(0, elementPosition - navOffset),
-            behavior: 'smooth',
-          });
-          return;
-        }
-      }
-      navigate('/', 'contact-section');
-      return;
-    }
+      targetSectionRef.current = null;
+    }, 2200);
 
     if (currentPath === '/') {
-      if (item.sectionKey === 'home') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (item.sectionKey === 'home' || item.sectionId === 'hero-section') {
+        scrollToSection('hero-section', { smooth: true });
         return;
       }
       if (item.sectionId) {
-        const element = document.getElementById(item.sectionId);
-        if (element) {
-          const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-          window.scrollTo({
-            top: Math.max(0, elementPosition - navOffset),
-            behavior: 'smooth',
-          });
-          return;
-        }
+        scrollToSection(item.sectionId, { smooth: true });
+        return;
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      navigate(item.path, item.sectionId);
+      if (item.sectionKey === 'home') {
+        navigate('/', 'hero-section');
+      } else if (item.sectionKey === 'contact') {
+        navigate('/', 'contact-section');
+      } else {
+        navigate(item.path, item.sectionId);
+      }
     }
   };
 
   const isItemActive = (item: typeof navItems[0]) => {
     if (currentPath === '/') {
       return activeSection === item.sectionKey;
+    }
+    if (item.sectionKey === 'contact' && (currentPath === '/contact' || activeSection === 'contact')) {
+      return true;
     }
     if (item.path === '/') return false;
     return currentPath === item.path || currentPath.startsWith(item.path + '/');
@@ -297,10 +351,11 @@ export const Navbar: React.FC = () => {
           aria-label="Primary Navigation"
           className="hidden lg:flex items-center gap-1 xl:gap-1.5 p-1 xl:p-1.5 rounded-full bg-white/80 dark:bg-[#1C1B20]/80 border border-[#E5E3DC] dark:border-white/10 backdrop-blur-md shadow-2xs"
         >
-          {navItems.map((item) => {
-            const active = isItemActive(item);
-            const tooltipId = `tooltip-nav-${item.sectionKey}`;
-            const isTooltipVisible = activeTooltipId === tooltipId && !servicesDropdownOpen;
+          <LayoutGroup id="desktop-navbar-nav">
+            {navItems.map((item) => {
+              const active = isItemActive(item);
+              const tooltipId = `tooltip-nav-${item.sectionKey}`;
+              const isTooltipVisible = activeTooltipId === tooltipId && !servicesDropdownOpen;
 
             if (item.label === 'Services') {
               return (
@@ -523,6 +578,7 @@ export const Navbar: React.FC = () => {
               </div>
             );
           })}
+          </LayoutGroup>
         </nav>
 
         {/* Right Utilities: Theme Switcher & Metafic Pill CTA */}

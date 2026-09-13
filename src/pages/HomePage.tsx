@@ -42,6 +42,7 @@ import { ScrollReveal, StaggerGroup, StaggerItem } from '../components/ScrollRev
 import { LogoWallSection } from '../components/LogoWallSection';
 import { LazyImage } from '../components/LazyImage';
 import { SEO } from '../components/SEO';
+import { scrollToSection } from '../utils/scroll';
 
 export const HomePage: React.FC = () => {
   const { navigate, openCalendly } = useNavigation();
@@ -466,9 +467,8 @@ export const HomePage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => {
-                      const el = document.getElementById('services-section');
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
-                      else navigate('/services');
+                      const scrolled = scrollToSection('services-section', { smooth: true });
+                      if (!scrolled) navigate('/services');
                     }}
                     className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm sm:text-base font-medium text-[#161519] dark:text-white bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/20 border border-black/10 dark:border-white/20 backdrop-blur-md transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] shrink-0 cursor-pointer"
                   >
