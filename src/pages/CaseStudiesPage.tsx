@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { ArrowUpRight } from 'lucide-react';
 import { LazyImage } from '../components/LazyImage';
+import { SEO } from '../components/SEO';
 
 interface TrackRecordItem {
   domain: string;
@@ -57,6 +58,7 @@ export const CaseStudiesPage: React.FC = () => {
 
   return (
     <div className="w-full flex flex-col">
+      <SEO path="/case-studies" />
       {/* Hero */}
       <section
         id="case-studies-hero"

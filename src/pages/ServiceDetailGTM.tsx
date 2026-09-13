@@ -3,6 +3,7 @@ import { useNavigation } from '../context/NavigationContext';
 import { ArrowRight, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { MarketSignalChart } from '../components/MarketSignalChart';
 import { LazyImage } from '../components/LazyImage';
+import { SEO } from '../components/SEO';
 
 export const ServiceDetailGTM: React.FC = () => {
   const { navigate, openCalendly } = useNavigation();
@@ -28,6 +29,7 @@ export const ServiceDetailGTM: React.FC = () => {
 
   return (
     <div className="w-full flex flex-col">
+      <SEO path="/services/gtm-strategy-market-intelligence" />
       {/* Hero */}
       <section
         id="gtm-hero"

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { Mail, Phone, ArrowUpRight, CheckCircle2, AlertCircle } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const ContactPage: React.FC = () => {
   const { openCalendly } = useNavigation();
@@ -70,6 +71,7 @@ export const ContactPage: React.FC = () => {
 
   return (
     <div className="w-full flex flex-col">
+      <SEO path="/contact" />
       {/* Unified Hero & Contact Section */}
       <section
         id="contact-hero-section"

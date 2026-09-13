@@ -6,233 +6,254 @@ import { RoutePath, RouteSEOConfig } from '../types';
  */
 export const SITE_URL = 'https://salesnego.com';
 export const SITE_NAME = 'SalesNego';
-export const DEFAULT_OG_IMAGE = 'https://salesnego.com/favicon-32x32.png';
+export const BRAND_LOGO_URL = 'https://salesnego.com/salesnego-logo-1.png';
+export const DEFAULT_OG_IMAGE = 'https://salesnego.com/salesnego-logo.png';
 export const DEFAULT_TWITTER_CARD = 'summary_large_image' as const;
+export const DEFAULT_ROBOTS = 'index, follow';
 
 /**
- * Centralized SEO Configuration for all routes in the application
+ * Route-Specific SEO Configuration matching exact canonical, titles, descriptions, and schemas
  */
 export const SEO_CONFIG: Record<RoutePath, RouteSEOConfig> = {
   '/': {
     title: 'SalesNego | B2B GTM, RevOps & Commercial Execution',
     description:
       'SalesNego helps B2B SaaS, AI and technology companies connect GTM strategy, Revenue Operations, AI-accelerated sales and end-to-end commercial execution from market signal to closed revenue.',
-    keywords:
-      'B2B GTM strategy, revenue operations, RevOps, AI sales execution, commercial execution, founder-led sales, B2B SaaS sales, pipeline generation, enterprise sales consulting',
     canonical: `${SITE_URL}/`,
     ogTitle: 'SalesNego | B2B GTM, RevOps & Commercial Execution',
     ogDescription:
       'SalesNego helps B2B SaaS, AI and technology companies connect GTM strategy, Revenue Operations, AI-accelerated sales and end-to-end commercial execution from market signal to closed revenue.',
     ogType: 'website',
+    ogSiteName: SITE_NAME,
     ogImage: DEFAULT_OG_IMAGE,
     ogUrl: `${SITE_URL}/`,
     twitterCard: DEFAULT_TWITTER_CARD,
     twitterTitle: 'SalesNego | B2B GTM, RevOps & Commercial Execution',
     twitterDescription:
-      'SalesNego connects GTM strategy, RevOps, AI workflows, and commercial execution from market signal to closed revenue.',
+      'SalesNego helps B2B SaaS, AI and technology companies connect GTM strategy, Revenue Operations, AI-accelerated sales and end-to-end commercial execution from market signal to closed revenue.',
     twitterImage: DEFAULT_OG_IMAGE,
+    robots: DEFAULT_ROBOTS,
     structuredData: {
       '@context': 'https://schema.org',
-      '@type': 'ProfessionalService',
-      name: 'SalesNego',
-      url: `${SITE_URL}/`,
-      logo: `${SITE_URL}/favicon.svg`,
-      description:
-        'SalesNego connects GTM strategy, Revenue Operations, AI-accelerated sales and end-to-end commercial execution from market signal to closed revenue.',
-      sameAs: ['https://www.linkedin.com/company/salesnego'],
-      offers: {
-        '@type': 'Offer',
-        category: 'B2B Commercial Consulting & Execution',
-      },
+      '@graph': [
+        {
+          '@type': 'Organization',
+          name: 'SalesNego',
+          url: `${SITE_URL}/`,
+          logo: BRAND_LOGO_URL,
+          sameAs: ['https://www.linkedin.com/company/salesnego/'],
+        },
+        {
+          '@type': 'WebSite',
+          name: 'SalesNego',
+          url: `${SITE_URL}/`,
+        },
+      ],
     },
   },
-  '/services': {
-    title: 'Services | One Commercial System, Three Connected Capabilities | SalesNego',
+  '/about': {
+    title: 'About SalesNego | Commercial Strategy & Execution',
     description:
-      'Explore SalesNego\'s three integrated commercial pillars: GTM Strategy & Market Intelligence, RevOps & AI-Accelerated Sales Workflows, and End-to-End Commercial Execution.',
-    keywords:
-      'B2B commercial services, GTM execution capabilities, sales operations consulting, AI sales workflows, RevOps architecture, sales enablement, B2B deal closing',
-    canonical: `${SITE_URL}/services`,
-    ogTitle: 'Services | One Commercial System, Three Connected Capabilities | SalesNego',
+      'Learn how SalesNego connects market intelligence, Revenue Operations and full-cycle commercial execution for B2B SaaS, AI and technology companies.',
+    canonical: `${SITE_URL}/about`,
+    ogTitle: 'About SalesNego | Commercial Strategy & Execution',
     ogDescription:
-      'Three connected capabilities under one commercial partnership: GTM Strategy, Revenue Operations + AI, and Direct Founder-Led Execution.',
+      'Learn how SalesNego connects market intelligence, Revenue Operations and full-cycle commercial execution for B2B SaaS, AI and technology companies.',
     ogType: 'website',
+    ogSiteName: SITE_NAME,
+    ogImage: DEFAULT_OG_IMAGE,
+    ogUrl: `${SITE_URL}/about`,
+    twitterCard: DEFAULT_TWITTER_CARD,
+    twitterTitle: 'About SalesNego | Commercial Strategy & Execution',
+    twitterDescription:
+      'Learn how SalesNego connects market intelligence, Revenue Operations and full-cycle commercial execution for B2B SaaS, AI and technology companies.',
+    twitterImage: DEFAULT_OG_IMAGE,
+    robots: DEFAULT_ROBOTS,
+  },
+  '/services': {
+    title: 'B2B GTM, RevOps & Commercial Execution Services | SalesNego',
+    description:
+      'Explore SalesNego’s connected commercial services across GTM strategy, market intelligence, RevOps, AI-accelerated sales and end-to-end commercial execution.',
+    canonical: `${SITE_URL}/services`,
+    ogTitle: 'B2B GTM, RevOps & Commercial Execution Services | SalesNego',
+    ogDescription:
+      'Explore SalesNego’s connected commercial services across GTM strategy, market intelligence, RevOps, AI-accelerated sales and end-to-end commercial execution.',
+    ogType: 'website',
+    ogSiteName: SITE_NAME,
     ogImage: DEFAULT_OG_IMAGE,
     ogUrl: `${SITE_URL}/services`,
     twitterCard: DEFAULT_TWITTER_CARD,
-    twitterTitle: 'Commercial Services & Architecture | SalesNego',
+    twitterTitle: 'B2B GTM, RevOps & Commercial Execution Services | SalesNego',
     twitterDescription:
-      'One Commercial System across three connected capabilities: GTM Strategy, RevOps + AI, and Direct Execution.',
+      'Explore SalesNego’s connected commercial services across GTM strategy, market intelligence, RevOps, AI-accelerated sales and end-to-end commercial execution.',
     twitterImage: DEFAULT_OG_IMAGE,
+    robots: DEFAULT_ROBOTS,
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'Service',
-      name: 'SalesNego Commercial System',
-      serviceType: 'B2B Go-To-Market & Revenue Operations',
+      name: 'B2B GTM, RevOps & Commercial Execution Services',
+      serviceType: 'B2B Commercial Strategy & Execution',
       provider: {
         '@type': 'Organization',
         name: 'SalesNego',
-        url: SITE_URL,
+        url: `${SITE_URL}/`,
       },
-      hasOfferCatalog: {
-        '@type': 'OfferCatalog',
-        name: 'SalesNego Commercial Capabilities',
-        itemListElement: [
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'GTM Strategy & Market Intelligence',
-            },
-          },
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'Revenue Operations & AI-Accelerated Sales',
-            },
-          },
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'End-to-End Commercial Execution',
-            },
-          },
-        ],
-      },
+      description:
+        'Explore SalesNego’s connected commercial services across GTM strategy, market intelligence, RevOps, AI-accelerated sales and end-to-end commercial execution.',
     },
   },
   '/services/gtm-strategy-market-intelligence': {
     title: 'GTM Strategy & Market Intelligence | SalesNego',
     description:
-      'Diagnose market dynamics, pinpoint target accounts, define value propositions, and align ideal customer profiles (ICPs) with commercial reality.',
-    keywords:
-      'B2B GTM strategy, market intelligence, ICP definition, account tiering, competitive positioning, commercial diagnosis, customer segmentation',
+      'SalesNego helps B2B SaaS, AI and technology companies define markets, ICPs, buyers, positioning, account priorities and market-entry direction.',
     canonical: `${SITE_URL}/services/gtm-strategy-market-intelligence`,
     ogTitle: 'GTM Strategy & Market Intelligence | SalesNego',
     ogDescription:
-      'Turn fragmented market assumptions into clear target accounts, validated ICP boundaries, and disciplined commercial direction.',
-    ogType: 'article',
+      'SalesNego helps B2B SaaS, AI and technology companies define markets, ICPs, buyers, positioning, account priorities and market-entry direction.',
+    ogType: 'website',
+    ogSiteName: SITE_NAME,
     ogImage: DEFAULT_OG_IMAGE,
     ogUrl: `${SITE_URL}/services/gtm-strategy-market-intelligence`,
     twitterCard: DEFAULT_TWITTER_CARD,
     twitterTitle: 'GTM Strategy & Market Intelligence | SalesNego',
     twitterDescription:
-      'Diagnose market dynamics, pinpoint target accounts, and align ICPs with commercial reality.',
+      'SalesNego helps B2B SaaS, AI and technology companies define markets, ICPs, buyers, positioning, account priorities and market-entry direction.',
     twitterImage: DEFAULT_OG_IMAGE,
+    robots: DEFAULT_ROBOTS,
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: 'GTM Strategy & Market Intelligence',
+      serviceType: 'Go-To-Market Strategy & Market Intelligence',
+      provider: {
+        '@type': 'Organization',
+        name: 'SalesNego',
+        url: `${SITE_URL}/`,
+      },
+      description:
+        'SalesNego helps B2B SaaS, AI and technology companies define markets, ICPs, buyers, positioning, account priorities and market-entry direction.',
+    },
   },
   '/services/revops-ai-sales': {
-    title: 'Revenue Operations & AI-Accelerated Sales | SalesNego',
+    title: 'RevOps & AI-Accelerated Sales | SalesNego',
     description:
-      'Modern RevOps infrastructure combining CRM architecture, data enrichment, AI research agents, pipeline velocity metrics, and workflow automation.',
-    keywords:
-      'Revenue Operations, RevOps, AI sales workflows, CRM architecture, pipeline automation, commercial enablement, sales intelligence, CRM hygiene',
+      'SalesNego connects CRM, data, sales intelligence, qualification and AI-enabled workflows to improve commercial visibility and execution.',
     canonical: `${SITE_URL}/services/revops-ai-sales`,
-    ogTitle: 'Revenue Operations & AI-Accelerated Sales | SalesNego',
+    ogTitle: 'RevOps & AI-Accelerated Sales | SalesNego',
     ogDescription:
-      'Build repeatable revenue engines with CRM data governance, AI account intelligence, and automated commercial workflows.',
-    ogType: 'article',
+      'SalesNego connects CRM, data, sales intelligence, qualification and AI-enabled workflows to improve commercial visibility and execution.',
+    ogType: 'website',
+    ogSiteName: SITE_NAME,
     ogImage: DEFAULT_OG_IMAGE,
     ogUrl: `${SITE_URL}/services/revops-ai-sales`,
     twitterCard: DEFAULT_TWITTER_CARD,
     twitterTitle: 'RevOps & AI-Accelerated Sales | SalesNego',
     twitterDescription:
-      'Modern RevOps infrastructure combining CRM architecture, AI research agents, and workflow automation.',
+      'SalesNego connects CRM, data, sales intelligence, qualification and AI-enabled workflows to improve commercial visibility and execution.',
     twitterImage: DEFAULT_OG_IMAGE,
+    robots: DEFAULT_ROBOTS,
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: 'RevOps & AI-Accelerated Sales',
+      serviceType: 'Revenue Operations & AI Sales Acceleration',
+      provider: {
+        '@type': 'Organization',
+        name: 'SalesNego',
+        url: `${SITE_URL}/`,
+      },
+      description:
+        'SalesNego connects CRM, data, sales intelligence, qualification and AI-enabled workflows to improve commercial visibility and execution.',
+    },
   },
   '/services/commercial-execution': {
     title: 'End-to-End Commercial Execution | SalesNego',
     description:
-      'Founder-level commercial leadership executing outbound discovery, multi-stakeholder navigation, business case justification, and complex negotiation toward closed revenue.',
-    keywords:
-      'commercial execution, B2B deal closing, complex negotiation, founder-led sales, enterprise discovery, contract closure, pipeline acceleration',
+      'SalesNego supports prospect engagement, discovery, qualification, solution alignment, proposals, negotiation, closure and customer growth.',
     canonical: `${SITE_URL}/services/commercial-execution`,
     ogTitle: 'End-to-End Commercial Execution | SalesNego',
     ogDescription:
-      'From qualification and discovery to business justification and contract negotiation—hands-on deal execution.',
-    ogType: 'article',
+      'SalesNego supports prospect engagement, discovery, qualification, solution alignment, proposals, negotiation, closure and customer growth.',
+    ogType: 'website',
+    ogSiteName: SITE_NAME,
     ogImage: DEFAULT_OG_IMAGE,
     ogUrl: `${SITE_URL}/services/commercial-execution`,
     twitterCard: DEFAULT_TWITTER_CARD,
     twitterTitle: 'End-to-End Commercial Execution | SalesNego',
     twitterDescription:
-      'Hands-on commercial leadership executing discovery, qualification, and high-value negotiation.',
+      'SalesNego supports prospect engagement, discovery, qualification, solution alignment, proposals, negotiation, closure and customer growth.',
     twitterImage: DEFAULT_OG_IMAGE,
-  },
-  '/about': {
-    title: 'About SalesNego | Commercial Strategy Connected to Execution',
-    description:
-      'Learn about SalesNego\'s founder-led commercial philosophy, 14+ years of cross-border B2B experience, and commitment to disciplined execution over abstract advisory.',
-    keywords:
-      'About SalesNego, commercial leadership, B2B sales track record, founder sales execution, RevOps expertise, cross-border commercial execution',
-    canonical: `${SITE_URL}/about`,
-    ogTitle: 'About SalesNego | Commercial Strategy Connected to Execution',
-    ogDescription:
-      'Disciplined commercial execution built on 14+ years of cross-border B2B software, tech services, and enterprise negotiation experience.',
-    ogType: 'profile',
-    ogImage: DEFAULT_OG_IMAGE,
-    ogUrl: `${SITE_URL}/about`,
-    twitterCard: DEFAULT_TWITTER_CARD,
-    twitterTitle: 'About SalesNego | Commercial Strategy Connected to Execution',
-    twitterDescription:
-      '14+ years of cross-border B2B commercial leadership connecting market intelligence directly to closed revenue.',
-    twitterImage: DEFAULT_OG_IMAGE,
+    robots: DEFAULT_ROBOTS,
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: 'End-to-End Commercial Execution',
+      serviceType: 'B2B Commercial Execution & Deal Closing',
+      provider: {
+        '@type': 'Organization',
+        name: 'SalesNego',
+        url: `${SITE_URL}/`,
+      },
+      description:
+        'SalesNego supports prospect engagement, discovery, qualification, solution alignment, proposals, negotiation, closure and customer growth.',
+    },
   },
   '/case-studies': {
-    title: 'Commercial Track Record & Case Studies | SalesNego',
+    title: 'Case Studies | SalesNego',
     description:
-      'Explore verified client case studies and anonymized commercial wins across B2B SaaS, HealthTech, AI platforms, and technology professional services.',
-    keywords:
-      'B2B case studies, commercial results, SaaS sales portfolio, RevOps case studies, pipeline conversion wins, client track record',
+      'Explore selected SalesNego commercial experience across SaaS, AI and technology sales, market development and full-cycle commercial execution.',
     canonical: `${SITE_URL}/case-studies`,
-    ogTitle: 'Commercial Track Record & Case Studies | SalesNego',
+    ogTitle: 'Case Studies | SalesNego',
     ogDescription:
-      'Demonstrated commercial impact across B2B SaaS, HealthTech, Tax Tech, and technology services globally.',
+      'Explore selected SalesNego commercial experience across SaaS, AI and technology sales, market development and full-cycle commercial execution.',
     ogType: 'website',
+    ogSiteName: SITE_NAME,
     ogImage: DEFAULT_OG_IMAGE,
     ogUrl: `${SITE_URL}/case-studies`,
     twitterCard: DEFAULT_TWITTER_CARD,
-    twitterTitle: 'Commercial Track Record & Case Studies | SalesNego',
+    twitterTitle: 'Case Studies | SalesNego',
     twitterDescription:
-      'Client case studies and verified commercial outcomes across high-growth technology markets.',
+      'Explore selected SalesNego commercial experience across SaaS, AI and technology sales, market development and full-cycle commercial execution.',
     twitterImage: DEFAULT_OG_IMAGE,
+    robots: DEFAULT_ROBOTS,
   },
   '/contact': {
     title: 'Contact SalesNego | Discuss Your Growth Priorities',
     description:
-      'Schedule a 30-minute commercial alignment session with our founder or send a direct inquiry to discuss your pipeline, GTM strategy, or RevOps requirements.',
-    keywords:
-      'contact SalesNego, schedule commercial consultation, B2B sales inquiry, GTM strategy discussion, Calendly booking',
+      'Discuss your GTM, RevOps, pipeline or commercial execution priorities with SalesNego.',
     canonical: `${SITE_URL}/contact`,
     ogTitle: 'Contact SalesNego | Discuss Your Growth Priorities',
     ogDescription:
-      'Connect with SalesNego to discuss your pipeline generation, commercial execution, or revenue operations roadmap.',
+      'Discuss your GTM, RevOps, pipeline or commercial execution priorities with SalesNego.',
     ogType: 'website',
+    ogSiteName: SITE_NAME,
     ogImage: DEFAULT_OG_IMAGE,
     ogUrl: `${SITE_URL}/contact`,
     twitterCard: DEFAULT_TWITTER_CARD,
-    twitterTitle: 'Contact SalesNego | Let\'s Discuss Your Priorities',
+    twitterTitle: 'Contact SalesNego | Discuss Your Growth Priorities',
     twitterDescription:
-      'Schedule a direct commercial consultation with founder leadership.',
+      'Discuss your GTM, RevOps, pipeline or commercial execution priorities with SalesNego.',
     twitterImage: DEFAULT_OG_IMAGE,
+    robots: DEFAULT_ROBOTS,
   },
   '/privacy': {
     title: 'Privacy Policy | SalesNego',
     description:
-      'Our transparent data handling, client confidentiality, and information privacy practices across our website and commercial engagements.',
-    keywords: 'privacy policy, data confidentiality, SalesNego privacy, client data security',
+      'Read the SalesNego Privacy Policy and learn how information submitted through the website is handled.',
     canonical: `${SITE_URL}/privacy`,
     ogTitle: 'Privacy Policy | SalesNego',
     ogDescription:
-      'How SalesNego handles, safeguards, and respects business information and personal data.',
+      'Read the SalesNego Privacy Policy and learn how information submitted through the website is handled.',
     ogType: 'website',
+    ogSiteName: SITE_NAME,
     ogImage: DEFAULT_OG_IMAGE,
     ogUrl: `${SITE_URL}/privacy`,
     twitterCard: DEFAULT_TWITTER_CARD,
     twitterTitle: 'Privacy Policy | SalesNego',
-    twitterDescription: 'Data privacy and confidentiality commitment at SalesNego.',
+    twitterDescription:
+      'Read the SalesNego Privacy Policy and learn how information submitted through the website is handled.',
     twitterImage: DEFAULT_OG_IMAGE,
+    robots: DEFAULT_ROBOTS,
   },
 };
 
@@ -252,33 +273,46 @@ export function getSEOConfig(path: RoutePath | string): RouteSEOConfig {
 }
 
 /**
- * Helper to update or inject a meta element by name or property
+ * Helper to update or inject a meta element by name or property, removing any duplicates
  */
 function setMetaTag(attrName: 'name' | 'property', attrValue: string, content: string | undefined) {
   if (typeof document === 'undefined' || !content) return;
 
-  let meta = document.querySelector(`meta[${attrName}="${attrValue}"]`) as HTMLMetaElement | null;
-  if (!meta) {
-    meta = document.createElement('meta');
+  const selector = `meta[${attrName}="${attrValue}"]`;
+  const existingElements = document.querySelectorAll(selector);
+
+  if (existingElements.length > 0) {
+    // Update the first element and remove any accidental duplicates
+    (existingElements[0] as HTMLMetaElement).setAttribute('content', content);
+    for (let i = 1; i < existingElements.length; i++) {
+      existingElements[i].remove();
+    }
+  } else {
+    const meta = document.createElement('meta');
     meta.setAttribute(attrName, attrValue);
+    meta.setAttribute('content', content);
     document.head.appendChild(meta);
   }
-  meta.setAttribute('content', content);
 }
 
 /**
- * Helper to update or inject canonical link
+ * Helper to update or inject canonical link, ensuring strictly ONE canonical link in document head
  */
 function setCanonicalLink(href: string | undefined) {
   if (typeof document === 'undefined' || !href) return;
 
-  let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
-  if (!link) {
-    link = document.createElement('link');
+  const existingLinks = document.querySelectorAll('link[rel="canonical"]');
+  if (existingLinks.length > 0) {
+    (existingLinks[0] as HTMLLinkElement).setAttribute('href', href);
+    for (let i = 1; i < existingLinks.length; i++) {
+      existingLinks[i].remove();
+    }
+  } else {
+    const link = document.createElement('link');
     link.setAttribute('rel', 'canonical');
+    link.setAttribute('href', href);
     document.head.appendChild(link);
   }
-  link.setAttribute('href', href);
 }
 
 /**
@@ -326,16 +360,14 @@ export function updateDocumentSEO(path: RoutePath | string, overrides?: Partial<
 
   // 2. Standard Meta Tags
   setMetaTag('name', 'description', finalConfig.description);
-  if (finalConfig.keywords) {
-    setMetaTag('name', 'keywords', finalConfig.keywords);
-  }
+  setMetaTag('name', 'robots', finalConfig.robots || DEFAULT_ROBOTS);
 
   // 3. OpenGraph Tags
   setMetaTag('property', 'og:title', finalConfig.ogTitle || finalConfig.title);
   setMetaTag('property', 'og:description', finalConfig.ogDescription || finalConfig.description);
   setMetaTag('property', 'og:type', finalConfig.ogType || 'website');
   setMetaTag('property', 'og:url', finalConfig.ogUrl || finalConfig.canonical || `${SITE_URL}${path}`);
-  setMetaTag('property', 'og:site_name', SITE_NAME);
+  setMetaTag('property', 'og:site_name', finalConfig.ogSiteName || SITE_NAME);
   setMetaTag('property', 'og:image', finalConfig.ogImage || DEFAULT_OG_IMAGE);
 
   // 4. Twitter Card Tags
@@ -348,7 +380,7 @@ export function updateDocumentSEO(path: RoutePath | string, overrides?: Partial<
   );
   setMetaTag('name', 'twitter:image', finalConfig.twitterImage || finalConfig.ogImage || DEFAULT_OG_IMAGE);
 
-  // 5. Canonical Link
+  // 5. Canonical Link (Strictly 1 tag)
   setCanonicalLink(finalConfig.canonical || `${SITE_URL}${path === '/' ? '/' : path}`);
 
   // 6. JSON-LD Structured Data

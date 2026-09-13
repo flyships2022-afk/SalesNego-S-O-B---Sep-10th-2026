@@ -2,12 +2,14 @@ import React from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { LazyImage } from '../components/LazyImage';
+import { SEO } from '../components/SEO';
 
 export const ServicesIndexPage: React.FC = () => {
   const { navigate, openCalendly } = useNavigation();
 
   return (
     <div className="w-full flex flex-col">
+      <SEO path="/services" />
       {/* Hero */}
       <section
         id="services-overview-hero"

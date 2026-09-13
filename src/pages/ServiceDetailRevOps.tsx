@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { ArrowRight, ArrowUpRight, Cpu, UserCheck, CheckCircle2 } from 'lucide-react';
 import { LazyImage } from '../components/LazyImage';
+import { SEO } from '../components/SEO';
 
 export const ServiceDetailRevOps: React.FC = () => {
   const { navigate, openCalendly } = useNavigation();
@@ -53,6 +54,7 @@ export const ServiceDetailRevOps: React.FC = () => {
 
   return (
     <div className="w-full flex flex-col">
+      <SEO path="/services/revops-ai-sales" />
       {/* Hero */}
       <section
         id="revops-hero"

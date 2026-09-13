@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { ArrowUpRight, Cpu, UserCheck, ArrowRight } from 'lucide-react';
 import { LazyImage } from '../components/LazyImage';
+import { SEO } from '../components/SEO';
 
 export const AboutPage: React.FC = () => {
   const { openCalendly, navigate } = useNavigation();
@@ -34,6 +35,7 @@ export const AboutPage: React.FC = () => {
 
   return (
     <div className="w-full flex flex-col">
+      <SEO path="/about" />
       {/* Hero */}
       <section
         id="about-hero"

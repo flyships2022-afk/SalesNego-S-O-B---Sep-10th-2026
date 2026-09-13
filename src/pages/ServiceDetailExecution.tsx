@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { ArrowUpRight } from 'lucide-react';
 import { LazyImage } from '../components/LazyImage';
+import { SEO } from '../components/SEO';
 
 export const ServiceDetailExecution: React.FC = () => {
   const { openCalendly } = useNavigation();
@@ -39,6 +40,7 @@ export const ServiceDetailExecution: React.FC = () => {
 
   return (
     <div className="w-full flex flex-col">
+      <SEO path="/services/commercial-execution" />
       {/* Hero */}
       <section
         id="execution-hero"

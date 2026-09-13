@@ -41,6 +41,7 @@ import { TestimonialCarousel } from '../components/TestimonialCarousel';
 import { ScrollReveal, StaggerGroup, StaggerItem } from '../components/ScrollReveal';
 import { LogoWallSection } from '../components/LogoWallSection';
 import { LazyImage } from '../components/LazyImage';
+import { SEO } from '../components/SEO';
 
 export const HomePage: React.FC = () => {
   const { navigate, openCalendly } = useNavigation();
@@ -387,6 +388,7 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="relative w-full flex flex-col font-sans">
+      <SEO path="/" />
       {/* 1. METAFIC FRAMED HERO CANVAS */}
       <section
         id="hero-section"

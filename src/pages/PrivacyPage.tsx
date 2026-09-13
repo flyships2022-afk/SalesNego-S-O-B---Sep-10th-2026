@@ -1,12 +1,14 @@
 import React from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { ShieldCheck, Mail } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const PrivacyPage: React.FC = () => {
   const { navigate } = useNavigation();
 
   return (
     <div className="w-full flex flex-col">
+      <SEO path="/privacy" />
       {/* Header */}
       <section
         id="privacy-hero"

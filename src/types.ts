@@ -19,10 +19,12 @@ export interface RouteSEOConfig {
   ogType?: 'website' | 'article' | 'profile';
   ogImage?: string;
   ogUrl?: string;
+  ogSiteName?: string;
   twitterCard?: 'summary' | 'summary_large_image';
   twitterTitle?: string;
   twitterDescription?: string;
   twitterImage?: string;
+  robots?: string;
   structuredData?: Record<string, unknown>;
 }
 
