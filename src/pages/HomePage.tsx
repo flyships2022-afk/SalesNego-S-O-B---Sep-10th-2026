@@ -1138,7 +1138,7 @@ export const HomePage: React.FC = () => {
                       With over 14 years of hands-on commercial ownership across Enterprise SaaS, Cloud &amp; IT Services, and Global B2B Business Development, Raja Kumar leads every core commercial engagement directly.
                     </p>
                     <p>
-                      Rather than handing critical enterprise accounts to inexperienced junior reps or volume outreach bots, SalesNego brings executive judgment to ICP qualification, discovery, and enterprise contract negotiation.
+                      Rather than separating strategy from execution, SalesNego keeps senior commercial judgment directly connected to the buying process.
                     </p>
                   </div>
 

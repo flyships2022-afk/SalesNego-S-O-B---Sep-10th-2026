@@ -164,9 +164,9 @@ export const TestimonialCarousel: React.FC = () => {
               aria-live="polite"
               aria-atomic="true"
             >
-              <span className="text-[#FF6004]">0{currentIndex + 1}</span>
+              <span className="text-[#FF6004]">{String(currentIndex + 1).padStart(2, '0')}</span>
               <span className="text-zinc-400 dark:text-zinc-600 mx-1">/</span>
-              <span>0{total}</span>
+              <span>{String(total).padStart(2, '0')}</span>
             </div>
 
             {/* Play/Pause Toggle */}
