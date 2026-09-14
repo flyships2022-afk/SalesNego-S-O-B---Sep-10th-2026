@@ -433,12 +433,12 @@ export const HomePage: React.FC = () => {
 
                 {/* 3. Commercial Focus Pill & Copy */}
                 <div className="mb-4">
-                  <div className="min-h-[42px] sm:min-h-[38px] flex items-center flex-wrap sm:flex-nowrap gap-2 sm:gap-2.5 mb-2.5">
-                    <span className="text-xs uppercase font-bold tracking-wider text-zinc-500 dark:text-zinc-400 shrink-0">
+                  <div className="h-[34px] min-h-[34px] max-h-[34px] flex items-center flex-nowrap gap-1.5 sm:gap-2.5 mb-2.5 overflow-hidden max-w-full">
+                    <span className="text-[11px] sm:text-xs uppercase font-bold tracking-wider text-zinc-500 dark:text-zinc-400 shrink-0 whitespace-nowrap">
                       Commercial Focus:
                     </span>
-                    <span className="inline-flex items-center rounded-[10px] bg-[#2563EB] px-3.5 py-1 text-white font-medium text-xs sm:text-base tracking-wide shadow-sm h-[32px] sm:h-[34px] overflow-hidden whitespace-nowrap">
-                      <span className="truncate">{displayedText || '\u00A0'}</span>
+                    <span className="inline-flex items-center rounded-[10px] bg-[#2563EB] px-2.5 sm:px-3.5 text-white font-medium text-[11px] xs:text-xs sm:text-sm md:text-base tracking-tight sm:tracking-wide shadow-sm h-[30px] sm:h-[34px] overflow-hidden whitespace-nowrap min-w-0 max-w-full shrink">
+                      <span className="truncate min-w-0">{displayedText || '\u00A0'}</span>
                       <span className="ml-1 inline-block w-[2px] h-[0.9em] bg-white align-middle animate-mf-caret shrink-0" />
                     </span>
                   </div>
@@ -917,13 +917,13 @@ export const HomePage: React.FC = () => {
                     <p className="text-sm sm:text-base text-zinc-500 dark:text-zinc-400">
                       • Advisors offer frameworks.
                     </p>
-                    <div className="pt-1 flex flex-wrap items-center gap-2">
-                      <span className="text-sm sm:text-base font-bold text-[#161519] dark:text-white">
+                    <div className="pt-1 flex flex-nowrap items-center gap-2 min-w-0 max-w-full overflow-hidden h-[30px] min-h-[30px]">
+                      <span className="text-xs sm:text-sm md:text-base font-bold text-[#161519] dark:text-white shrink-0 whitespace-nowrap">
                         • SalesNego provides:
                       </span>
-                      <span className="inline-flex items-center rounded-[10px] bg-[#2563EB] px-3.5 py-1 text-white font-medium text-xs sm:text-sm tracking-wide shadow-sm min-h-[28px]">
-                        <span>{diffDisplayedText}</span>
-                        <span className="ml-1 inline-block w-[2px] h-[0.9em] bg-white align-middle animate-mf-caret" />
+                      <span className="inline-flex items-center rounded-[10px] bg-[#2563EB] px-2.5 sm:px-3.5 text-white font-medium text-[11px] sm:text-xs md:text-sm tracking-wide shadow-sm h-[26px] sm:h-[28px] overflow-hidden whitespace-nowrap min-w-0 max-w-full shrink">
+                        <span className="truncate min-w-0">{diffDisplayedText || '\u00A0'}</span>
+                        <span className="ml-1 inline-block w-[2px] h-[0.9em] bg-white align-middle animate-mf-caret shrink-0" />
                       </span>
                     </div>
                   </div>
