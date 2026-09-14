@@ -71,14 +71,14 @@ export const FAQSection: React.FC = () => {
   const [openId, setOpenId] = useState<string | null>(null);
   const { openCalendly } = useNavigation();
 
-  const toggleFAQ = (id: string) => {
-    setOpenId(openId === id ? null : id);
-  };
-
   const filteredFaqs =
     selectedCategory === 'All'
       ? faqs
       : faqs.filter((faq) => faq.category === selectedCategory);
+
+  const toggleFAQ = (id: string) => {
+    setOpenId(openId === id ? null : id);
+  };
 
   return (
     <section
@@ -170,13 +170,17 @@ export const FAQSection: React.FC = () => {
             </div>
 
             {/* Compact Accordion Question Cards List */}
-            <div className="space-y-2.5">
+            <div
+              className="space-y-2.5"
+              onMouseLeave={() => setOpenId(null)}
+            >
               {filteredFaqs.map((faq) => {
                 const isOpen = openId === faq.id;
                 return (
                   <div
                     key={faq.id}
                     id={`faq-card-${faq.id}`}
+                    onMouseEnter={() => setOpenId(faq.id)}
                     className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
                       isOpen
                         ? 'bg-[#F6F5F2] dark:bg-[#1C1B20] border-[#FF6004]/50 shadow-xs'
@@ -187,6 +191,8 @@ export const FAQSection: React.FC = () => {
                       type="button"
                       id={`faq-btn-${faq.id}`}
                       onClick={() => toggleFAQ(faq.id)}
+                      onFocus={() => setOpenId(faq.id)}
+                      onBlur={() => setOpenId(null)}
                       aria-expanded={isOpen}
                       aria-controls={`faq-answer-${faq.id}`}
                       className="w-full text-left px-4 sm:px-5 py-3 sm:py-3.5 flex items-center justify-between gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] rounded-2xl cursor-pointer"
@@ -202,7 +208,7 @@ export const FAQSection: React.FC = () => {
                           {faq.category}
                         </span>
                         <div
-                          className={`w-6 h-6 rounded-full flex items-center justify-center transition-transform duration-200 ${
+                          className={`w-6 h-6 rounded-full flex items-center justify-center transition-transform duration-300 ${
                             isOpen
                               ? 'bg-[#FF6004] text-white rotate-180'
                               : 'bg-black/5 dark:bg-white/10 text-zinc-600 dark:text-zinc-400'
@@ -220,9 +226,22 @@ export const FAQSection: React.FC = () => {
                           role="region"
                           aria-labelledby={`faq-btn-${faq.id}`}
                           initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.22, ease: 'easeInOut' }}
+                          animate={{
+                            height: 'auto',
+                            opacity: 1,
+                            transition: {
+                              height: { duration: 0.32, ease: [0.25, 1, 0.5, 1] },
+                              opacity: { duration: 0.22, ease: 'easeOut' },
+                            },
+                          }}
+                          exit={{
+                            height: 0,
+                            opacity: 0,
+                            transition: {
+                              height: { duration: 0.26, ease: [0.25, 1, 0.5, 1] },
+                              opacity: { duration: 0.16, ease: 'easeIn' },
+                            },
+                          }}
                           className="overflow-hidden"
                         >
                           <div className="px-4 sm:px-5 pb-3.5 pt-1 text-xs sm:text-sm text-[#555459] dark:text-zinc-300 leading-relaxed border-t border-[#E5E3DC]/60 dark:border-white/10">

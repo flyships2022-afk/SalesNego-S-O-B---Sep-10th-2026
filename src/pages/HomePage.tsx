@@ -167,6 +167,7 @@ export const HomePage: React.FC = () => {
       title: 'GTM Strategy & Market Intelligence',
       subtitle: 'Know where to compete, who to target and why they should care.',
       badge: 'Strategy',
+      ctaLabel: 'Discuss Strategy & Intelligence',
       image: '/gtm-strategy-session.jpg',
       imageAlt: 'B2B Go-To-Market strategy session with senior commercial strategist and business leader collaborating on market intelligence frameworks',
       imageTag: 'GTM Strategy & ICP Priority',
@@ -187,6 +188,7 @@ export const HomePage: React.FC = () => {
       title: 'RevOps & AI-Accelerated Sales',
       subtitle: 'Build the commercial infrastructure required for disciplined execution.',
       badge: 'Infrastructure & AI',
+      ctaLabel: 'Optimize Your RevOps',
       image: '/revops-ai-sales-dashboard.jpg',
       imageAlt: 'Modern high-tech B2B revenue operations dashboard showing pipeline visualization, CRM workflows, automated triggers, and AI qualification metrics',
       imageTag: 'RevOps & AI Workflows',
@@ -208,6 +210,7 @@ export const HomePage: React.FC = () => {
       title: 'End-to-End Commercial Execution',
       subtitle: 'Take qualified opportunities beyond the meeting and through the buying process.',
       badge: 'Execution',
+      ctaLabel: 'Discuss Commercial Execution',
       image: '/commercial-execution-deal-closing.jpg',
       imageAlt: 'Enterprise B2B commercial review and deal-closing session in a modern glass conference room with senior operator and executive client team',
       imageTag: 'Deal Execution & Close',
@@ -842,7 +845,7 @@ export const HomePage: React.FC = () => {
                             : 'text-[#555459] dark:text-zinc-400 hover:text-[#161519] dark:hover:text-white'
                         }`}
                       >
-                        Discuss Priorities
+                        {svc.ctaLabel}
                       </button>
                     </div>
                   </div>
@@ -1078,7 +1081,7 @@ export const HomePage: React.FC = () => {
               onClick={openCalendly}
               className="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 bg-[#FF6004] hover:bg-[#E05300] text-white font-bold text-sm shadow-md transition-all"
             >
-              <span>Discuss Your Growth Priorities</span>
+              <span>Explore Commercial Journey</span>
               <ArrowUpRight className="w-4 h-4" />
             </button>
           </ScrollReveal>
@@ -1166,7 +1169,7 @@ export const HomePage: React.FC = () => {
                       onClick={openCalendly}
                       className="inline-flex items-center gap-2 rounded-full px-6 py-3 border border-[#E5E3DC] dark:border-white/20 text-[#161519] dark:text-white font-medium text-xs hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
                     >
-                      <span>Discuss Growth With Raja</span>
+                      <span>Speak with Raja</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
@@ -1420,7 +1423,7 @@ export const HomePage: React.FC = () => {
                   onClick={openCalendly}
                   className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 bg-[#FF6004] hover:bg-[#E05300] text-white font-bold text-sm transition-all shadow-md shrink-0"
                 >
-                  <span>Discuss Your Growth Priorities</span>
+                  <span>Structure Your Engagement</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </button>
               </div>
@@ -1499,7 +1502,7 @@ export const HomePage: React.FC = () => {
                       onClick={openCalendly}
                       className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 bg-[#FF6004] hover:bg-[#E05300] text-white font-bold text-sm shadow-md transition-all cursor-pointer"
                     >
-                      <span>Discuss Your Growth Priorities</span>
+                      <span>Submit Commercial Inquiry</span>
                       <Calendar className="w-4 h-4" />
                     </button>
 
