@@ -27,7 +27,24 @@ export const getTargetScrollPosition = (
     return 0;
   }
 
-  const element = document.getElementById(targetId);
+  let element = document.getElementById(targetId);
+  if (!element) {
+    const idMap: Record<string, string> = {
+      services: 'services-section',
+      'services-section': 'services',
+      about: 'about-section',
+      'about-section': 'about',
+      'case-studies': 'experience-section',
+      'experience-section': 'case-studies',
+      contact: 'contact-section',
+      'contact-section': 'contact',
+    };
+    const altId = idMap[targetId];
+    if (altId) {
+      element = document.getElementById(altId);
+    }
+  }
+
   if (!element) return null;
 
   const navHeight = getNavbarHeight();
@@ -54,7 +71,9 @@ export const getTargetScrollPosition = (
     if (
       cardElement &&
       (targetId === 'contact-section' ||
+        targetId === 'contact' ||
         targetId === 'about-section' ||
+        targetId === 'about' ||
         targetId === 'engagement-section')
     ) {
       targetVisualElement = cardElement;
@@ -82,7 +101,12 @@ export const scrollToSection = (
 ): boolean => {
   if (typeof window === 'undefined' || typeof document === 'undefined') return false;
 
-  const smooth = options?.smooth !== false;
+  const prefersReducedMotion =
+    typeof window !== 'undefined' &&
+    window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const smooth = prefersReducedMotion ? false : options?.smooth !== false;
   const targetY = getTargetScrollPosition(targetId, options);
 
   if (targetY === null) {

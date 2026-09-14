@@ -35,7 +35,17 @@ export const Navbar: React.FC = () => {
   const [mobileServicesExpanded, setMobileServicesExpanded] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>('home');
+  const [activeSection, setActiveSection] = useState<string>(() => {
+    if (typeof window !== 'undefined' && window.location.pathname === '/') {
+      const h = window.location.hash.replace('#', '');
+      if (h === 'services' || h === 'about' || h === 'case-studies' || h === 'contact') {
+        return h;
+      }
+    }
+    return 'home';
+  });
+  const activeSectionRef = useRef<string>(activeSection);
+  activeSectionRef.current = activeSection;
   const [activeTooltipId, setActiveTooltipId] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const isManualScrollingRef = useRef<boolean>(false);
@@ -116,25 +126,41 @@ export const Navbar: React.FC = () => {
       // Do not allow scroll listener to override active button during programmatic smooth scrolling
       if (isManualScrollingRef.current) return;
 
-      // On homepage, detect active section for smooth scrolling indicator
+      // On homepage, detect active section for smooth scrolling indicator & URL hash
       if (currentPath === '/') {
-        // 1. If user is at top of the page, activate home
+        // 1. If user is at top of the page, activate home and clear hash
         if (window.scrollY < 80) {
-          setActiveSection('home');
+          if (activeSectionRef.current !== 'home') {
+            setActiveSection('home');
+            activeSectionRef.current = 'home';
+          }
+          if (window.location.hash) {
+            try {
+              window.history.replaceState(null, '', window.location.pathname);
+            } catch {}
+          }
           return;
         }
 
         // 2. If near bottom of document or contact section is prominently in view, activate contact
         const scrollBottom = window.innerHeight + window.scrollY;
         const docHeight = document.documentElement.scrollHeight;
-        const contactEl = document.getElementById('contact-section');
+        const contactEl = document.getElementById('contact') || document.getElementById('contact-section');
         if (contactEl) {
           const contactRect = contactEl.getBoundingClientRect();
           if (
-            scrollBottom >= docHeight - 120 ||
-            (contactRect.top <= window.innerHeight * 0.55 && contactRect.bottom > 100)
+            scrollBottom >= docHeight - 80 ||
+            (contactRect.top <= window.innerHeight * 0.45 && contactRect.bottom > 100)
           ) {
-            setActiveSection('contact');
+            if (activeSectionRef.current !== 'contact') {
+              setActiveSection('contact');
+              activeSectionRef.current = 'contact';
+            }
+            if (window.location.hash !== '#contact') {
+              try {
+                window.history.replaceState(null, '', `${window.location.pathname}#contact`);
+              } catch {}
+            }
             return;
           }
         }
@@ -143,12 +169,16 @@ export const Navbar: React.FC = () => {
         const sections = [
           { id: 'hero-section', key: 'home' },
           { id: 'commercial-gap-section', key: 'home' },
+          { id: 'services', key: 'services' },
           { id: 'services-section', key: 'services' },
           { id: 'why-salesnego-section', key: 'services' },
           { id: 'journey-section', key: 'services' },
+          { id: 'about', key: 'about' },
           { id: 'about-section', key: 'about' },
-          { id: 'experience-section', key: 'portfolio' },
-          { id: 'engagement-section', key: 'portfolio' },
+          { id: 'case-studies', key: 'case-studies' },
+          { id: 'experience-section', key: 'case-studies' },
+          { id: 'engagement-section', key: 'case-studies' },
+          { id: 'contact', key: 'contact' },
           { id: 'contact-section', key: 'contact' },
         ];
 
@@ -166,9 +196,7 @@ export const Navbar: React.FC = () => {
           }
         }
 
-        if (matched) {
-          setActiveSection(matched);
-        } else {
+        if (!matched) {
           // Fallback: choose section whose top is closest above or at threshold
           let closestKey = 'home';
           let minDistance = Infinity;
@@ -185,7 +213,24 @@ export const Navbar: React.FC = () => {
               }
             }
           }
-          setActiveSection(closestKey);
+          matched = closestKey;
+        }
+
+        const newKey = matched || 'home';
+        if (activeSectionRef.current !== newKey) {
+          setActiveSection(newKey);
+          activeSectionRef.current = newKey;
+        }
+
+        const targetUrl =
+          newKey === 'home'
+            ? window.location.pathname
+            : `${window.location.pathname}#${newKey}`;
+        const currentFullUrl = window.location.pathname + window.location.hash;
+        if (targetUrl !== currentFullUrl) {
+          try {
+            window.history.replaceState(null, '', targetUrl);
+          } catch {}
         }
       }
     };
@@ -205,8 +250,8 @@ export const Navbar: React.FC = () => {
 
   const navItems: {
     label: string;
-    path: RoutePath;
-    sectionId?: string;
+    path: string;
+    sectionId: string;
     sectionKey: string;
     tooltip: string;
     icon: React.ComponentType<{ className?: string }>;
@@ -223,8 +268,8 @@ export const Navbar: React.FC = () => {
     },
     {
       label: 'Services',
-      path: '/services',
-      sectionId: 'services-section',
+      path: '/#services',
+      sectionId: 'services',
       sectionKey: 'services',
       tooltip: 'GTM Strategy, RevOps & Execution',
       icon: Layers,
@@ -232,8 +277,8 @@ export const Navbar: React.FC = () => {
     },
     {
       label: 'About Us',
-      path: '/about',
-      sectionId: 'about-section',
+      path: '/#about',
+      sectionId: 'about',
       sectionKey: 'about',
       tooltip: 'Founder leadership & mission',
       icon: Users,
@@ -241,17 +286,17 @@ export const Navbar: React.FC = () => {
     },
     {
       label: 'Case Studies',
-      path: '/case-studies',
-      sectionId: 'experience-section',
-      sectionKey: 'portfolio',
+      path: '/#case-studies',
+      sectionId: 'case-studies',
+      sectionKey: 'case-studies',
       tooltip: 'Selected client case studies & commercial experience',
       icon: Briefcase,
       subtitle: 'Selected Case Studies & Experience',
     },
     {
       label: 'Contact',
-      path: '/',
-      sectionId: 'contact-section',
+      path: '/#contact',
+      sectionId: 'contact',
       sectionKey: 'contact',
       tooltip: 'Submit commercial proposal inquiry',
       icon: PhoneCall,
@@ -287,6 +332,7 @@ export const Navbar: React.FC = () => {
 
     // Immediately update active section so the orange indicator moves without delay
     setActiveSection(item.sectionKey);
+    activeSectionRef.current = item.sectionKey;
     targetSectionRef.current = item.sectionKey;
 
     // Lock scroll spy during smooth scroll transition so it doesn't fight the user's click
@@ -297,9 +343,14 @@ export const Navbar: React.FC = () => {
     scrollTimeoutRef.current = window.setTimeout(() => {
       isManualScrollingRef.current = false;
       targetSectionRef.current = null;
-    }, 2200);
+    }, 1800);
 
     if (currentPath === '/') {
+      const targetUrl = item.sectionKey === 'home' ? '/' : `/#${item.sectionId}`;
+      try {
+        window.history.pushState(null, '', targetUrl);
+      } catch {}
+
       if (item.sectionKey === 'home' || item.sectionId === 'hero-section') {
         scrollToSection('hero-section', { smooth: true });
         return;
@@ -312,10 +363,8 @@ export const Navbar: React.FC = () => {
     } else {
       if (item.sectionKey === 'home') {
         navigate('/', 'hero-section');
-      } else if (item.sectionKey === 'contact') {
-        navigate('/', 'contact-section');
       } else {
-        navigate(item.path, item.sectionId);
+        navigate('/', item.sectionId);
       }
     }
   };
@@ -324,11 +373,22 @@ export const Navbar: React.FC = () => {
     if (currentPath === '/') {
       return activeSection === item.sectionKey;
     }
-    if (item.sectionKey === 'contact' && (currentPath === '/contact' || activeSection === 'contact')) {
+    if (item.sectionKey === 'contact' && currentPath === '/contact') {
       return true;
     }
-    if (item.path === '/') return false;
-    return currentPath === item.path || currentPath.startsWith(item.path + '/');
+    if (item.sectionKey === 'about' && currentPath === '/about') {
+      return true;
+    }
+    if (item.sectionKey === 'case-studies' && currentPath === '/case-studies') {
+      return true;
+    }
+    if (
+      item.sectionKey === 'services' &&
+      (currentPath === '/services' || currentPath.startsWith('/services/'))
+    ) {
+      return true;
+    }
+    return false;
   };
 
   return (
@@ -369,10 +429,22 @@ export const Navbar: React.FC = () => {
                   }}
                   onMouseLeave={() => setServicesDropdownOpen(false)}
                 >
-                  <button
+                  <a
+                    href="/#services"
                     id="nav-link-services"
-                    type="button"
-                    onClick={() => handleNavClick(item)}
+                    onClick={(e) => {
+                      if (
+                        !e.defaultPrevented &&
+                        e.button === 0 &&
+                        !e.metaKey &&
+                        !e.altKey &&
+                        !e.ctrlKey &&
+                        !e.shiftKey
+                      ) {
+                        e.preventDefault();
+                        handleNavClick(item);
+                      }
+                    }}
                     onFocus={() => {
                       if (!servicesDropdownOpen) {
                         setActiveTooltipId(tooltipId);
@@ -382,7 +454,7 @@ export const Navbar: React.FC = () => {
                     aria-expanded={servicesDropdownOpen}
                     aria-haspopup="true"
                     aria-describedby={isTooltipVisible ? tooltipId : undefined}
-                    className={`relative inline-flex items-center gap-1.5 rounded-full px-3 xl:px-4 py-1.5 xl:py-2 text-[13px] xl:text-[14px] font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] ${
+                    className={`relative inline-flex items-center gap-1.5 rounded-full px-3 xl:px-4 py-1.5 xl:py-2 text-[13px] xl:text-[14px] font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] cursor-pointer ${
                       !active ? 'hover:bg-black/5 dark:hover:bg-white/5' : ''
                     }`}
                   >
@@ -411,7 +483,7 @@ export const Navbar: React.FC = () => {
                         }`}
                       />
                     </span>
-                  </button>
+                  </a>
 
                   {/* ARIA Tooltip for Keyboard & Focus Users */}
                   <AnimatePresence>
@@ -448,29 +520,49 @@ export const Navbar: React.FC = () => {
                             <span className="text-xs uppercase font-bold tracking-wider text-[#FF6004]">
                               Commercial Systems &amp; Capabilities
                             </span>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setServicesDropdownOpen(false);
-                                navigate('/services');
+                            <a
+                              href="/services"
+                              onClick={(e) => {
+                                if (
+                                  !e.defaultPrevented &&
+                                  e.button === 0 &&
+                                  !e.metaKey &&
+                                  !e.altKey &&
+                                  !e.ctrlKey &&
+                                  !e.shiftKey
+                                ) {
+                                  e.preventDefault();
+                                  setServicesDropdownOpen(false);
+                                  navigate('/services');
+                                }
                               }}
-                              className="text-xs font-semibold text-[#555459] dark:text-zinc-400 hover:text-[#FF6004] dark:hover:text-white flex items-center gap-1"
+                              className="text-xs font-semibold text-[#555459] dark:text-zinc-400 hover:text-[#FF6004] dark:hover:text-white flex items-center gap-1 cursor-pointer"
                             >
                               <span>View All Services</span>
                               <ArrowRight className="w-3 h-3" />
-                            </button>
+                            </a>
                           </div>
 
                           <div className="grid grid-cols-1 gap-3">
                             {servicesList.map((svc) => (
-                              <button
+                              <a
                                 key={svc.path}
-                                type="button"
-                                onClick={() => {
-                                  setServicesDropdownOpen(false);
-                                  navigate(svc.path);
+                                href={svc.path}
+                                onClick={(e) => {
+                                  if (
+                                    !e.defaultPrevented &&
+                                    e.button === 0 &&
+                                    !e.metaKey &&
+                                    !e.altKey &&
+                                    !e.ctrlKey &&
+                                    !e.shiftKey
+                                  ) {
+                                    e.preventDefault();
+                                    setServicesDropdownOpen(false);
+                                    navigate(svc.path);
+                                  }
                                 }}
-                                className="group text-left p-3.5 rounded-xl hover:bg-[#F6F5F2] dark:hover:bg-white/5 border border-transparent hover:border-[#E5E3DC] dark:hover:border-white/10 transition-all flex items-start gap-3.5"
+                                className="group text-left p-3.5 rounded-xl hover:bg-[#F6F5F2] dark:hover:bg-white/5 border border-transparent hover:border-[#E5E3DC] dark:hover:border-white/10 transition-all flex items-start gap-3.5 cursor-pointer"
                               >
                                 <div className="w-2 h-2 rounded-full bg-[#FF6004] mt-2 shrink-0 group-hover:scale-125 transition-transform" />
                                 <div className="flex-1">
@@ -487,7 +579,7 @@ export const Navbar: React.FC = () => {
                                   </p>
                                 </div>
                                 <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-[#FF6004] transition-colors shrink-0 mt-1" />
-                              </button>
+                              </a>
                             ))}
                           </div>
 
@@ -520,16 +612,28 @@ export const Navbar: React.FC = () => {
 
             return (
               <div key={item.label} className="relative">
-                <button
+                <a
+                  href={item.path}
                   id={`nav-link-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
-                  type="button"
-                  onClick={() => handleNavClick(item)}
+                  onClick={(e) => {
+                    if (
+                      !e.defaultPrevented &&
+                      e.button === 0 &&
+                      !e.metaKey &&
+                      !e.altKey &&
+                      !e.ctrlKey &&
+                      !e.shiftKey
+                    ) {
+                      e.preventDefault();
+                      handleNavClick(item);
+                    }
+                  }}
                   onFocus={() => setActiveTooltipId(tooltipId)}
                   onBlur={() => setActiveTooltipId((prev) => (prev === tooltipId ? null : prev))}
                   onMouseEnter={() => setActiveTooltipId(tooltipId)}
                   onMouseLeave={() => setActiveTooltipId((prev) => (prev === tooltipId ? null : prev))}
                   aria-describedby={isTooltipVisible ? tooltipId : undefined}
-                  className={`relative inline-flex items-center gap-1 rounded-full px-3.5 xl:px-4 py-1.5 xl:py-2 text-[13px] xl:text-[14px] font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] ${
+                  className={`relative inline-flex items-center gap-1 rounded-full px-3.5 xl:px-4 py-1.5 xl:py-2 text-[13px] xl:text-[14px] font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] cursor-pointer ${
                     !active ? 'hover:bg-black/5 dark:hover:bg-white/5' : ''
                   }`}
                   aria-current={active ? 'page' : undefined}
@@ -554,7 +658,7 @@ export const Navbar: React.FC = () => {
                   >
                     {item.label}
                   </span>
-                </button>
+                </a>
 
                 {/* ARIA Tooltip for Keyboard & Mouse Users */}
                 <AnimatePresence>
@@ -844,9 +948,21 @@ export const Navbar: React.FC = () => {
                                   : 'bg-transparent hover:bg-black/5 dark:hover:bg-white/5 border-transparent hover:border-[#E5E3DC] dark:hover:border-white/10'
                               }`}
                             >
-                              <button
-                                type="button"
-                                onClick={() => handleNavClick(item)}
+                              <a
+                                href={item.path}
+                                onClick={(e) => {
+                                  if (
+                                    !e.defaultPrevented &&
+                                    e.button === 0 &&
+                                    !e.metaKey &&
+                                    !e.altKey &&
+                                    !e.ctrlKey &&
+                                    !e.shiftKey
+                                  ) {
+                                    e.preventDefault();
+                                    handleNavClick(item);
+                                  }
+                                }}
                                 className="flex-1 text-left px-2 py-1.5 flex items-center gap-3 cursor-pointer"
                               >
                                 <div
@@ -872,7 +988,7 @@ export const Navbar: React.FC = () => {
                                     {item.subtitle}
                                   </span>
                                 </div>
-                              </button>
+                              </a>
 
                               {isServices ? (
                                 <button
@@ -899,14 +1015,26 @@ export const Navbar: React.FC = () => {
                                   />
                                 </button>
                               ) : (
-                                <button
-                                  type="button"
-                                  onClick={() => handleNavClick(item)}
-                                  className="p-2 text-zinc-400 group-hover:text-[#FF6004] transition-colors"
+                                <a
+                                  href={item.path}
+                                  onClick={(e) => {
+                                    if (
+                                      !e.defaultPrevented &&
+                                      e.button === 0 &&
+                                      !e.metaKey &&
+                                      !e.altKey &&
+                                      !e.ctrlKey &&
+                                      !e.shiftKey
+                                    ) {
+                                      e.preventDefault();
+                                      handleNavClick(item);
+                                    }
+                                  }}
+                                  className="p-2 text-zinc-400 group-hover:text-[#FF6004] transition-colors cursor-pointer"
                                   aria-label={`Go to ${item.label}`}
                                 >
                                   <ChevronRight className="w-4 h-4" />
-                                </button>
+                                </a>
                               )}
                             </div>
 
@@ -923,15 +1051,25 @@ export const Navbar: React.FC = () => {
                                   >
                                     <div className="border-l-2 border-[#FF6004]/30 pl-3 py-1 space-y-1.5">
                                       {servicesList.map((svc) => (
-                                        <button
+                                        <a
                                           key={svc.path}
-                                          type="button"
-                                          onClick={() => {
-                                            document.body.style.overflow = '';
-                                            setMobileMenuOpen(false);
-                                            navigate(svc.path);
+                                          href={svc.path}
+                                          onClick={(e) => {
+                                            if (
+                                              !e.defaultPrevented &&
+                                              e.button === 0 &&
+                                              !e.metaKey &&
+                                              !e.altKey &&
+                                              !e.ctrlKey &&
+                                              !e.shiftKey
+                                            ) {
+                                              e.preventDefault();
+                                              document.body.style.overflow = '';
+                                              setMobileMenuOpen(false);
+                                              navigate(svc.path);
+                                            }
                                           }}
-                                          className="w-full text-left p-2 rounded-lg bg-black/5 dark:bg-white/5 hover:bg-[#FF6004]/10 dark:hover:bg-white/10 border border-transparent hover:border-[#FF6004]/30 transition-all flex items-start justify-between gap-2 group/sub"
+                                          className="w-full text-left p-2 rounded-lg bg-black/5 dark:bg-white/5 hover:bg-[#FF6004]/10 dark:hover:bg-white/10 border border-transparent hover:border-[#FF6004]/30 transition-all flex items-start justify-between gap-2 group/sub cursor-pointer"
                                         >
                                           <div>
                                             <div className="flex items-center gap-1.5 mb-0.5">
@@ -944,21 +1082,31 @@ export const Navbar: React.FC = () => {
                                             </span>
                                           </div>
                                           <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover/sub:text-[#FF6004] transition-colors shrink-0 mt-0.5" />
-                                        </button>
+                                        </a>
                                       ))}
 
-                                      <button
-                                        type="button"
-                                        onClick={() => {
-                                          document.body.style.overflow = '';
-                                          setMobileMenuOpen(false);
-                                          navigate('/services');
+                                      <a
+                                        href="/services"
+                                        onClick={(e) => {
+                                          if (
+                                            !e.defaultPrevented &&
+                                            e.button === 0 &&
+                                            !e.metaKey &&
+                                            !e.altKey &&
+                                            !e.ctrlKey &&
+                                            !e.shiftKey
+                                          ) {
+                                            e.preventDefault();
+                                            document.body.style.overflow = '';
+                                            setMobileMenuOpen(false);
+                                            navigate('/services');
+                                          }
                                         }}
-                                        className="w-full text-left pt-1.5 px-2 text-[11px] font-bold text-[#FF6004] hover:underline flex items-center gap-1"
+                                        className="w-full text-left pt-1.5 px-2 text-[11px] font-bold text-[#FF6004] hover:underline flex items-center gap-1 cursor-pointer"
                                       >
                                         <span>View Complete Services Overview</span>
                                         <ArrowRight className="w-3 h-3" />
-                                      </button>
+                                      </a>
                                     </div>
                                   </motion.div>
                                 )}

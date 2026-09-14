@@ -17,9 +17,21 @@ export const SalesNegoLogo: React.FC<LogoProps> = ({
   const { navigate } = useNavigation();
 
   return (
-    <button
-      type="button"
-      onClick={() => navigate('/')}
+    <a
+      href="/"
+      onClick={(e) => {
+        if (
+          !e.defaultPrevented &&
+          e.button === 0 &&
+          !e.metaKey &&
+          !e.altKey &&
+          !e.ctrlKey &&
+          !e.shiftKey
+        ) {
+          e.preventDefault();
+          navigate('/');
+        }
+      }}
       className={`inline-flex flex-col items-start group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded-lg transition-opacity cursor-pointer ${className}`}
       aria-label="SalesNego - Return to homepage"
     >
@@ -83,6 +95,6 @@ export const SalesNegoLogo: React.FC<LogoProps> = ({
           B2B Commercial Execution
         </span>
       )}
-    </button>
+    </a>
   );
 };

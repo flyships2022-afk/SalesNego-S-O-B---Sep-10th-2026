@@ -42,6 +42,7 @@ import { ScrollReveal, StaggerGroup, StaggerItem } from '../components/ScrollRev
 import { LogoWallSection } from '../components/LogoWallSection';
 import { LazyImage } from '../components/LazyImage';
 import { SEO } from '../components/SEO';
+import { Link } from '../components/Link';
 import { scrollToSection } from '../utils/scroll';
 
 export const HomePage: React.FC = () => {
@@ -467,8 +468,14 @@ export const HomePage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => {
-                      const scrolled = scrollToSection('services-section', { smooth: true });
-                      if (!scrolled) navigate('/services');
+                      const scrolled = scrollToSection('services', { smooth: true });
+                      if (scrolled) {
+                        try {
+                          window.history.pushState({}, '', '/#services');
+                        } catch {}
+                      } else {
+                        navigate('/services');
+                      }
                     }}
                     className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm sm:text-base font-medium text-[#161519] dark:text-white bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/20 border border-black/10 dark:border-white/20 backdrop-blur-md transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] shrink-0 cursor-pointer"
                   >
@@ -663,7 +670,7 @@ export const HomePage: React.FC = () => {
 
       {/* 4. SERVICES */}
       <section
-        id="services-section"
+        id="services"
         aria-label="Core Services"
         style={{ maxWidth: '100%', boxSizing: 'border-box' }}
         className="top-level-section w-full max-w-full py-16 sm:py-24 bg-white dark:bg-[#161519] border-b border-[#E5E3DC] dark:border-white/10 scroll-mt-24"
@@ -845,12 +852,20 @@ export const HomePage: React.FC = () => {
           </StaggerGroup>
         </div>
 
-          {/* Services Closing Line with Scroll Reveal */}
-          <ScrollReveal delay={0.12} distance={16} className="mt-12 text-center p-6 rounded-[18px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10">
-            <p className="font-lexend text-base sm:text-lg font-medium text-[#161519] dark:text-white">
+          {/* Services Closing Line with Scroll Reveal & Deeper-Content CTA */}
+          <ScrollReveal delay={0.12} distance={16} className="mt-12 p-6 rounded-[18px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="font-lexend text-base sm:text-lg font-medium text-[#161519] dark:text-white text-center sm:text-left">
               Strategy gives execution direction.{' '}
               <span className="text-[#FF6004] font-bold">Execution gives strategy evidence.</span>
             </p>
+            <button
+              type="button"
+              onClick={() => navigate('/services')}
+              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 border border-[#161519] dark:border-white bg-[#161519] hover:bg-white text-white hover:text-[#161519] dark:bg-white dark:hover:bg-[#161519] dark:text-[#161519] dark:hover:text-white font-bold text-xs transition-all duration-200 cursor-pointer shadow-xs shrink-0"
+            >
+              <span>View All Services</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
           </ScrollReveal>
         </div>
       </section>
@@ -1072,7 +1087,7 @@ export const HomePage: React.FC = () => {
 
       {/* COMMERCIAL LEADERSHIP & FOUNDER SECTION */}
       <section
-        id="about-section"
+        id="about"
         aria-label="Founder & Commercial Leadership"
         style={{ maxWidth: '100%', boxSizing: 'border-box' }}
         className="top-level-section w-full max-w-full py-16 sm:py-24 bg-[#F6F5F2] dark:bg-[#121214] border-b border-[#E5E3DC] dark:border-white/10 scroll-mt-24"
@@ -1130,17 +1145,26 @@ export const HomePage: React.FC = () => {
                   <div className="pt-3 flex flex-wrap items-center gap-3">
                     <button
                       type="button"
-                      onClick={() => navigate('/case-studies')}
+                      onClick={() => navigate('/about')}
                       className="inline-flex items-center gap-2 rounded-full px-6 py-3 border border-[#161519] dark:border-white bg-[#161519] hover:bg-white text-white hover:text-[#161519] dark:bg-white dark:hover:bg-[#161519] dark:text-[#161519] dark:hover:text-white font-bold text-xs transition-all duration-200 cursor-pointer shadow-xs hover:shadow-md group"
                     >
-                      <span>View Client Case Studies</span>
+                      <span>About SalesNego</span>
                       <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
                     </button>
 
                     <button
                       type="button"
+                      onClick={() => navigate('/case-studies')}
+                      className="inline-flex items-center gap-2 rounded-full px-6 py-3 border border-[#E5E3DC] dark:border-white/20 text-[#161519] dark:text-white font-medium text-xs hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
+                    >
+                      <span>View Client Case Studies</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+
+                    <button
+                      type="button"
                       onClick={openCalendly}
-                      className="inline-flex items-center gap-2 rounded-full px-6 py-3 border border-[#E5E3DC] dark:border-white/20 text-[#161519] dark:text-white font-medium text-xs hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+                      className="inline-flex items-center gap-2 rounded-full px-6 py-3 border border-[#E5E3DC] dark:border-white/20 text-[#161519] dark:text-white font-medium text-xs hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
                     >
                       <span>Discuss Growth With Raja</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
@@ -1155,7 +1179,7 @@ export const HomePage: React.FC = () => {
 
       {/* EXPERIENCE SECTION (Verticals: SaaS, AI, Life Sciences, IT Services) */}
       <section
-        id="experience-section"
+        id="case-studies"
         aria-label="Selected Experience"
         style={{ maxWidth: '100%', boxSizing: 'border-box' }}
         className="top-level-section w-full max-w-full py-16 sm:py-24 bg-white dark:bg-[#161519] border-b border-[#E5E3DC] dark:border-white/10 scroll-mt-24"
@@ -1413,7 +1437,7 @@ export const HomePage: React.FC = () => {
 
       {/* 11. READY TO DISCUSS YOUR PROJECT? (Metafic Pre-Footer Conversion Block) */}
       <section
-        id="contact-section"
+        id="contact"
         aria-label="Ready To Discuss Your Project"
         style={{ maxWidth: '100%', boxSizing: 'border-box' }}
         className="top-level-section w-full max-w-full py-16 sm:py-24 bg-white dark:bg-[#161519] scroll-mt-24"
@@ -1469,15 +1493,24 @@ export const HomePage: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="pt-2">
+                  <div className="pt-2 flex flex-wrap items-center gap-3">
                     <button
                       type="button"
                       onClick={openCalendly}
-                      className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 bg-[#FF6004] hover:bg-[#E05300] text-white font-bold text-sm shadow-md transition-all"
+                      className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 bg-[#FF6004] hover:bg-[#E05300] text-white font-bold text-sm shadow-md transition-all cursor-pointer"
                     >
                       <span>Discuss Your Growth Priorities</span>
                       <Calendar className="w-4 h-4" />
                     </button>
+
+                    <Link
+                      to="/contact"
+                      className="inline-flex items-center gap-1.5 rounded-full px-5 py-3.5 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 text-[#161519] dark:text-white font-semibold text-sm transition-colors cursor-pointer"
+                      title="Open dedicated Contact SalesNego commercial desk page"
+                    >
+                      <span>Contact SalesNego Desk</span>
+                      <ArrowUpRight className="w-4 h-4 text-[#FF6004]" />
+                    </Link>
                   </div>
                 </div>
 
