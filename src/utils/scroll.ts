@@ -87,10 +87,7 @@ export const getTargetScrollPosition = (
 
   // 16px pleasant optical breathing room beneath the bottom of the sticky header
   const opticalGap = 16;
-  const isContact = targetId === 'contact' || targetId === 'contact-section';
-  // Advance the anchor slightly forward for contact section so the meeting card and form sit perfectly in full view
-  const forwardOffset = isContact ? 35 : 0;
-  const targetY = Math.max(0, Math.round(visualTop - navHeight - opticalGap - extraOffset + forwardOffset));
+  const targetY = Math.max(0, Math.round(visualTop - navHeight - opticalGap - extraOffset));
 
   return targetY;
 };

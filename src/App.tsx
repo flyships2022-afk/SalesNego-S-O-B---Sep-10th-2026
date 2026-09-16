@@ -6,6 +6,7 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { CalendlyModal } from './components/CalendlyModal';
 import { WhatsAppChatWidget } from './components/WhatsAppChatWidget';
+import { CookieConsent } from './components/CookieConsent';
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { ServicesIndexPage } from './pages/ServicesIndexPage';
@@ -74,6 +75,7 @@ const AppContent: React.FC = () => {
       <Footer />
       <CalendlyModal />
       <WhatsAppChatWidget />
+      <CookieConsent />
     </div>
   );
 };
