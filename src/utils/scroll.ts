@@ -85,8 +85,9 @@ export const getTargetScrollPosition = (
   const targetRect = targetVisualElement.getBoundingClientRect();
   const visualTop = targetRect.top + window.scrollY;
 
-  // 16px pleasant optical breathing room beneath the bottom of the sticky header
-  const opticalGap = 16;
+  // Pleasant optical breathing room beneath the bottom of the sticky header
+  const isContact = targetId === 'contact' || targetId === 'contact-section';
+  const opticalGap = isContact ? 36 : 20;
   const targetY = Math.max(0, Math.round(visualTop - navHeight - opticalGap - extraOffset));
 
   return targetY;

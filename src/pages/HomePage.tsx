@@ -1447,7 +1447,7 @@ export const HomePage: React.FC = () => {
         id="contact"
         aria-label="Ready To Discuss Your Project"
         style={{ maxWidth: '100%', boxSizing: 'border-box' }}
-        className="top-level-section w-full max-w-full py-10 sm:py-14 bg-white dark:bg-[#161519] scroll-mt-24"
+        className="top-level-section w-full max-w-full py-10 sm:py-14 bg-white dark:bg-[#161519] scroll-mt-28"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal direction="up" distance={24}>
