@@ -242,11 +242,14 @@ export const ServiceDetailGTM: React.FC = () => {
           <h2 className="text-2xl sm:text-3xl font-bold text-[#191919] dark:text-[#FFFFFF]">
             Discuss Your Market Strategy
           </h2>
+          <p className="text-base text-[#606060] dark:text-zinc-300">
+            Explore how GTM intelligence and market definition can sharpen your commercial targeting.
+          </p>
           <button
             onClick={openCalendly}
-            className="inline-flex items-center gap-2 px-6 py-3.5 text-base font-semibold text-white bg-[#FF6004] hover:bg-[#e05403] rounded-lg shadow-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004]"
+            className="inline-flex items-center gap-2 px-6 py-3.5 text-base font-semibold text-white bg-[#FF6004] hover:bg-[#e05403] rounded-lg shadow-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] cursor-pointer"
           >
-            <span>Discuss Your Growth Priorities</span>
+            <span>Discuss Your Market Strategy</span>
             <ArrowUpRight className="w-4 h-4" />
           </button>
         </div>

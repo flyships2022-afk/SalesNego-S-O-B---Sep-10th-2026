@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigation } from '../context/NavigationContext';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { LazyImage } from '../components/LazyImage';
 import { SEO } from '../components/SEO';
 
 export const ServiceDetailExecution: React.FC = () => {
-  const { openCalendly } = useNavigation();
+  const { navigate, openCalendly } = useNavigation();
 
   const commercialJourney = [
     'Engage',
@@ -211,6 +211,25 @@ export const ServiceDetailExecution: React.FC = () => {
               </p>
             </div>
           </div>
+
+          {/* System Progression: Previous Step */}
+          <div className="mt-12 pt-8 border-t border-[#E1E1E1] dark:border-zinc-700/60 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-[#606060] dark:text-zinc-400 block">
+                Previous Step in System
+              </span>
+              <p className="text-base font-bold text-[#191919] dark:text-[#FFFFFF]">
+                RevOps &amp; AI-Accelerated Sales
+              </p>
+            </div>
+            <button
+              onClick={() => navigate('/services/revops-ai-sales')}
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-[#FF6004] bg-[#FF6004]/10 dark:bg-[#FF6004]/15 hover:bg-[#FF6004] hover:text-white rounded-lg transition-colors cursor-pointer"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>See RevOps &amp; AI-Accelerated Sales</span>
+            </button>
+          </div>
         </div>
       </section>
 
@@ -225,9 +244,9 @@ export const ServiceDetailExecution: React.FC = () => {
           </p>
           <button
             onClick={openCalendly}
-            className="inline-flex items-center gap-2 px-6 py-3.5 text-base font-semibold text-white bg-[#FF6004] hover:bg-[#e05403] rounded-lg shadow-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004]"
+            className="inline-flex items-center gap-2 px-6 py-3.5 text-base font-semibold text-white bg-[#FF6004] hover:bg-[#e05403] rounded-lg shadow-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] cursor-pointer"
           >
-            <span>Discuss Commercial Priorities</span>
+            <span>Discuss Your Commercial Priorities</span>
             <ArrowUpRight className="w-4 h-4" />
           </button>
         </div>

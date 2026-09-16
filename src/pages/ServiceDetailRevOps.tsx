@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigation } from '../context/NavigationContext';
-import { ArrowRight, ArrowUpRight, Cpu, UserCheck, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Cpu, UserCheck, CheckCircle2 } from 'lucide-react';
 import { LazyImage } from '../components/LazyImage';
 import { SEO } from '../components/SEO';
 
@@ -265,21 +265,21 @@ export const ServiceDetailRevOps: React.FC = () => {
             ))}
           </div>
 
-          {/* Next Step Progression */}
-          <div className="mt-12 pt-8 border-t border-[#E1E1E1] dark:border-zinc-700/60 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#606060] dark:text-zinc-400 block">
-                Next Step in System
-              </span>
-              <p className="text-base font-bold text-[#191919] dark:text-[#FFFFFF]">
-                End-to-End Commercial Execution
-              </p>
-            </div>
+          {/* System Progression: Previous & Next Steps */}
+          <div className="mt-12 pt-8 border-t border-[#E1E1E1] dark:border-zinc-700/60 flex flex-col md:flex-row items-center justify-between gap-4">
+            <button
+              onClick={() => navigate('/services/gtm-strategy-market-intelligence')}
+              className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold text-[#191919] dark:text-zinc-200 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 rounded-lg transition-colors cursor-pointer"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Previous: GTM Strategy &amp; Intelligence</span>
+            </button>
+
             <button
               onClick={() => navigate('/services/commercial-execution')}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-[#FF6004] bg-[#FF6004]/10 dark:bg-[#FF6004]/15 hover:bg-[#FF6004] hover:text-white rounded-lg transition-colors"
+              className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-[#FF6004] hover:bg-[#e05403] rounded-lg transition-colors cursor-pointer shadow-xs"
             >
-              <span>See End-to-End Commercial Execution</span>
+              <span>Next: Commercial Execution</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -292,11 +292,14 @@ export const ServiceDetailRevOps: React.FC = () => {
           <h2 className="text-2xl sm:text-3xl font-bold text-[#191919] dark:text-[#FFFFFF]">
             Strengthen Your Revenue Operations
           </h2>
+          <p className="text-base text-[#606060] dark:text-zinc-300">
+            Explore how automated workflows, CRM discipline, and AI research accelerate your commercial engine.
+          </p>
           <button
             onClick={openCalendly}
-            className="inline-flex items-center gap-2 px-6 py-3.5 text-base font-semibold text-white bg-[#FF6004] hover:bg-[#e05403] rounded-lg shadow-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004]"
+            className="inline-flex items-center gap-2 px-6 py-3.5 text-base font-semibold text-white bg-[#FF6004] hover:bg-[#e05403] rounded-lg shadow-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] cursor-pointer"
           >
-            <span>Discuss Your Growth Priorities</span>
+            <span>Strengthen Your Revenue Operations</span>
             <ArrowUpRight className="w-4 h-4" />
           </button>
         </div>
