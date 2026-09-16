@@ -533,7 +533,7 @@ export const ProcessCircleMotion: React.FC = () => {
       </div>
 
       {/* Detail Narrative Bar under the circle */}
-      <div className="mt-2 sm:mt-3 w-full px-1 sm:px-2">
+      <div className="-mt-3 sm:-mt-5 lg:-mt-6 w-full px-1 sm:px-2 relative z-20">
         <div className="p-2.5 sm:p-3 rounded-[16px] bg-white/85 dark:bg-[#161519]/85 border border-zinc-200/80 dark:border-white/10 backdrop-blur-md flex items-center justify-between gap-3 shadow-xs">
           <div className="flex items-center gap-2.5 min-w-0 w-full">
             <div
