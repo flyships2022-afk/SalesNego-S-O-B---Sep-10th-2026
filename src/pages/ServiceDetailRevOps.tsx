@@ -266,21 +266,41 @@ export const ServiceDetailRevOps: React.FC = () => {
           </div>
 
           {/* System Progression: Previous & Next Steps */}
-          <div className="mt-12 pt-8 border-t border-[#E1E1E1] dark:border-zinc-700/60 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="mt-12 pt-8 border-t border-[#E1E1E1] dark:border-zinc-700/60 flex flex-col sm:flex-row items-center justify-between gap-4">
             <button
+              type="button"
               onClick={() => navigate('/services/gtm-strategy-market-intelligence')}
-              className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold text-[#191919] dark:text-zinc-200 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 rounded-lg transition-colors cursor-pointer"
+              className="group w-full sm:w-auto inline-flex items-center gap-3.5 px-5 py-3 rounded-xl border border-[#E1E1E1] dark:border-zinc-700/60 bg-[#F7F9FE] dark:bg-[#27272A] hover:border-[#FF6004] dark:hover:border-[#FF6004] hover:bg-white dark:hover:bg-[#1E1E24] shadow-xs transition-all duration-200 cursor-pointer text-left"
             >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Previous: GTM Strategy &amp; Intelligence</span>
+              <div className="w-8 h-8 rounded-lg bg-black/5 dark:bg-white/10 group-hover:bg-[#FF6004] flex items-center justify-center text-[#191919] dark:text-white group-hover:text-white transition-colors shrink-0">
+                <ArrowLeft className="w-4 h-4" />
+              </div>
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#606060] dark:text-zinc-400 block group-hover:text-[#FF6004] transition-colors">
+                  Previous Step in System
+                </span>
+                <p className="text-sm font-bold text-[#191919] dark:text-[#FFFFFF]">
+                  GTM Strategy &amp; Intelligence
+                </p>
+              </div>
             </button>
 
             <button
+              type="button"
               onClick={() => navigate('/services/commercial-execution')}
-              className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-[#FF6004] hover:bg-[#e05403] rounded-lg transition-colors cursor-pointer shadow-xs"
+              className="group w-full sm:w-auto inline-flex items-center justify-between sm:justify-end gap-3.5 px-5 py-3 rounded-xl border border-[#E1E1E1] dark:border-zinc-700/60 bg-[#F7F9FE] dark:bg-[#27272A] hover:border-[#FF6004] dark:hover:border-[#FF6004] hover:bg-white dark:hover:bg-[#1E1E24] shadow-xs transition-all duration-200 cursor-pointer text-left sm:text-right"
             >
-              <span>Next: Commercial Execution</span>
-              <ArrowRight className="w-4 h-4" />
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#606060] dark:text-zinc-400 block group-hover:text-[#FF6004] transition-colors">
+                  Next Step in System
+                </span>
+                <p className="text-sm font-bold text-[#191919] dark:text-[#FFFFFF]">
+                  Commercial Execution
+                </p>
+              </div>
+              <div className="w-8 h-8 rounded-lg bg-black/5 dark:bg-white/10 group-hover:bg-[#FF6004] flex items-center justify-center text-[#191919] dark:text-white group-hover:text-white transition-colors shrink-0">
+                <ArrowRight className="w-4 h-4" />
+              </div>
             </button>
           </div>
         </div>
@@ -289,9 +309,6 @@ export const ServiceDetailRevOps: React.FC = () => {
       {/* CTA */}
       <section className="w-full py-16 bg-[#F7F9FE] dark:bg-[#18181B] text-center">
         <div className="max-w-2xl mx-auto px-4 space-y-6">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#191919] dark:text-[#FFFFFF]">
-            Strengthen Your Revenue Operations
-          </h2>
           <p className="text-base text-[#606060] dark:text-zinc-300">
             Explore how automated workflows, CRM discipline, and AI research accelerate your commercial engine.
           </p>

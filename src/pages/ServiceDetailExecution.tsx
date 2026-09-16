@@ -212,22 +212,24 @@ export const ServiceDetailExecution: React.FC = () => {
             </div>
           </div>
 
-          {/* System Progression: Previous Step */}
-          <div className="mt-12 pt-8 border-t border-[#E1E1E1] dark:border-zinc-700/60 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#606060] dark:text-zinc-400 block">
-                Previous Step in System
-              </span>
-              <p className="text-base font-bold text-[#191919] dark:text-[#FFFFFF]">
-                RevOps &amp; AI-Accelerated Sales
-              </p>
-            </div>
+          {/* System Progression: Previous Step as Back Button */}
+          <div className="mt-12 pt-8 border-t border-[#E1E1E1] dark:border-zinc-700/60 flex items-center justify-start">
             <button
+              type="button"
               onClick={() => navigate('/services/revops-ai-sales')}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-[#FF6004] bg-[#FF6004]/10 dark:bg-[#FF6004]/15 hover:bg-[#FF6004] hover:text-white rounded-lg transition-colors cursor-pointer"
+              className="group inline-flex items-center gap-3.5 px-5 py-3 rounded-xl border border-[#E1E1E1] dark:border-zinc-700/60 bg-[#F7F9FE] dark:bg-[#27272A] hover:border-[#FF6004] dark:hover:border-[#FF6004] hover:bg-white dark:hover:bg-[#1E1E24] shadow-xs transition-all duration-200 cursor-pointer text-left"
             >
-              <ArrowLeft className="w-4 h-4" />
-              <span>See RevOps &amp; AI-Accelerated Sales</span>
+              <div className="w-8 h-8 rounded-lg bg-black/5 dark:bg-white/10 group-hover:bg-[#FF6004] flex items-center justify-center text-[#191919] dark:text-white group-hover:text-white transition-colors shrink-0">
+                <ArrowLeft className="w-4 h-4" />
+              </div>
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#606060] dark:text-zinc-400 block group-hover:text-[#FF6004] transition-colors">
+                  Previous Step in System
+                </span>
+                <p className="text-sm font-bold text-[#191919] dark:text-[#FFFFFF]">
+                  RevOps &amp; AI-Accelerated Sales
+                </p>
+              </div>
             </button>
           </div>
         </div>
@@ -236,9 +238,6 @@ export const ServiceDetailExecution: React.FC = () => {
       {/* CTA */}
       <section className="w-full py-16 bg-white dark:bg-[#18181B] text-center">
         <div className="max-w-2xl mx-auto px-4 space-y-6">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#191919] dark:text-[#FFFFFF]">
-            Discuss Your Commercial Priorities
-          </h2>
           <p className="text-base text-[#606060] dark:text-zinc-300">
             Explore how full-cycle commercial execution can support your deal cycles.
           </p>

@@ -405,12 +405,12 @@ export const ContactPage: React.FC = () => {
                       <button
                         type="submit"
                         disabled={status === 'submitting'}
-                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-[#FF6004] hover:bg-[#E05300] active:scale-98 rounded-lg shadow-sm transition-all disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] cursor-pointer"
+                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-bold text-white bg-[#FF6004] hover:bg-[#E05300] active:scale-98 rounded-xl shadow-sm transition-all disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] cursor-pointer"
                       >
                         <span>
                           {status === 'submitting'
-                            ? 'Sending...'
-                            : 'Start the Conversation'}
+                            ? 'Submitting...'
+                            : 'Submit'}
                         </span>
                       </button>
                     </div>

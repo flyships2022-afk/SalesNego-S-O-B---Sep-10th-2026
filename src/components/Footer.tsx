@@ -1,13 +1,10 @@
 import React from 'react';
 import { SalesNegoLogo } from './SalesNegoLogo';
-import { useNavigation } from '../context/NavigationContext';
 import { Link } from './Link';
-import { Mail, ArrowUpRight, Globe } from 'lucide-react';
+import { Mail, Globe } from 'lucide-react';
 import { RoutePath } from '../types';
 
 export const Footer: React.FC = () => {
-  const { openCalendly } = useNavigation();
-
   const navLinks: { label: string; path: RoutePath; sectionId?: string }[] = [
     { label: 'Home', path: '/', sectionId: 'hero-section' },
     { label: 'Services', path: '/services' },
@@ -52,34 +49,6 @@ export const Footer: React.FC = () => {
                 <Mail className="w-4 h-4 text-[#FF6004]" />
                 <span className="font-medium text-sm text-white">sales@salesnego.com</span>
               </a>
-
-              <div className="flex items-center gap-3 pt-2">
-                <a
-                  href="https://www.linkedin.com/company/salesnego/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-xs font-semibold text-white"
-                  title="SalesNego LinkedIn"
-                >
-                  <img
-                    src="https://ik.imagekit.io/4rtwqlnkg/Linkedin%20logo.png?updatedAt=1788412751308"
-                    alt="LinkedIn"
-                    loading="lazy"
-                    decoding="async"
-                    className="w-4 h-4 object-contain rounded-full"
-                  />
-                  <span>LinkedIn</span>
-                </a>
-
-                <button
-                  type="button"
-                  onClick={openCalendly}
-                  className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#FF6004] hover:bg-[#E05300] transition-colors text-xs font-semibold text-white shadow-xs"
-                >
-                  <span>Discuss Your Growth Priorities</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
             </div>
           </div>
 

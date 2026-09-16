@@ -216,21 +216,23 @@ export const ServiceDetailGTM: React.FC = () => {
           </div>
 
           {/* Next Step Progression */}
-          <div className="mt-12 pt-8 border-t border-[#E1E1E1] dark:border-zinc-700/60 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#606060] dark:text-zinc-400 block">
-                Next Step in System
-              </span>
-              <p className="text-base font-bold text-[#191919] dark:text-[#FFFFFF]">
-                RevOps &amp; AI-Accelerated Sales
-              </p>
-            </div>
+          <div className="mt-12 pt-8 border-t border-[#E1E1E1] dark:border-zinc-700/60 flex items-center justify-end">
             <button
+              type="button"
               onClick={() => navigate('/services/revops-ai-sales')}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-[#FF6004] bg-[#FF6004]/10 dark:bg-[#FF6004]/15 hover:bg-[#FF6004] hover:text-white rounded-lg transition-colors"
+              className="group inline-flex items-center gap-3.5 px-5 py-3 rounded-xl border border-[#E1E1E1] dark:border-zinc-700/60 bg-[#F7F9FE] dark:bg-[#27272A] hover:border-[#FF6004] dark:hover:border-[#FF6004] hover:bg-white dark:hover:bg-[#1E1E24] shadow-xs transition-all duration-200 cursor-pointer text-left sm:text-right"
             >
-              <span>See RevOps &amp; AI-Accelerated Sales</span>
-              <ArrowRight className="w-4 h-4" />
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#606060] dark:text-zinc-400 block group-hover:text-[#FF6004] transition-colors">
+                  Next Step in System
+                </span>
+                <p className="text-sm font-bold text-[#191919] dark:text-[#FFFFFF]">
+                  RevOps &amp; AI-Accelerated Sales
+                </p>
+              </div>
+              <div className="w-8 h-8 rounded-lg bg-black/5 dark:bg-white/10 group-hover:bg-[#FF6004] flex items-center justify-center text-[#191919] dark:text-white group-hover:text-white transition-colors shrink-0">
+                <ArrowRight className="w-4 h-4" />
+              </div>
             </button>
           </div>
         </div>
@@ -239,9 +241,6 @@ export const ServiceDetailGTM: React.FC = () => {
       {/* CTA */}
       <section className="w-full py-16 bg-[#F7F9FE] dark:bg-[#18181B] text-center">
         <div className="max-w-2xl mx-auto px-4 space-y-6">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#191919] dark:text-[#FFFFFF]">
-            Discuss Your Market Strategy
-          </h2>
           <p className="text-base text-[#606060] dark:text-zinc-300">
             Explore how GTM intelligence and market definition can sharpen your commercial targeting.
           </p>

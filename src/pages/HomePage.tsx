@@ -517,7 +517,8 @@ export const HomePage: React.FC = () => {
                 <StaggerItem distance={16}>
                   <div className="px-2 sm:px-3 sm:border-x sm:border-black/10 dark:sm:border-white/10">
                     <span className="block font-lexend text-2xl sm:text-3xl font-bold text-[#161519] dark:text-white">5</span>
-                    <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 block">Key Markets — North America | UAE | Europe | India | Australia</span>
+                    <span className="text-xs font-semibold text-[#161519] dark:text-zinc-200 mt-0.5 block">Key Markets</span>
+                    <span className="text-[11px] sm:text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 block">North America | UAE | Europe | India | Australia</span>
                   </div>
                 </StaggerItem>
                 <StaggerItem distance={16}>
@@ -1446,77 +1447,99 @@ export const HomePage: React.FC = () => {
         id="contact"
         aria-label="Ready To Discuss Your Project"
         style={{ maxWidth: '100%', boxSizing: 'border-box' }}
-        className="top-level-section w-full max-w-full py-16 sm:py-24 bg-white dark:bg-[#161519] scroll-mt-24"
+        className="top-level-section w-full max-w-full py-10 sm:py-14 bg-white dark:bg-[#161519] scroll-mt-12 sm:scroll-mt-16"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal direction="up" distance={24}>
-            <div className="rounded-[24px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 p-8 sm:p-12 lg:p-16">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+            <div className="rounded-[24px] bg-[#F6F5F2] dark:bg-[#1C1B20] border border-[#E5E3DC] dark:border-white/10 p-6 sm:p-8 lg:p-10">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
                 {/* Left Column: Direct Action & Contacts */}
-                <div className="lg:col-span-6 space-y-6">
+                <div className="lg:col-span-6 space-y-4 sm:space-y-5">
                   <div>
-                    <span className="text-xs uppercase font-bold tracking-wider text-[#FF6004] block mb-2">
+                    <span className="text-xs uppercase font-bold tracking-wider text-[#FF6004] block mb-1.5">
                       Get In Touch
                     </span>
-                    <h2 className="font-lexend text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight text-[#161519] dark:text-white">
+                    <h2 className="font-lexend text-2xl sm:text-3xl lg:text-4xl font-normal leading-tight text-[#161519] dark:text-white">
                       Where Is Your Commercial Motion Getting Stuck?
                     </h2>
-                    <p className="mt-4 text-base text-[#555459] dark:text-zinc-300 leading-relaxed">
+                    <p className="mt-2.5 text-sm sm:text-base text-[#555459] dark:text-zinc-300 leading-relaxed">
                       Whether you need to define your market, fix pipeline leaks, build AI-accelerated commercial workflows or lead enterprise opportunities through to closure, let&apos;s discuss your commercial priorities.
                     </p>
                   </div>
 
-                  <div className="space-y-3 pt-2">
-                    <div className="p-4 rounded-[16px] bg-white dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10">
-                      <span className="text-xs uppercase font-bold text-zinc-400 block mb-1">Direct Commercial Inquiries</span>
+                  {/* Schedule A Meeting Primary Action Card */}
+                  <div className="p-4 sm:p-5 rounded-[18px] bg-white dark:bg-white/5 border border-[#FF6004]/30 dark:border-[#FF6004]/30 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+                    <div>
+                      <span className="text-[11px] uppercase font-bold tracking-wider text-[#FF6004] block mb-0.5">
+                        Fast-Track Discussion
+                      </span>
+                      <p className="text-sm font-bold text-[#161519] dark:text-white">
+                        Direct 30-min Executive Briefing
+                      </p>
+                      <p className="text-xs text-[#555459] dark:text-zinc-400">
+                        Review GTM intelligence &amp; commercial priorities live
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={openCalendly}
+                      className="inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 bg-[#FF6004] hover:bg-[#E05300] text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all cursor-pointer shrink-0"
+                    >
+                      <span>Schedule A Meeting</span>
+                      <Calendar className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  <div className="space-y-3 pt-1">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 sm:p-4 rounded-[16px] bg-white dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10">
+                      <div>
+                        <span className="text-[11px] uppercase font-bold text-zinc-400 block mb-0.5">Direct Commercial Inquiries</span>
+                        <a
+                          href="mailto:sales@salesnego.com"
+                          className="text-sm sm:text-base font-bold text-[#FF6004] hover:underline"
+                        >
+                          sales@salesnego.com
+                        </a>
+                      </div>
                       <a
-                        href="mailto:sales@salesnego.com"
-                        className="text-base font-bold text-[#FF6004] hover:underline"
+                        href="https://www.linkedin.com/company/salesnego/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#F6F5F2] dark:bg-white/10 hover:bg-[#FF6004]/10 dark:hover:bg-white/20 border border-[#E5E3DC] dark:border-white/10 transition-colors text-xs font-bold text-[#161519] dark:text-white w-fit"
+                        title="SalesNego on LinkedIn"
+                        aria-label="SalesNego LinkedIn profile"
                       >
-                        sales@salesnego.com
+                        <img
+                          src="https://ik.imagekit.io/4rtwqlnkg/Linkedin%20logo.png?updatedAt=1788412751308"
+                          alt="LinkedIn"
+                          loading="lazy"
+                          decoding="async"
+                          className="w-4 h-4 object-contain rounded-full"
+                        />
+                        <span>LinkedIn</span>
                       </a>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] sm:text-xs">
-                      <div className="p-3 rounded-xl bg-white dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10">
+                      <div className="p-2.5 sm:p-3 rounded-xl bg-white dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10">
                         <span className="font-bold text-[#161519] dark:text-white block">North America:</span>
                         <a href="tel:+14156886517" className="text-[#555459] dark:text-zinc-400 hover:text-[#FF6004] whitespace-nowrap block mt-0.5">
                           +1 415 688 6517
                         </a>
                       </div>
-                      <div className="p-3 rounded-xl bg-white dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10">
+                      <div className="p-2.5 sm:p-3 rounded-xl bg-white dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10">
                         <span className="font-bold text-[#161519] dark:text-white block">UAE:</span>
                         <a href="tel:+971528770047" className="text-[#555459] dark:text-zinc-400 hover:text-[#FF6004] whitespace-nowrap block mt-0.5">
                           +971 52 877 0047
                         </a>
                       </div>
-                      <div className="p-3 rounded-xl bg-white dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10">
+                      <div className="p-2.5 sm:p-3 rounded-xl bg-white dark:bg-white/5 border border-[#E5E3DC] dark:border-white/10">
                         <span className="font-bold text-[#161519] dark:text-white block">India:</span>
                         <a href="tel:+919884450102" className="text-[#555459] dark:text-zinc-400 hover:text-[#FF6004] whitespace-nowrap block mt-0.5">
                           +91 98844 50102
                         </a>
                       </div>
                     </div>
-                  </div>
-
-                  <div className="pt-2 flex flex-wrap items-center gap-3">
-                    <button
-                      type="button"
-                      onClick={openCalendly}
-                      className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 bg-[#FF6004] hover:bg-[#E05300] text-white font-bold text-sm shadow-md transition-all cursor-pointer"
-                    >
-                      <span>Submit Commercial Inquiry</span>
-                      <Calendar className="w-4 h-4" />
-                    </button>
-
-                    <Link
-                      to="/contact"
-                      className="inline-flex items-center gap-1.5 rounded-full px-5 py-3.5 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 text-[#161519] dark:text-white font-semibold text-sm transition-colors cursor-pointer"
-                      title="Open dedicated Contact SalesNego commercial desk page"
-                    >
-                      <span>Contact SalesNego Desk</span>
-                      <ArrowUpRight className="w-4 h-4 text-[#FF6004]" />
-                    </Link>
                   </div>
                 </div>
 
@@ -1697,11 +1720,11 @@ export const HomePage: React.FC = () => {
                         {inquiryStatus === 'submitting' ? (
                           <>
                             <Loader2 className="w-4 h-4 animate-spin" />
-                            <span>Sending Request to Commercial Desk...</span>
+                            <span>Submitting...</span>
                           </>
                         ) : (
                           <>
-                            <span>Send Project Request</span>
+                            <span>Submit</span>
                             <Send className="w-4 h-4" />
                           </>
                         )}
