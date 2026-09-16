@@ -745,7 +745,7 @@ export const HomePage: React.FC = () => {
 
                       {svc.image && (
                         <div className="mb-5">
-                          <div className={`relative w-full aspect-[16/10] rounded-xl overflow-hidden border bg-zinc-900 shadow-xs group/img transition-colors duration-300 ${
+                          <div className={`relative w-full aspect-[16/10] rounded-xl overflow-hidden border bg-[#FAF7F2] dark:bg-zinc-900 shadow-xs group/img transition-colors duration-300 ${
                             isCardHovered ? 'border-white/20' : 'border-[#E5E3DC] dark:border-white/10'
                           }`}>
                             <LazyImage
@@ -753,16 +753,18 @@ export const HomePage: React.FC = () => {
                               alt={svc.imageAlt || svc.title}
                               referrerPolicy="no-referrer"
                               containerClassName="w-full h-full absolute inset-0"
-                              className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover/img:scale-105"
+                              className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover/img:scale-105 brightness-[1.03] contrast-[0.99] saturate-[1.05] dark:brightness-100 dark:contrast-100 dark:saturate-100"
                               loading="lazy"
                               decoding="async"
                             />
+                            {/* Light Mode Warm Ambient Tone Overlay for Executive Warmth */}
+                            <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6004]/[0.08] via-amber-500/[0.04] to-transparent dark:hidden pointer-events-none mix-blend-soft-light" />
                           </div>
                           {svc.imageTag && (
                             <div className={`mt-2.5 flex items-center justify-between px-3 py-1.5 rounded-lg border text-[11px] font-medium transition-colors duration-300 ${
                               isCardHovered
                                 ? 'bg-white/10 border-white/15 text-zinc-200'
-                                : 'bg-black/5 dark:bg-white/5 border-[#E5E3DC] dark:border-white/10 text-[#555459] dark:text-zinc-300'
+                                : 'bg-[#EDE7DC]/70 dark:bg-white/5 border-[#E0D8CB] dark:border-white/10 text-[#3A393E] dark:text-zinc-300'
                             }`}>
                               <span className="truncate">{svc.imageTag}</span>
                               <span className="w-1.5 h-1.5 rounded-full bg-[#FF6004] shrink-0 ml-1.5 animate-pulse" />
@@ -821,13 +823,13 @@ export const HomePage: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className={`pt-4 flex items-center justify-between border-t transition-colors duration-300 mt-auto ${
+                    <div className={`pt-4 flex items-center justify-between gap-2 border-t transition-colors duration-300 mt-auto ${
                       isCardHovered ? 'border-white/15' : 'border-[#E5E3DC] dark:border-white/10'
                     }`}>
                       <button
                         type="button"
                         onClick={() => navigate(svc.path as any)}
-                        className={`inline-flex items-center gap-1.5 text-sm font-bold hover:underline transition-colors duration-300 cursor-pointer ${
+                        className={`inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold hover:underline transition-colors duration-300 cursor-pointer shrink-0 ${
                           isCardHovered
                             ? 'text-[#FE9E30]'
                             : 'text-[#2563EB] dark:text-[#3B82F6] hover:text-[#FF6004]'
@@ -839,13 +841,14 @@ export const HomePage: React.FC = () => {
                       <button
                         type="button"
                         onClick={openCalendly}
-                        className={`text-xs font-semibold transition-colors duration-300 cursor-pointer ${
+                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer shadow-xs shrink-0 ${
                           isCardHovered
-                            ? 'text-zinc-300 hover:text-white'
-                            : 'text-[#555459] dark:text-zinc-400 hover:text-[#161519] dark:hover:text-white'
+                            ? 'bg-white/10 hover:bg-[#FF6004] border border-white/20 hover:border-[#FF6004] text-white hover:text-white'
+                            : 'bg-white dark:bg-white/10 border border-[#DDD7CC] dark:border-white/15 text-[#161519] dark:text-zinc-200 hover:border-[#FF6004] hover:text-[#FF6004] hover:bg-[#FFF8F4] active:scale-95'
                         }`}
                       >
-                        {svc.ctaLabel}
+                        <span>{svc.ctaLabel}</span>
+                        <ArrowUpRight className="w-3 h-3 text-[#FF6004] dark:text-zinc-400 shrink-0" />
                       </button>
                     </div>
                   </div>
