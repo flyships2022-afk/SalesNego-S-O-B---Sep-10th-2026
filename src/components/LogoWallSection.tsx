@@ -20,13 +20,9 @@ export const LogoWallSection: React.FC = () => {
             <span>Proven Client Ecosystem</span>
           </div>
 
-          <h2 className="font-lexend text-2xl sm:text-3xl lg:text-4xl font-normal leading-tight text-[#161519] dark:text-white mb-3">
+          <h2 className="font-lexend text-2xl sm:text-3xl lg:text-4xl font-normal leading-tight text-[#161519] dark:text-white">
             Trusted by SaaS &amp; Technology Services Clients
           </h2>
-
-          <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-            Commercial engagements across enterprise software, artificial intelligence, and financial technology.
-          </p>
         </ScrollReveal>
       </div>
 
