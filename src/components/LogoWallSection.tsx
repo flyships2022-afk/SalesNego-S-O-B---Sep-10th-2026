@@ -34,9 +34,9 @@ export const LogoWallSection: React.FC = () => {
 
         {/* Sliding Track */}
         <ScrollReveal delay={0.05} distance={12}>
-          <div className="flex animate-marquee gap-6 md:gap-8 items-center py-2">
+          <div className="flex flex-nowrap animate-marquee gap-6 md:gap-8 items-center py-2">
             {/* First Set of Logos */}
-            <div className="flex gap-6 md:gap-8 items-center shrink-0">
+            <div className="flex flex-nowrap gap-6 md:gap-8 items-center shrink-0">
               {CLIENT_LOGOS_DATA.map((item, index) => (
                 <ClientLogoCard
                   key={`logo-track-1-${item.id}-${index}`}
@@ -51,7 +51,7 @@ export const LogoWallSection: React.FC = () => {
             </div>
 
             {/* Duplicate Set for Seamless Infinite Loop */}
-            <div className="flex gap-6 md:gap-8 items-center shrink-0" aria-hidden="true">
+            <div className="flex flex-nowrap gap-6 md:gap-8 items-center shrink-0 marquee-duplicate-set" aria-hidden="true">
               {CLIENT_LOGOS_DATA.map((item, index) => (
                 <ClientLogoCard
                   key={`logo-track-dup-${item.id}-${index}`}

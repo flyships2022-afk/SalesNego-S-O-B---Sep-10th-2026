@@ -79,17 +79,20 @@ html.dark body {
 /* Silk-smooth Infinite Marquee Ticker for Client Logos */
 @keyframes marquee {
   0% {
-    transform: translateX(0%);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
 .animate-marquee {
-  display: flex;
-  width: max-content;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  width: max-content !important;
   animation: marquee 30s linear infinite;
+  will-change: transform;
 }
 
 /* Pause animation on hover for better user interaction */
@@ -231,9 +234,12 @@ html.dark body {
   .animate-marquee {
     animation: none !important;
     transform: none !important;
-    width: 100% !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
+    width: max-content !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+  }
+  .marquee-duplicate-set {
+    display: none !important;
   }
 }
 
