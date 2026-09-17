@@ -790,8 +790,7 @@ export const Navbar: React.FC = () => {
               aria-describedby={activeTooltipId === 'tooltip-nav-cta' ? 'tooltip-nav-cta' : undefined}
               className="hidden sm:inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold text-white bg-[#FF6004] hover:bg-[#E05300] active:scale-98 shadow-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] shrink-0 whitespace-nowrap max-w-full"
             >
-              <span className="hidden lg:inline">Discuss Your Growth Priorities</span>
-              <span className="lg:hidden">Discuss Priorities</span>
+              <span>Schedule a Call</span>
               <ArrowUpRight className="w-4 h-4 shrink-0" />
             </button>
 
@@ -1144,7 +1143,7 @@ export const Navbar: React.FC = () => {
                       className="w-full py-3.5 px-4 rounded-full bg-gradient-to-r from-[#FF6004] to-[#FE9E30] text-white text-center font-bold text-sm shadow-md hover:shadow-lg hover:shadow-[#FF6004]/30 active:scale-98 transition-all flex items-center justify-center gap-2 nav-mobile-cta-full cursor-pointer"
                     >
                       <Calendar className="w-4 h-4 shrink-0" />
-                      <span>Discuss Your Growth Priorities</span>
+                      <span>Schedule a Call</span>
                       <ArrowUpRight className="w-4 h-4 shrink-0" />
                     </button>
 

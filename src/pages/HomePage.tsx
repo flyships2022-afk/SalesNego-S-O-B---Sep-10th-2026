@@ -464,7 +464,7 @@ export const HomePage: React.FC = () => {
                     onClick={openCalendly}
                     className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm sm:text-base font-bold text-white bg-[#FF6004] hover:bg-[#E05300] active:scale-98 transition-all shadow-lg shadow-[#FF6004]/25 hover:shadow-[#FF6004]/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6004] shrink-0 cursor-pointer"
                   >
-                    <span>Discuss Your Growth Priorities</span>
+                    <span>Schedule a 30-Min Strategy Call</span>
                     <ArrowUpRight className="w-4 h-4" />
                   </button>
 
