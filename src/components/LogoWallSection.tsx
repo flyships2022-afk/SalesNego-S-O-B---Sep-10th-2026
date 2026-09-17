@@ -14,13 +14,13 @@ export const LogoWallSection: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <ScrollReveal direction="up" distance={20} className="text-center max-w-3xl mx-auto mb-10">
+        <ScrollReveal direction="up" distance={20} className="text-center max-w-4xl lg:max-w-5xl mx-auto mb-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#FF6004]/10 text-[#FF6004] border border-[#FF6004]/20 mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Proven Client Ecosystem</span>
           </div>
 
-          <h2 className="font-lexend text-2xl sm:text-3xl lg:text-4xl font-normal leading-tight text-[#161519] dark:text-white">
+          <h2 className="font-lexend text-2xl sm:text-3xl lg:text-4xl font-normal leading-tight text-[#161519] dark:text-white md:whitespace-nowrap">
             Trusted by SaaS &amp; Technology Services Clients
           </h2>
         </ScrollReveal>
